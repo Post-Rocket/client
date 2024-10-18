@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <!-- Document title -->
+    <title>Post Rocket</title>
+
+    <!-- Default meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no, interactive-widget=resizes-content">
+    <meta name="theme-color" content="var(--background, #FFFFFF)">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Links -->
+    <link href="../css/index.css" rel="stylesheet" type="text/css">
+    <link href="../assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <!-- Modules / Scripts -->
+    <script src="../scripts/utilities.js"></script>
+    <script src="../scripts/indexLoaded.js" defer></script>
+
+  </head>
+
+  <body>
+    <!-- Main content -->
+    <div id="main-content">
+      <!-- Nav -->
+      <nav id="nav" title="Top navigation bar. Go to left to open the menu or right to join or log in">
+        <button id="side-menu-button" title="Open menu">
+          <hr/>
+          <hr/>
+        </button>
+        <div>
+          <button title="Log in to an existing account" class="log-in">
+            Log in
+          </button>
+          <button title="Create a new account" class="join">
+            Join
+          </button>
+        </div>
+      </nav>
+      <main id="main">
+        <!-- AI agent -->
+        <button id="agent" title="Click to view AI agent's details">
+          <div>
+            <img id="agent-profile-img" src="../assets/profiles/ana.png" loading="lazy" alt="Profile picture" title="Profile picture of the AI agent"/>
+          </div>
+          <div>
+            <b>Ana</b>
+            AI social media agent
+          </div>
+          <span>
+            ?
+          </span>
+        </button>
+
+        <!-- Text -->
+        <div>
+          <pre id="text">
+Welcome to PostRocket 🚀
+Let's unleash your social media together! Do you have a website?
+
+▹  yes
+▹  no
+          </pre>
+        </div>
+      </main>
+      <form id="form">
+        <input id="input" placeholder="Type your message here..." title="Type your message here"/>
+        <button title="Click to send message">
+          <img src="../assets/icons/rocket.svg" alt="Rocket icon" />
+        </button>
+      </form>
+    </div>
+    <!-- Side menu content -->
+    <div id="side-menu">
+      <button title="Create a new account" class="join">
+        Join
+      </button>
+      <button title="Log in to an existing account" class="log-in">
+        Log in
+      </button>
+      <a title="View our privacy policy" class="link" href="./privacy-policy.html">
+        Privacy policy
+      </a>
+      <a title="View our terms of use" class="link" href="./terms-of-use.html">
+        Terms of use
+      </a>
+    </div>
+  </body>
+</html>

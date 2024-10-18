@@ -1,2 +1,2 @@
 # PostRocket
-Automate your social media content
+Code Repo

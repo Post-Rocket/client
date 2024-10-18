@@ -1,0 +1,57 @@
+@import "./common.css";
+
+body {
+  padding: var(--safearea);
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  margin: unset;
+  padding: var(--padding-vertical) 0;
+}
+
+#nav {
+  position: relative;
+  width: 100%;
+  padding: 0 !important;
+  --_height: calc(var(--nav-height) - var(--safearea-top));
+  height: var(--_height);
+}
+
+#back {
+  min-width: var(--_height);
+  height: var(--_height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-weight: 400;
+  padding: 12px var(--padding-horizontal);
+}
+
+#back::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background-image: url("../assets/icons/chevron-left.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: var(--icon-filter);
+}
+
+#main {
+  position: relative;
+  flex: 1;
+  width: var(--width);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
+  #back:hover {
+    --_offset: min(4px, var(--padding-horizontal));
+    padding-left: calc(var(--padding-horizontal) - var(--_offset));
+    padding-right: calc(var(--padding-horizontal) + var(--_offset));
+  }
+}
