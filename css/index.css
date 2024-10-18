@@ -23,13 +23,6 @@ body > * {
   margin-left: calc(-1 * var(--side-menu-width));
   height: 100%;
   background: linear-gradient(45deg, var(--color-5-percent), transparent);
-  --_shadow: none;
-  -webkit-box-shadow: var(--_shadow);
-  box-shadow: var(--_shadow);
-}
-
-body.menu-opened #side-menu  {
-  --_shadow: -4px 0 5px #00000033;
 }
 
 #side-menu > a,
@@ -65,6 +58,14 @@ body.menu-opened #side-menu  {
   transition: var(--transition-time);
   padding-left: var(--safearea-left);
   padding-right: var(--safearea-right);
+
+  --_shadow: none;
+  -webkit-box-shadow: var(--_shadow);
+  box-shadow: var(--_shadow);
+}
+
+body.menu-opened #main-content  {
+  --_shadow: -4px 0 5px #00000033;
 }
 
 #main-content > * {
@@ -432,6 +433,9 @@ body.menu-opened #nav > button > hr:last-of-type {
   body.menu-opened #main-content > *:not(nav) {
     pointer-events: none;
     opacity: 0.5;
+    --_blur: 5px;
+    -webkit-filter: blur(var(--_blur));
+    filter: blur(var(--_blur));
   }
 
   /* Main | AI Agent */
