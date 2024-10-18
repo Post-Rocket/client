@@ -46,6 +46,7 @@ h1, h2, h3, h4, h5, h6 {
   width: var(--width);
   overflow-x: hidden;
   overflow-y: auto;
+  padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
 @media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
