@@ -15,12 +15,53 @@
     <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Links -->
-    <link href="../css/index.css" rel="stylesheet" type="text/css">
-    <link href="../assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="./css/index.css" rel="stylesheet" type="text/css">
+    <link href="./assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
     <!-- Modules / Scripts -->
-    <script src="../scripts/utilities.js"></script>
-    <script src="../scripts/indexLoaded.js" defer></script>
+    <script src="./scripts/utilities.js"></script>
+    <script src="./scripts/indexLoaded.js" defer></script>
+
+    <!-- Canonical url -->
+    <link href="https://postrocket.app/" rel="canonical">
+
+    <!-- SEO | Generic -->
+    <meta name="description" content="Fully automates your social medias">
+    <meta name="image" content="./assets/favicon/favicon.webp">
+
+    <!-- SEO | Open Graph meta tags -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://postrocket.app/">
+    <meta property="og:site_name" content="PostRocket 🚀">
+    <meta property="og:title" content="Fuel your socials" />
+    <meta property="og:description" content="Fully automates your social medias" />
+    <meta property="og:image" content="https://postrocket.app/assets/favicon/favicon.webp" />
+    <meta property="og:image:alt" content="PostRocket's logo">
+
+    <!-- SEO | Twitter/X card tags -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:creator" content="@iamnotanaibot">
+    <meta property="twitter:description" content="Fully automates your social medias">
+    <meta property="twitter:title" content="Fuel your socials">
+    <meta property="twitter:image" content="https://postrocket.app/assets/favicon/favicon.webp">
+    <meta property="twitter:image:alt" content="PostRocket's logo">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["SoftwareApplication", "MobileApplication", "WebApplication"],
+        "name": "PostRocket 🚀",
+        "operatingSystem": "Android, iOS, OSX, Windows, Linux",
+        "applicationCategory": "BusinessApplication",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": 4.9,
+          "ratingCount": 8864
+        }
+      }
+    </script>
 
   </head>
 
@@ -46,7 +87,7 @@
         <!-- AI agent -->
         <button id="agent" title="Click to view AI agent's details">
           <div>
-            <img id="agent-profile-img" src="../assets/profiles/ana.png" loading="lazy" alt="Profile picture" title="Profile picture of the AI agent"/>
+            <img id="agent-profile-img" src="./assets/profiles/ana.png" loading="lazy" alt="Profile picture" title="Profile picture of the AI agent"/>
           </div>
           <div>
             <b>Ana</b>
@@ -71,7 +112,7 @@ Let's unleash your social media together! Do you have a website?
       <form id="form">
         <input id="input" placeholder="Type your message here..." title="Type your message here"/>
         <button title="Click to send message">
-          <img src="../assets/icons/rocket.svg" alt="Rocket icon" />
+          <img src="./assets/icons/rocket.svg" alt="Rocket icon" />
         </button>
       </form>
     </div>
@@ -83,10 +124,10 @@ Let's unleash your social media together! Do you have a website?
       <button title="Log in to an existing account" class="log-in">
         Log in
       </button>
-      <a title="View our privacy policy" class="link" href="./privacy-policy.html">
+      <a title="View our privacy policy" class="link" href="./pages/privacy-policy.html">
         Privacy policy
       </a>
-      <a title="View our terms of use" class="link" href="./terms-of-use.html">
+      <a title="View our terms of use" class="link" href="./pages/terms-of-use.html">
         Terms of use
       </a>
     </div>

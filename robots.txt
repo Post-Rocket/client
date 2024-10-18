@@ -1,0 +1,6 @@
+# robots.txt file for the website.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://postrocket.app/sitemap.xml
