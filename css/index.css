@@ -433,9 +433,9 @@ body.menu-opened #nav > button > hr:last-of-type {
   body.menu-opened #main-content > *:not(nav) {
     pointer-events: none;
     opacity: 0.5;
-    --_blur: 5px;
+    /* --_blur: 5px;
     -webkit-filter: blur(var(--_blur));
-    filter: blur(var(--_blur));
+    filter: blur(var(--_blur)); */
   }
 
   /* Main | AI Agent */
