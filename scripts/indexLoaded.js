@@ -66,7 +66,6 @@ setTimeout(() => {
 // Keyboard push the content top.
 const vv = window.visualViewport;
 vv && (vv.onresize = _throttle(() => {
-  document.getElementsByTagName('input')[0].setAttribute('placeholder', `${vv.height}px ${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
 }));
