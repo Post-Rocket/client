@@ -65,7 +65,7 @@ body.menu-opened #side-menu  {
 }
 
 body.menu-opened #main-content  {
-  --_shadow: -4px 0 5px #00000033;
+  --_shadow: -4px 0 5px #00000022;
 }
 
 #main-content > * {
