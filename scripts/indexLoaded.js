@@ -79,13 +79,41 @@ setTimeout(() => {
 
 // Keyboard push the content top.
 const vv = window.visualViewport;
-vv && (vv.onresize = _throttle(() => {
-  // document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
-  // document.documentElement.style.setProperty('--height', `${vv.height}px`);
+vv && (vv.onresize = _throttle(event => {
+  document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
+  document.documentElement.style.setProperty('--height', `${vv.height}px`);
+  // window.scrollTo(0,0);
+  // document.getElementById("input").setAttribute("placeholder",
+  //   `${++cnt} ${vv.offsetTop} ${vv.height} ${document.body.clientHeight} ${document.body.scrollHeight}`);
 }));
 
-document.ontouchmove = function(e){
-  e.preventDefault();
+// First add an invisble dummy input field to the top.
+/*const dummy = document.createElement("input");
+document.body.appendChild(dummy);
+dummy.style.cssText = "position:fixed; top: -100px; left: 0";
+
+const input = document.getElementById("input");
+input.setAttribute("readonly", "readonly");
+input.onfocus = event => {
+  if(input.getAttribute("readonly")) {
+    event.preventDefault();
+    // console.log("input focused");
+    // input.setAttribute("placeholder", "focused");
+    dummy.focus();
+
+    // input.blur();
+    // input.removeAttribute("readonly");
+    console.log("focus");
+    setTimeout(() => {
+      input.focus();
+      input.removeAttribute("readonly");
+    }, 3000);
+    // input.focus();
+  }
 }
+input.onblur = () => {
+  input.setAttribute("readonly", "readonly");
+}
+// input.focus();*/
 
 })(); // END OF SCRIPT
