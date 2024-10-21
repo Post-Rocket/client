@@ -1,14 +1,14 @@
 (() => { // START OF SCRIPT
 
 // Util function for side menu interaction.
-let sideMenuMoving = false;
+let sideMenuScrollingDone = true;
 const whileSideMenuToggled = () => {
-  sideMenuMoving = true;
-  let overflow = body.style["overflow-x"] || null;
-  body.style["overflow-x"] = "hidden !important";
+  sideMenuScrollingDone = false;
+  let overflow = document.body.style["overflow-x"] || null;
+  document.body.style["overflow-x"] = "hidden !important";
   setTimeout(() => {
-    sideMenuMoving = true;
-    body.style["overflow-x"] = overflow;
+    sideMenuScrollingDone = true;
+    document.body.style["overflow-x"] = overflow;
   }, 320);
 }
 
@@ -43,7 +43,7 @@ main.onclick = () => {
 
 // Add on scroll event if needed.
 document.body.addEventListener('scroll', () => {
-  document.body.clientWidth <= 800 && (
+  document.body.clientWidth <= 800 && sideMenuScrollingDone && (
     document.body.scrollLeft > -0.5 * Math.min(200, document.body.clientWidth) ?
     document.body.classList.remove("menu-opened")
     : document.body.classList.add("menu-opened")
