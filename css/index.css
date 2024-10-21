@@ -47,6 +47,7 @@ body.menu-opened #side-menu  {
 
 /* Main container */
 #main-content {
+  position: relative;
   display: flex;
   flex: 1;
   align-items: center;
@@ -266,10 +267,6 @@ body.menu-opened #nav > button > hr:last-of-type {
 }
 
 /* Input text */
-#main-content {
-  position: relative;
-}
-
 #main-content > #form {
   position: absolute;
   z-index: 1;
