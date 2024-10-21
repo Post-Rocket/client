@@ -80,8 +80,10 @@ setTimeout(() => {
 // Keyboard push the content top.
 const vv = window.visualViewport;
 vv && (vv.onresize = _throttle(() => {
-  document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
-  document.documentElement.style.setProperty('--height', `${vv.height}px`);
+  // document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
+  // document.documentElement.style.setProperty('--height', `${vv.height}px`);
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
 }));
 
 })(); // END OF SCRIPT
