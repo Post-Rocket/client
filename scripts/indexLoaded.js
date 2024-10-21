@@ -1,5 +1,17 @@
 (() => { // START OF SCRIPT
 
+// Util function for side menu interaction.
+let sideMenuMoving = false;
+const whileSideMenuToggled = () => {
+  sideMenuMoving = true;
+  let overflow = body.style["overflow-x"] || null;
+  body.style["overflow-x"] = "hidden !important";
+  setTimeout(() => {
+    sideMenuMoving = true;
+    body.style["overflow-x"] = overflow;
+  }, 320);
+}
+
 // Add onclick on the side menu button.
 document.getElementById("side-menu-button").onclick = (event) => {
   event.preventDefault();
@@ -11,6 +23,7 @@ document.getElementById("side-menu-button").onclick = (event) => {
       -document.body.scrollWidth
       || 0
   );
+  whileSideMenuToggled();
 }
 
 // Get menu element.
@@ -23,7 +36,8 @@ main.onclick = () => {
   document.body.clientWidth <= 560
   && document.body.classList.contains("menu-opened") && (
     document.body.classList.remove("menu-opened"),
-    document.body.scrollLeft = 0
+    document.body.scrollLeft = 0,
+    whileSideMenuToggled()
   );
 }
 
