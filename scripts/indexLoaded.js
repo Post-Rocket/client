@@ -13,7 +13,7 @@ const whileSideMenuToggled = () => {
 }
 
 // Add onclick on the side menu button.
-document.getElementById("side-menu-button").onclick = (event) => {
+document.getElementById("side-menu-button").onclick = event => {
   event.preventDefault();
   event.stopPropagation();
   document.body.classList.toggle("menu-opened");
@@ -79,41 +79,36 @@ setTimeout(() => {
 
 // Keyboard push the content top.
 const vv = window.visualViewport;
-vv && (vv.onresize = _throttle(event => {
+vv && (vv.onresize = _throttle(() => {
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
-  // window.scrollTo(0,0);
-  // document.getElementById("input").setAttribute("placeholder",
-  //   `${++cnt} ${vv.offsetTop} ${vv.height} ${document.body.clientHeight} ${document.body.scrollHeight}`);
 }));
 
-// First add an invisble dummy input field to the top.
-/*const dummy = document.createElement("input");
-document.body.appendChild(dummy);
-dummy.style.cssText = "position:fixed; top: -100px; left: 0";
-
-const input = document.getElementById("input");
-input.setAttribute("readonly", "readonly");
-input.onfocus = event => {
-  if(input.getAttribute("readonly")) {
-    event.preventDefault();
-    // console.log("input focused");
-    // input.setAttribute("placeholder", "focused");
-    dummy.focus();
-
-    // input.blur();
-    // input.removeAttribute("readonly");
-    console.log("focus");
-    setTimeout(() => {
-      input.focus();
-      input.removeAttribute("readonly");
-    }, 3000);
-    // input.focus();
-  }
+// Delay navigation.
+const close = event => {
+  event.preventDefault();
+  event.stopPropagation();
+  document.body.classList.remove("menu-opened");
+  document.body.clientWidth <= 800 && (document.body.scrollLeft = 0);
+  whileSideMenuToggled();
 }
-input.onblur = () => {
-  input.setAttribute("readonly", "readonly");
+
+const getOnclick = onclick => event => (
+  close(event),
+  typeof onclick === 'function'
+    || (typeof onclick === 'string' && (onclick = eval(onclick)))
+    || ((event = event.target.getAttribute("href")) && (onclick = () => {
+      window.location.href = event
+    })),
+  onclick && setTimeout(onclick, 310)
+); 
+
+for (let i = 0, cn = menu.getElementsByTagName('a'), l = cn.length, el; i !== l; ++i) {
+  (el = cn[i]).onclick = getOnclick(el.onclick);
 }
-// input.focus();*/
+
+for (let i = 0, cn = menu.getElementsByTagName('button'), l = cn.length, el; i !== l; ++i) {
+  (el = cn[i]).onclick = getOnclick(el.onclick);
+}
 
 })(); // END OF SCRIPT
