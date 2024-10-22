@@ -142,7 +142,7 @@ body.menu-opened #nav > button > hr:last-of-type {
   gap: var(--padding-horizontal);
 }
 
-#nav > div > button {
+#nav > div > .button {
   border-radius: var(--border-radius-round);
   padding: 0 10px;
   height: 26px;
@@ -151,7 +151,7 @@ body.menu-opened #nav > button > hr:last-of-type {
   border: 1.5px solid var(--color);
 }
 
-#nav > div > button:last-of-type {
+#nav > div > .button:last-of-type {
   color: var(--background);
   background: var(--color);
 }
@@ -406,8 +406,8 @@ body.menu-opened #nav > button > hr:last-of-type {
     padding: 12px calc(0.5 * var(--padding-horizontal));
   }
 
-  /* Nav | Menu button left */
-  #nav > div > button:hover {
+  /* Nav | Menu buttons right */
+  #nav > div > .button:hover {
     --_shadow-color: var(--color);
     --_shadow: 4px 4px 0px var(--_shadow-color);
     -webkit-box-shadow: var(--_shadow);
@@ -418,7 +418,7 @@ body.menu-opened #nav > button > hr:last-of-type {
   }
 
   /* Nav | Menu buttons right */
-  #nav > div:has(button:hover) > button:not(:hover) {
+  #nav > div:has(.button:hover) > .button:not(:hover) {
     opacity: 0.3;
     color: var(--color);
     background: none;

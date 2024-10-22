@@ -142,6 +142,7 @@ body.transition-on {
 
 /* Link and button */
 .link, .link:visited, .link:active, .link:disabled,
+.button, .button:visited, .button:active, .button:disabled,
 button, button:visited, button:active, button:disabled {
   opacity: 1;
   /* Appearance */
@@ -274,6 +275,7 @@ a,
      supported by Chrome, Edge, Opera and Firefox */
 }
 
+.button,
 button {
   overflow: hidden;
   opacity: 1;
