@@ -48,7 +48,7 @@
   --main-padding-top: calc(var(--nav-height) + 2 * var(--padding-vertical));
 
   /* Filters */
-  --icon-filter: none;
+  --icon-filter: invert(0);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -57,7 +57,7 @@
     --color: white;
     --background: #111;
     --color-5-percent: rgb(from var(--color) r g b / 0.07);
-    --icon-filter: invert();
+    --icon-filter: invert(1);
   }
 }
 

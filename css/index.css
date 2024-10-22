@@ -217,6 +217,7 @@ body.menu-opened #nav > button > hr:last-of-type {
   width: var(--picture-size);
   height: var(--picture-size);
   border-radius: var(--border-radius-round);
+  border: 1px solid var(--color-5-percent);
   background: var(--gradient);
   overflow: hidden;
 }
