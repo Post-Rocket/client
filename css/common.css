@@ -181,10 +181,39 @@ pre {
   white-space: pre-wrap;
 }
 
+/* Footer */
 footer {
   position: fixed;
   z-index: 2;
   bottom: 0;
+}
+
+/* Dialog */
+dialog {
+  transition: display 1s allow-discrete, overlay 1s allow-discrete;
+
+  animation: close-dialog 1s forwards;
+  &[open] {
+    animation: open-dialog 1s forwards;
+  }
+}
+
+@keyframes open-dialog {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes close-dialog {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Headers */
