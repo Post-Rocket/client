@@ -111,4 +111,23 @@ for (let i = 0, cn = menu.getElementsByTagName('button'), l = cn.length, el; i !
   (el = cn[i]).onclick = getOnclick(el.onclick);
 }
 
+// Dialog closing.
+const closeDialog = event => {
+  event.stopPropagation();
+  event.target.tagName.toLowerCase() === "dialog" && event.target.close();
+}
+for (let i = 0, cn = document.getElementsByTagName('dialog'), l = cn.length; i !== l; ++i) {
+  cn[i].onclick = closeDialog;
+}
+
+// Agent dialog opening.
+const getOpenDialog = target => (
+  typeof target === "string" && (target = document.getElementById(target)),
+  event => {
+    event.stopPropagation();
+    target.showModal();
+  }
+);
+document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
+
 })(); // END OF SCRIPT

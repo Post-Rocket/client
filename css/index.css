@@ -176,6 +176,18 @@ body.menu-opened #nav > button > hr:last-of-type {
   border-radius: var(--_border-radius);
 }
 
+#agent-dialog > div:first-of-type {
+  max-width: var(--width);
+  background: var(--color-5-percent);
+  border-radius: var(--border-radius);
+  display: flex;
+  gap: var(--padding-vertical);
+  flex-direction: column;
+  align-items: center;
+  padding: var(--padding-vertical) var(--padding-horizontal);
+  border: 1px solid var(--color-5-percent);
+}
+
 #agent::before {
   content: "";
   position: absolute;
@@ -209,6 +221,40 @@ body.menu-opened #nav > button > hr:last-of-type {
   overflow: hidden;
 }
 
+#agent-dialog > div:first-of-type > div:first-of-type {
+  --_size: calc(1.5 * var(--picture-size));
+  margin-top: calc(-0.5 * var(--_size) - var(--padding-horizontal));
+  width: var(--_size);
+  height: var(--_size);
+  border-radius: var(--border-radius-round);
+  background: var(--gradient);
+  overflow: hidden;
+  border: 1px solid var(--color-5-percent);
+  --_shadow: 0 4px 20px #00000022;
+  -webkit-box-shadow: var(--_shadow);
+  box-shadow: var(--_shadow);
+}
+
+#agent-dialog > div:first-of-type  ul {
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+#agent-dialog > div:first-of-type > h1 {
+  font-weight: 600;
+}
+
+#agent-dialog > button {
+  --_size: 20px;
+  width: calc(var(--size) + 2 * var(--padding-horizontal));
+  height: calc(var(--size) + 2 * var(--padding-vertical));
+  padding: var(--padding-vertical) var(--padding-horizontal);
+  filter: var(--icon-filter);
+  pointer-events: none;
+}
+
+#agent-dialog > button > img,
+#agent-dialog > div:first-of-type > div:first-of-type > img,
 #agent > div:first-of-type > img {
   object-fit: cover;
   object-position: center;
@@ -432,11 +478,10 @@ body.menu-opened #nav > button > hr:last-of-type {
   }
 
   body.menu-opened #main-content > *:not(nav) {
-    pointer-events: none;
     opacity: 0.2;
-    /* --_blur: 5px;
-    -webkit-filter: blur(var(--_blur));
-    filter: blur(var(--_blur)); */
+  }
+  body.menu-opened #main-content *:not(nav *) {
+    pointer-events: none;
   }
 
   /* Main | AI Agent */

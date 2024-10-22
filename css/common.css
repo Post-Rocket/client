@@ -7,8 +7,10 @@
   --color-30-percent: rgb(from var(--color) r g b / 0.3);
   --color-50-percent: rgb(from var(--color) r g b / 0.5);
   --color-75-percent: rgb(from var(--color) r g b / 0.75);
-  --background-50-percent: rgb(from var(--background) r g b / 0.5);
   --background-5-percent: rgb(from var(--background) r g b / 0.05);
+  --background-50-percent: rgb(from var(--background) r g b / 0.5);
+  --background-75-percent: rgb(from var(--background) r g b / 0.75);
+  --background-90-percent: rgb(from var(--background) r g b / 0.90);
 
   /* Border radius */
   --border-radius-round: max(100vw, 100vh);
@@ -190,29 +192,55 @@ footer {
 
 /* Dialog */
 dialog {
-  transition: display 1s allow-discrete, overlay 1s allow-discrete;
+  --_blur: 5px;
+  --_speed: var(--transition-time);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--color);
+  z-index: 999;
+  border: 0;
+  min-width: 100dvw;
+  min-height: 100dvh;
+  margin: 0;
+  padding: var(--padding-vertical) var(--padding-horizontal);
+  background: var(--background-90-percent);
+  -webkit-backdrop-filter: blur(var(--_blur));
+  backdrop-filter: blur(var(--_blur));
+  cursor: pointer;
 
-  animation: close-dialog 1s forwards;
+  transition: display var(--_speed) allow-discrete, overlay var(--_speed) allow-discrete;
+  animation: close-dialog var(--_speed) forwards;
+
   &[open] {
-    animation: open-dialog 1s forwards;
+    display: flex;
+    animation: open-dialog var(--_speed) forwards;
   }
+}
+
+dialog * {
+  cursor: default;
 }
 
 @keyframes open-dialog {
   from {
     opacity: 0;
+    padding-top: calc(var(--padding-vertical) + 16px);
   }
   to {
     opacity: 1;
+    padding-top: var(--padding-vertical);
   }
 }
 
 @keyframes close-dialog {
   from {
     opacity: 1;
+    padding-top: var(--padding-vertical);
   }
   to {
     opacity: 0;
+    padding-top: calc(var(--padding-vertical) + 16px);
   }
 }
 
