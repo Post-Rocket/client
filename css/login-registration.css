@@ -1,0 +1,90 @@
+@import "./page.css";
+
+#form {
+  width: var(--width);
+  --_input-height: 48px;
+  display: flex;
+  gap: calc(0.5 * var(--padding-vertical));
+  flex-direction: column;
+  padding: var(--padding-vertical) var(--padding-horizontal);
+}
+
+#form input {
+  width: 100%;
+  height: var(--_input-height);
+  border-radius: var(--border-radius-round);
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--color);
+  border: none;
+  background: var(--color-5-percent);
+  padding: 0 calc(0.5 * var(--_input-height));
+  opacity: 1;
+  transition: var(--transition-time);
+}
+
+#form input::placeholder {
+  font-style: italic;
+  opacity: 50%;
+}
+
+#form input.hidden {
+  opacity: 0;
+  height: 0;
+}
+
+#form > div:first-of-type {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: var(--padding-horizontal);
+}
+
+#form > div:first-of-type > button {
+  border-radius: var(--border-radius-round);
+  height: calc(0.75 * var(--_input-height));
+  padding: 0px 12px;
+  /* height: 26px;
+  font-size: 12px;
+  font-weight: 400; */
+  border: 1.5px solid var(--color);
+}
+
+#form:has(input:not(.hidden):placeholder-shown) > div:first-of-type > button:last-of-type {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+#form:has(input:not(.hidden):not(:placeholder-shown)) > div:first-of-type > button:last-of-type {
+  color: var(--background);
+  background: var(--color);
+}
+
+#form > div:first-of-type > button.hidden {
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Hover, only for non-touchable devices */
+@media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
+  #form > div:first-of-type > button:hover {
+    --_shadow-color: var(--color);
+    --_shadow: 4px 4px 0px var(--_shadow-color);
+    -webkit-box-shadow: var(--_shadow);
+    box-shadow: var(--_shadow);
+    color: var(--color);
+    background: none;
+    opacity: 1;
+  }
+  
+  #form > div:first-of-type:has(button:hover) > button:not(:hover):not(.hidden) {
+    opacity: 0.3;
+    color: var(--color);
+    background: none;
+  }
+}
