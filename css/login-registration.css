@@ -72,6 +72,15 @@
   filter: var(--icon-filter);
   height: 50%;
   opacity: 0.1;
+  transition: var(--transition-time);
+}
+
+body:has(input:not(.hidden):focus-visible) #main > div:first-of-type > img {
+  transform: rotate(45deg);
+}
+
+body:has(input:not(.hidden):not(:placeholder-shown)) #main > div:first-of-type > img {
+  opacity: 0.3;
   transform: rotate(45deg);
 }
 
