@@ -1,12 +1,12 @@
 @import "./page.css";
+@import "./flexbox.css";
 
 #form {
-  width: var(--width);
+  width: 100%;
   --_input-height: 48px;
   display: flex;
   gap: calc(0.5 * var(--padding-vertical));
   flex-direction: column;
-  padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
 #form input {
@@ -48,9 +48,7 @@
   border-radius: var(--border-radius-round);
   height: calc(0.75 * var(--_input-height));
   padding: 0px 12px;
-  /* height: 26px;
-  font-size: 12px;
-  font-weight: 400; */
+  font-size: 14px;
   border: 1.5px solid var(--color);
 }
 
@@ -68,6 +66,13 @@
 #form > div:first-of-type > button.hidden {
   pointer-events: none;
   opacity: 0;
+}
+
+#main > div:first-of-type > img {
+  filter: var(--icon-filter);
+  height: 50%;
+  opacity: 0.1;
+  transform: rotate(45deg);
 }
 
 /* Hover, only for non-touchable devices */

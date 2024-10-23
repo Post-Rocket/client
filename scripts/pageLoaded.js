@@ -34,4 +34,10 @@
     document.body.classList.add('transition-on');
   }, 100);
 
+  // Remove focus.
+  document.addEventListener('click', event => (
+    event.target.nodeName === 'BODY' && 
+      document.activeElement.blur()
+  ));
+
 })(); // END OF SCRIPT
