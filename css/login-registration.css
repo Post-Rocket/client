@@ -18,7 +18,7 @@
 
 #account-creation::before {
   --_size: 20px;
-  background-image: url("../assets/icons/plus.svg");
+  background-image: url("../assets/icons/account-creation.svg");
   background-position: center;
 }
 
