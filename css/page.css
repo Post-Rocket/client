@@ -10,10 +10,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: var(--padding-vertical) 0;
 }
 
-h1 {
-  line-height: 0;
-}
-
 #nav {
   position: relative;
   width: 100%;
@@ -30,8 +26,10 @@ h1 {
 #home,
 #next,
 #back,
-.nav-icon {
-  /* min-width: var(--_height); */
+#back-home,
+.nav-icon,
+.nav-icon:active {
+  min-width: var(--_height);
   height: var(--_height);
   display: flex;
   justify-content: center;
@@ -42,29 +40,40 @@ h1 {
   transition: var(--transition-time);
 }
 
-#home::before,
+#home,
+.nav-icon {
+  gap: 12px;
+}
+
+#home::after,
 #next::after,
 #back::before,
-.nav-icon::before {
+#back-home::before,
+.nav-icon::after {
   content: "";
   --_size: 18px;
   width: var(--_size);
   height: var(--_size);
-  background-image: url("../assets/icons/chevron-left.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center left;
-  --_shadow-filter: drop-shadow(0px 0px);
-  filter: var(--_shadow-filter) var(--icon-filter);
+  background-position: center;
+  filter: var(--icon-filter);
   transition: var(--transition-time);
+}
+
+#next::after,
+#back::before,
+#back-home::before {
+  background-position: center left;
+  background-image: url("../assets/icons/chevron-left.svg");
 }
 
 #next::after {
   transform: rotate(180deg);
 }
 
-#home::before {
-  --_size: 20px;
+#home::after {
+  --_size: 16px;
   background-image: url("../assets/icons/home.svg");
   background-position: center;
 }
@@ -79,6 +88,7 @@ h1 {
 }
 
 @media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
+  #back-home:hover,
   #back:hover {
     --_offset: min(4px, var(--padding-horizontal));
     padding-left: calc(var(--padding-horizontal) - var(--_offset));

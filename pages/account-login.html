@@ -27,18 +27,16 @@
 
   <body>
     <nav id="nav">
-      <button id="back" title="Back to the main content">
-        Back
-      </button>
+      <a id="back-home" class="link" title="Back to the main content" href="../index.html">
+        Home
+      </a>
       <div class="fill"></div>
-      <a id="account-creation" class="nav-icon" title="Go to account creation page" href="./account-creation.html"></a>
-      <a id="home" title="Back to homepage" href="../index.html"></a>
+      <a id="account-creation" class="link nav-icon" title="Go to account creation page" href="./account-creation.html">
+        Join
+      </a>
     </nav>
     <main id="main" class="column">
       <h1>Login</h1>
-      <!-- <div class="row fill extend center middle">
-        <img src="../assets/icons/rocket.svg" />
-      </div> -->
       <form id="form">
         <input id="identifier" name="identifier" placeholder="Type your email or phone number..." title="Type your email or phone number here"/>
         <input id="code" name="code" placeholder="Type your 6-digits code here..." title="Type your 6-digits code here" class="hidden"/>
@@ -51,6 +49,9 @@
         <pre id="text">
 
         </pre>
+      </div>
+      <div class="row middle center extend user-select-none">
+        <a class="link" href="./privacy-policy.html"> Privacy Policy </a> &nbsp; <span>｜</span> &nbsp; <a class="link" href="./terms-of-use.html"> Terms of Use </a>
       </div>
     </main>
   </body>

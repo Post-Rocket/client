@@ -1,0 +1,11 @@
+@import "./page.css";
+
+#privacy-policy::after {
+  --_size: 16px;
+  background-image: url("../assets/icons/shield.svg");
+}
+
+#terms-of-use::after {
+  --_size: 16px;
+  background-image: url("../assets/icons/todo.svg");
+}
