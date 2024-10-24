@@ -19,7 +19,9 @@
     <link href="../assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
     <!-- Modules / Scripts -->
+    <script src="../scripts/utilities.js"></script>
     <script src="../scripts/pageLoaded.js" defer></script>
+    <script src="../scripts/accountCreationLoaded.js" defer></script>
 
   </head>
 
@@ -29,10 +31,27 @@
         Back
       </button>
       <div class="fill"></div>
+      <a id="login" class="nav-icon" title="Go to login page" href="./account-login.html"></a>
       <a id="home" title="Back to homepage" href="../index.html"></a>
     </nav>
-    <main id="main" class="flex center">
+    <main id="main" class="column">
+      <h1>Create Account</h1>
+      <!-- <div class="row fill extend center middle">
+        <img src="../assets/icons/rocket.svg" />
+      </div> -->
+      <form id="form">
+        <input id="identifier" name="identifier" placeholder="Type your email or phone number..." title="Type your email or phone number here"/>
+        <input id="code" name="code" placeholder="Type your 6-digits code here..." title="Type your 6-digits code here" class="hidden"/>
+        <div>
+          <button id="new-code" class="hidden"> New Code </button>
+          <button id="submit" type="submit"></button>
+        </div>
+      </form>
+      <div class="fill extend">
+        <pre id="text">
 
+        </pre>
+      </div>
     </main>
   </body>
 </html>

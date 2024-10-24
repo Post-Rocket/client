@@ -1,6 +1,8 @@
 const form = document.getElementById("form"),
 [identifier, code] = form.getElementsByTagName("input"),
-newCodeButton = document.getElementById("new-code");
+newCodeButton = document.getElementById("new-code"),
+submitButton = document.getElementById("submit");
+submitButton.innerHTML = "Send Code";
 
 const toggle = () => {
   const sendCode = identifier.classList.contains("hidden");
@@ -8,6 +10,7 @@ const toggle = () => {
   code.classList.toggle("hidden");
   newCodeButton.classList.toggle("hidden");
   sendCode || (code.value = "");
+  submitButton.innerHTML = sendCode && "Send Code" || "Verify Code";
   return sendCode;
 }
 

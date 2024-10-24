@@ -29,8 +29,9 @@ h1 {
 
 #home,
 #next,
-#back {
-  min-width: var(--_height);
+#back,
+.nav-icon {
+  /* min-width: var(--_height); */
   height: var(--_height);
   display: flex;
   justify-content: center;
@@ -43,7 +44,8 @@ h1 {
 
 #home::before,
 #next::after,
-#back::before {
+#back::before,
+.nav-icon::before {
   content: "";
   --_size: 18px;
   width: var(--_size);
@@ -82,7 +84,8 @@ h1 {
     padding-left: calc(var(--padding-horizontal) - var(--_offset));
     padding-right: calc(var(--padding-horizontal) + var(--_offset));
   }
-  #home:hover {
+  #home:hover,
+  .nav-icon:hover {
     opacity: 0.7;
   }
 }

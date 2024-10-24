@@ -21,7 +21,7 @@
     <!-- Modules / Scripts -->
     <script src="../scripts/utilities.js"></script>
     <script src="../scripts/pageLoaded.js" defer></script>
-    <script src="../scripts/loginLoaded.js" defer></script>
+    <script src="../scripts/accountLoginLoaded.js" defer></script>
 
   </head>
 
@@ -31,6 +31,7 @@
         Back
       </button>
       <div class="fill"></div>
+      <a id="account-creation" class="nav-icon" title="Go to account creation page" href="./account-creation.html"></a>
       <a id="home" title="Back to homepage" href="../index.html"></a>
     </nav>
     <main id="main" class="column">
@@ -43,7 +44,7 @@
         <input id="code" name="code" placeholder="Type your 6-digits code here..." title="Type your 6-digits code here" class="hidden"/>
         <div>
           <button id="new-code" class="hidden"> New Code </button>
-          <button> Send </button>
+          <button id="submit" type="submit"></button>
         </div>
       </form>
       <div class="fill extend">

@@ -1,6 +1,27 @@
 @import "./page.css";
 @import "./flexbox.css";
 
+#login,
+#account-creation {
+  padding-right: 12px;
+}
+
+#home {
+  padding-left: 12px;
+}
+
+#login::before {
+  --_size: 20px;
+  background-image: url("../assets/icons/login.svg");
+  background-position: center;
+}
+
+#account-creation::before {
+  --_size: 20px;
+  background-image: url("../assets/icons/plus.svg");
+  background-position: center;
+}
+
 #form {
   width: 100%;
   --_input-height: 48px;
@@ -53,6 +74,7 @@
 #form > div:first-of-type > button {
   border-radius: var(--border-radius-round);
   height: calc(0.75 * var(--_input-height));
+  min-width: 109px;
   padding: 0px 12px;
   font-size: 14px;
   border: 1.5px solid var(--color);
