@@ -5,7 +5,8 @@
   width: 100%;
   --_input-height: 48px;
   display: flex;
-  gap: calc(0.5 * var(--padding-vertical));
+  --_gap: calc(0.5 * var(--padding-vertical));
+  gap: var(--_gap);
   flex-direction: column;
 }
 
@@ -34,6 +35,10 @@
 #form input.hidden {
   opacity: 0;
   height: 0;
+}
+
+#form input:last-of-type {
+  margin-top: calc(-1 * var(--_gap));
 }
 
 #form > div:first-of-type {
@@ -68,7 +73,12 @@
   opacity: 0;
 }
 
-#main > div:first-of-type > img {
+#main {
+  gap: var(--padding-vertical);
+}
+
+/* Rocket */
+/* #main > div:first-of-type > img {
   filter: var(--icon-filter);
   height: 50%;
   opacity: 0.1;
@@ -80,9 +90,9 @@ body:has(input:not(.hidden):focus-visible) #main > div:first-of-type > img {
 }
 
 body:has(input:not(.hidden):not(:placeholder-shown)) #main > div:first-of-type > img {
-  opacity: 0.3;
+  opacity: 0.7;
   transform: rotate(45deg);
-}
+} */
 
 /* Hover, only for non-touchable devices */
 @media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
@@ -91,8 +101,8 @@ body:has(input:not(.hidden):not(:placeholder-shown)) #main > div:first-of-type >
     --_shadow: 4px 4px 0px var(--_shadow-color);
     -webkit-box-shadow: var(--_shadow);
     box-shadow: var(--_shadow);
-    color: var(--color);
-    background: none;
+    color: var(--color) !important;
+    background: none !important;
     opacity: 1;
   }
   

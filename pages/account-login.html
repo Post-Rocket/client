@@ -19,7 +19,9 @@
     <link href="../assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
     <!-- Modules / Scripts -->
+    <script src="../scripts/utilities.js"></script>
     <script src="../scripts/pageLoaded.js" defer></script>
+    <script src="../scripts/loginLoaded.js" defer></script>
 
   </head>
 
@@ -33,12 +35,12 @@
     </nav>
     <main id="main" class="column">
       <h1>Login</h1>
-      <div class="row fill extend center middle">
+      <!-- <div class="row fill extend center middle">
         <img src="../assets/icons/rocket.svg" />
-      </div>
+      </div> -->
       <form id="form">
-        <input id="identifier" placeholder="Type your email or phone number..." title="Type your email or phone number here"/>
-        <input id="code" placeholder="Type your 6-digits code here..." title="Type your 6-digits code here" class="hidden"/>
+        <input id="identifier" name="identifier" placeholder="Type your email or phone number..." title="Type your email or phone number here"/>
+        <input id="code" name="code" placeholder="Type your 6-digits code here..." title="Type your 6-digits code here" class="hidden"/>
         <div>
           <button id="new-code" class="hidden"> New Code </button>
           <button> Send </button>
