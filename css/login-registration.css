@@ -5,7 +5,7 @@
   width: 100%;
   --_input-height: 48px;
   display: flex;
-  --_gap: calc(0.5 * var(--padding-vertical));
+  --_gap: 16px;
   gap: var(--_gap);
   flex-direction: column;
 }
