@@ -6,6 +6,7 @@
   --_input-height: 48px;
   display: flex;
   --_gap: 16px;
+  padding-top: var(--padding-vertical);
   gap: var(--_gap);
   flex-direction: column;
 }
