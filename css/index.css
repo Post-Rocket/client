@@ -35,8 +35,12 @@ body > * {
   font-size: 14px;
 }
 
-body.transition-on > #side-menu,
-body.transition-on > #main-content {
+/* Activate transition */
+body.transition-on > *,
+body.transition-on #nav,
+body.transition-on #main,
+body.transition-on #agent,
+body.transition-on #agent-response {
   transition: var(--transition-time);
 }
 
@@ -78,17 +82,21 @@ body.menu-opened #main-content  {
   padding-left: 0;
 }
 
-/* Nav | Menu button left */
+/* Top nav */
 #nav {
   width: 100% !important;
+  height: auto;
+  opacity: 1;
   padding-left: var(--safearea-left);
   padding-right: var(--safearea-right);
 }
 
-/* body.menu-opened #nav  {
-  padding-left: 0;
-} */
+body.keyboard-up #nav {
+  height: 0;
+  opacity: 0;
+}
 
+/* Nav | Menu button left */
 #nav > button {
   position: relative;
   padding: 0 !important;
@@ -164,6 +172,10 @@ body.menu-opened #nav > button > hr:last-of-type {
   flex-direction: column;
 }
 
+body.keyboard-up #main {
+  padding-top: 0;
+}
+
 /* Main | AI Agent */
 #agent {
   position: relative;
@@ -172,8 +184,13 @@ body.menu-opened #nav > button > hr:last-of-type {
   z-index: 1;
   gap: 10px;
   width: 100%;
+  margin-top: 0;
   --_border-radius: calc(0.5 * var(--picture-size));
   border-radius: var(--_border-radius);
+}
+
+body.keyboard-up #agent {
+  margin-top: calc(-1 * var(--picture-size));
 }
 
 #agent-dialog > div:first-of-type {
@@ -301,18 +318,25 @@ body.menu-opened #nav > button > hr:last-of-type {
 /* Main | Text */
 #agent-response {
   position: relative;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   gap: var(--padding-vertical);
   width: 100%;
+  max-height: 100%;
   flex-grow: 1;
-  /* flex: 1; */
   padding-top: calc(0.5 * var(--picture-size) + 2 * var(--padding-vertical));
   padding-bottom: calc(var(--footer-height) + var(--padding-vertical));
   margin-top: calc(-0.5 * var(--picture-size));
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+body.keyboard-up #agent-response {
+  padding-top: var(--padding-vertical);
+  margin-top: 0;
+}
+
 
 #text {
   padding: 0 calc(0.5 * var(--picture-size));
@@ -321,19 +345,17 @@ body.menu-opened #nav > button > hr:last-of-type {
 }
 
 #thinking {
+  --_size: 30%;
   position: absolute;
   width: 100%;
   padding-top: 20%;
-  /* height: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding-bottom: 30%; */
 }
 
 #thinking::before {
   content: "";
-  --_size: 30%;
   --_shadow: 0 0 30px #4C57F2;
   --_blur: 20px;
   width: var(--_size);

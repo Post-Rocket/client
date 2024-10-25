@@ -78,10 +78,14 @@ setTimeout(() => {
 }, 100);
 
 // Keyboard push the content top.
-const vv = window.visualViewport;
+const vv = window.visualViewport,
+origHeight = Math.max(document.documentElement && document.documentElement.clientHeight || 0, window.innerHeight || 0);
 vv && (vv.onresize = _throttle(() => {
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
+
+  const offset = Math.max(vv.offsetTop || 0, origHeight - (vv.height || 0));
+  document.body.classList[offset && "add" || "remove"]("keyboard-up");
 }));
 
 // Delay navigation.
@@ -131,10 +135,10 @@ const getOpenDialog = target => (
 document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 
 // Remove focus.
-const h = Math.max(document.documentElement && document.documentElement.clientHeight || 0, window.innerHeight || 0),
-blurActiveElement = event => (
+const blurActiveElement = event => (
   event.preventDefault(),
-  (h > vv.height || vv.offsetTop) && document.activeElement && document.activeElement.blur()
+  (origHeight > vv.height || vv.offsetTop)
+    && document.activeElement && document.activeElement.blur()
 );
 
 // Pulsing.
@@ -158,7 +162,7 @@ removePulsingShaking = input.onfocus = () => {
   input.classList.remove("shaking");
 
   // Add defocus event handler.
-  setTimeout(() => document.addEventListener('scroll', blurActiveElement), 300);
+  // setTimeout(() => document.addEventListener('scroll', blurActiveElement), 400);
 }
 addPulsingShaking();
 
