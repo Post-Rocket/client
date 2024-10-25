@@ -191,6 +191,7 @@ body.keyboard-up #main {
 
 body.keyboard-up #agent {
   margin-top: calc(-1 * var(--picture-size));
+  opacity: 0;
 }
 
 #agent-dialog > div:first-of-type {
