@@ -347,15 +347,17 @@ body.keyboard-up #agent-response {
 #thinking {
   position: absolute;
   width: 100%;
-  min-height: 96px;
+  min-height: 176px;
   margin-top: 20%;
   display: flex;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   pointer-events: none;
 }
 
-#thinking > div {
+#thinking > div:first-of-type {
   width: 72px;
   aspect-ratio: 1 / 1;
   border-radius: var(--border-radius-round);
@@ -366,7 +368,7 @@ body.keyboard-up #agent-response {
   animation: thinking 1s linear infinite;
 }
 
-#thinking > div::before {
+#thinking > div:first-of-type:before {
   content: "";
   --_blur: 20px;
   --_shadow: 0 0 30px #4C57F2;
@@ -379,6 +381,11 @@ body.keyboard-up #agent-response {
   display: block;
   border-radius: var(--border-radius-round);
   background: radial-gradient(#8DF5FF9A 0%, #4CECF287 25%, #4C57F2CC 100%);
+}
+
+#thinking > div:last-of-type {
+  position: absolute;
+  bottom: 0;
 }
 
 @keyframes thinking {

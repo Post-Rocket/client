@@ -166,4 +166,36 @@ removePulsingShaking = input.onfocus = () => {
 }
 addPulsingShaking();
 
+// Thinking.
+let timeoutId3;
+const thinking = document.getElementById("thinking"),
+thinkingText = document.getElementById("thinking-text"),
+defaultThinkingMsg = [
+  "🙇🏻‍♀️ Thinking hard...",
+  "🙆🏻‍♀️ Almost there...",
+  "🤦🏻‍♀️ Maybe something's wrong..."
+],
+addThinking = msg => {
+  Array.isArray(msg) || (msg = [msg]);
+  thinking.classList.remove("hidden");
+  removePulsingShaking();
+  timeoutId3 = setTimeout(() => {
+    thinkingText.innerHTML = msg[0] || defaultThinkingMsg[0];
+    timeoutId3 = setTimeout(() => {
+      thinkingText.innerHTML = msg[1] || defaultThinkingMsg[1];
+      timeoutId3 = setTimeout(() => {
+        thinkingText.innerHTML = msg[2] || defaultThinkingMsg[2];
+      }, 10000);
+    }, 10000);
+  }, 5000);
+},
+removeThinking = () => {
+  clearTimeout(timeoutId3);
+  thinkingText.innerHTML = "";
+  thinking.classList.add("hidden");
+  document.activeElement || addPulsingShaking();
+}
+
+addThinking();
+
 })(); // END OF SCRIPT
