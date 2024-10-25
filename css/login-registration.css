@@ -93,6 +93,24 @@
   transition: var(--transition-time);
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+
+  /* Remove default */
+  -webkit-appearance: none;
+
+  /* Now your own custom styles */
+  height: 20px;
+  margin-right: -8px;
+  aspect-ratio: 1 / 1;
+  display: block;
+  background-image: url("../assets/icons/close.svg");
+  filter: var(--icon-filter);
+  opacity: 0.3;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* Hover, only for non-touchable devices */
 @media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
   #form > div:first-of-type > button:hover {
