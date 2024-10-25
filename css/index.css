@@ -391,7 +391,7 @@ body.keyboard-up #agent-response {
   }
 
   15% {
-    outline: 0px solid transparent;
+    outline: 5px solid #4C57F287;
     outline-offset: 0px;
     border: 1px solid transparent;
   }
