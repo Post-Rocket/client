@@ -130,4 +130,21 @@ const getOpenDialog = target => (
 );
 document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 
+// Pulsing.
+let timeoutId2;
+const form = document.getElementById("form"),
+input = document.getElementById("input"),
+addPulsingShaking = input.onblur = () => {
+  timeoutId2 = setTimeout(() => {
+    input.classList.add("pulsing");
+    input.classList.add("shaking");
+  }, 10000);
+},
+removePulsingShaking = input.onfocus = () => {
+  clearTimeout(timeoutId2);
+  input.classList.remove("pulsing");
+  input.classList.remove("shaking");
+}
+addPulsingShaking();
+
 })(); // END OF SCRIPT
