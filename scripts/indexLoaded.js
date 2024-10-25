@@ -84,13 +84,6 @@ vv && (vv.onresize = _throttle(() => {
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
 }));
 
-// Remove focus.
-const h = Math.max(documentElement.clientHeight || 0, window.innerHeight || 0),
-blurActiveElement = () => (
-  (h > vv.height || vv.offsetTop) && document.activeElement && document.activeElement.blur()
-);
-document.addEventListener('scroll', blurActiveElement);
-
 // Delay navigation.
 const close = event => {
   event.preventDefault();
@@ -153,5 +146,15 @@ removePulsingShaking = input.onfocus = () => {
   input.classList.remove("shaking");
 }
 addPulsingShaking();
+
+// Remove focus.
+const h = Math.max(document.documentElement && document.documentElement.clientHeight || 0, window.innerHeight || 0),
+blurActiveElement = event => (
+  event.preventDefault(),
+  (h > vv.height || vv.offsetTop) && document.activeElement && document.activeElement.blur()
+);
+input.onfocus = () => setTimeout(() => document.addEventListener('scroll', blurActiveElement), 300);
+input.onblur = () => document.removeEventListener('scroll', blurActiveElement);
+
 
 })(); // END OF SCRIPT
