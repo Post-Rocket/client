@@ -35,6 +35,10 @@ body > * {
   font-size: 14px;
 }
 
+#side-menu .fill {
+  flex-grow: 1;
+}
+
 /* Activate transition */
 body.transition-on > *,
 body.transition-on #nav,
