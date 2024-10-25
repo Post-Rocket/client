@@ -130,31 +130,36 @@ const getOpenDialog = target => (
 );
 document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 
-// Pulsing.
-let timeoutId2;
-const form = document.getElementById("form"),
-input = document.getElementById("input"),
-addPulsingShaking = input.onblur = () => {
-  timeoutId2 = setTimeout(() => {
-    input.classList.add("pulsing");
-    input.classList.add("shaking");
-  }, 10000);
-},
-removePulsingShaking = input.onfocus = () => {
-  clearTimeout(timeoutId2);
-  input.classList.remove("pulsing");
-  input.classList.remove("shaking");
-}
-addPulsingShaking();
-
 // Remove focus.
 const h = Math.max(document.documentElement && document.documentElement.clientHeight || 0, window.innerHeight || 0),
 blurActiveElement = event => (
   event.preventDefault(),
   (h > vv.height || vv.offsetTop) && document.activeElement && document.activeElement.blur()
 );
-input.onfocus = () => setTimeout(() => document.addEventListener('scroll', blurActiveElement), 300);
-input.onblur = () => document.removeEventListener('scroll', blurActiveElement);
 
+// Pulsing.
+let timeoutId2;
+const form = document.getElementById("form"),
+input = document.getElementById("input"),
+addPulsingShaking = input.onblur = () => {
+  // Add pulsing after a certain time.
+  timeoutId2 = setTimeout(() => {
+    input.classList.add("pulsing");
+    input.classList.add("shaking");
+  }, 10000);
+
+  // Remove defocus event handler.
+  () => document.removeEventListener('scroll', blurActiveElement);
+},
+removePulsingShaking = input.onfocus = () => {
+  // Remove pulsing.
+  clearTimeout(timeoutId2);
+  input.classList.remove("pulsing");
+  input.classList.remove("shaking");
+
+  // Add defocus event handler.
+  setTimeout(() => document.addEventListener('scroll', blurActiveElement), 300);
+}
+addPulsingShaking();
 
 })(); // END OF SCRIPT
