@@ -4,6 +4,7 @@ newCodeButton = document.getElementById("new-code"),
 submitButton = document.getElementById("submit");
 submitButton.innerHTML = "Send Code";
 
+// Toggle between the identifier entry and the code.
 const toggle = () => {
   const sendCode = identifier.classList.contains("hidden");
   identifier.classList.toggle("hidden");
@@ -14,11 +15,13 @@ const toggle = () => {
   return sendCode;
 }
 
+// When user request to resubmit a new code.
 newCodeButton.onclick = event => {
   event.preventDefault();
   toggle();
 }
 
+// When a code request or code validation is submitted.
 form.onsubmit = event => {
   event.preventDefault();
   const form = event.target;
@@ -30,3 +33,6 @@ form.onsubmit = event => {
   console.log(formData);
 
 }
+
+// Autofocus unless the identifier is already filled.
+identifier.focus();
