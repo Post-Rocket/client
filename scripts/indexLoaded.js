@@ -85,10 +85,8 @@ vv && (vv.onresize = _throttle(() => {
 }));
 
 // Remove focus.
-document.addEventListener('touchstart', event => (
-  event.target.nodeName === 'BODY' && 
-    document.activeElement.blur()
-));
+const blurActiveElement = () => document.activeElement && document.activeElement.blur();
+document.addEventListener('scroll', blurActiveElement);
 
 // Delay navigation.
 const close = event => {
