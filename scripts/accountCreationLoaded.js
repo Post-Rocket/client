@@ -12,7 +12,7 @@ const toggle = () => {
   newCodeButton.classList.toggle("hidden");
   sendCode || (
     code.value = "",
-    code.focus()
+    setTimeout(() => code.focus(), 10000)
   );
   submitButton.innerHTML = sendCode && "Send Code" || "Verify Code";
   return sendCode;
