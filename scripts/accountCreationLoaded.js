@@ -38,4 +38,4 @@ form.onsubmit = event => {
 }
 
 // Autofocus unless the identifier is already filled.
-identifier.focus();
+setTimeout(() => identifier.focus(), 10);
