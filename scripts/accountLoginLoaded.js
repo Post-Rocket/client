@@ -10,7 +10,10 @@ const toggle = () => {
   identifier.classList.toggle("hidden");
   code.classList.toggle("hidden");
   newCodeButton.classList.toggle("hidden");
-  sendCode || (code.value = "");
+  sendCode || (
+    code.value = "",
+    code.focus()
+  );
   submitButton.innerHTML = sendCode && "Send Code" || "Verify Code";
   return sendCode;
 }
