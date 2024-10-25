@@ -85,7 +85,10 @@ vv && (vv.onresize = _throttle(() => {
 }));
 
 // Remove focus.
-const blurActiveElement = () => document.activeElement && document.activeElement.blur();
+const h = Math.max(documentElement.clientHeight || 0, window.innerHeight || 0),
+blurActiveElement = () => (
+  (h > vv.height || vv.offsetTop) && document.activeElement && document.activeElement.blur()
+);
 document.addEventListener('scroll', blurActiveElement);
 
 // Delay navigation.
