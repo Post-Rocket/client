@@ -84,6 +84,12 @@ vv && (vv.onresize = _throttle(() => {
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
 }));
 
+// Remove focus.
+document.addEventListener('touchstart', event => (
+  event.target.nodeName === 'BODY' && 
+    document.activeElement.blur()
+));
+
 // Delay navigation.
 const close = event => {
   event.preventDefault();
