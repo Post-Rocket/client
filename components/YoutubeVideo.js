@@ -73,6 +73,8 @@ const createTemplate = () => {
     left: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
   }
   `;
 
