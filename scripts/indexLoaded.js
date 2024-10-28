@@ -179,6 +179,7 @@ addThinking = msg => {
   Array.isArray(msg) || (msg = [msg]);
   thinking.classList.remove("hidden");
   removePulsingShaking();
+  input.disabled = true;
   timeoutId3 = setTimeout(() => {
     thinkingText.innerHTML = msg[0] || defaultThinkingMsg[0];
     timeoutId3 = setTimeout(() => {
@@ -194,8 +195,7 @@ removeThinking = () => {
   thinkingText.innerHTML = "";
   thinking.classList.add("hidden");
   document.activeElement || addPulsingShaking();
+  input.disabled = null;
 }
-
-addThinking();
 
 })(); // END OF SCRIPT

@@ -1,6 +1,6 @@
 :root {
   /* Colors */
-  --color: black;
+  --color: #111;
   --background: white;
   --gradient: linear-gradient(45deg, #8BB9FE, #8DF5FF);
   --color-5-percent: rgb(from var(--color) r g b / 0.05);
@@ -50,15 +50,18 @@
 
   /* Filters */
   --icon-filter: invert(0);
+  --side-menu-shadow: -4px 0 10px #00000007;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     /* Colors */
-    --color: white;
+    --color: #F0F0F0;
     --background: #111;
     --color-5-percent: rgb(from var(--color) r g b / 0.07);
     --icon-filter: invert(1);
+    --side-menu-shadow: -4px 0 5px #00000022;
+   
   }
 }
 

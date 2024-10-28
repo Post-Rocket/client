@@ -6,4 +6,34 @@
     </loc>
     <xhtml:link rel="canonical" hreflang="x-default" href="https://postrocket.app/"/>
   </url>
+  <url>
+    <loc>
+      https://postrocket.app/account-login.html
+    </loc>
+  </url>
+  <url>
+    <loc>
+      https://postrocket.app/account-creation.html
+    </loc>
+  </url>
+  <url>
+    <loc>
+      https://postrocket.app/faq.html
+    </loc>
+  </url>
+  <url>
+    <loc>
+      https://postrocket.app/help.html
+    </loc>
+  </url>
+  <url>
+    <loc>
+      https://postrocket.app/privacy-policy.html
+    </loc>
+  </url>
+  <url>
+    <loc>
+      https://postrocket.app/terms-of-use.html
+    </loc>
+  </url>
 </urlset>

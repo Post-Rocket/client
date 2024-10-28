@@ -49,6 +49,7 @@ const createTemplate = () => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 32px 0;
   }
 
   span {
@@ -56,9 +57,23 @@ const createTemplate = () => {
   }
  
   h2,
+  p,
   span {
     width: 100%;
   }
+
+  h2 {
+  background-clip: text;
+  box-decoration-break: clone;
+  -webkit-background-clip: text;
+  -webkit-box-decoration-break: clone;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-box-decoration-break: clone;
+  -moz-text-fill-color: transparent;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(45deg, #9B51E0, #3DA5E0);
+}
 
   .video-container {
     position: relative;
@@ -73,8 +88,8 @@ const createTemplate = () => {
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     border-radius: 8px;
+    overflow: hidden;
   }
   `;
 
