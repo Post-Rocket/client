@@ -474,7 +474,7 @@ body.keyboard-up #agent-response {
 
 #main-content > #form > #input::placeholder {
   font-style: italic;
-  opacity: 60%;
+  opacity: 70%;
 }
 
 #main-content > #form > button {
