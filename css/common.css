@@ -313,6 +313,7 @@ button {
 .link-color,
 .link-color * {
   color: var(--link-color);
+  font-weight: 500;
 }
 
 /* Pulsing */
