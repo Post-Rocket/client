@@ -12,6 +12,7 @@
   --background-50-percent: rgb(from var(--background) r g b / 0.5);
   --background-75-percent: rgb(from var(--background) r g b / 0.75);
   --background-90-percent: rgb(from var(--background) r g b / 0.90);
+  --link-color: #3DA5E0;
 
   /* Border radius */
   --border-radius-round: max(100vw, 100vh);
@@ -307,6 +308,11 @@ button {
   pointer-events: auto;
   /* animation */
   transition: var(--transition-time);
+}
+
+.link-color,
+.link-color * {
+  color: var(--link-color);
 }
 
 /* Pulsing */
