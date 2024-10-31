@@ -67,7 +67,7 @@
 
   <body>
     <!-- Intro -->
-    <dialog id="intro" open>
+    <dialog id="intro">
       <div>
         <span>
           <b class="title-gradient">Not time</b> for<br>your business<br><b class="title-gradient">social medias</b>?
@@ -80,6 +80,12 @@
       </div>
       <img src="./assets/icons/full-logo.svg" />
     </dialog>
+    <script>
+      ((document.referrer || "").toLowerCase().match("postrocket") || []).length
+        || (document.getElementById("intro").open = true);
+
+      console.log((document.referrer || ""));
+    </script>
 
     <!-- Main content -->
     <div id="main-content">
