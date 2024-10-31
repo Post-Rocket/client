@@ -165,6 +165,15 @@ removePulsingShaking = input.onfocus = () => {
   // setTimeout(() => document.addEventListener('scroll', blurActiveElement), 400);
 }
 
+// Intro animation.
+const intro = document.getElementById("intro");
+intro.onanimationend = event => {
+  if (event.animationName === "bg") {
+    intro.close();
+    addPulsingShaking();
+  }
+}
+
 setTimeout(addPulsingShaking, 11000);
 
 // Thinking.

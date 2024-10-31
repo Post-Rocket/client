@@ -516,7 +516,7 @@ body.keyboard-up #agent-response {
   &[open] {
     display: flex;
     flex-direction: row;
-    animation: bg 11000ms forwards;
+    animation: bg 13000ms forwards;
   }
 }
 
@@ -529,12 +529,8 @@ body.keyboard-up #agent-response {
     opacity: 1;
   }
 
-  99.9% {
-    opacity: 0;
-  }
-
   100% {
-    display: none;
+    opacity: 0;
   }
 }
 
@@ -544,7 +540,19 @@ body.keyboard-up #agent-response {
   background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
-  clip-path: inset(30dvh 0px 0px 0px);
+  /* clip-path: inset(30dvh 0px 0px 0px); */
+  display: flex;
+  flex-direction: column;
+  padding: var(--size-32-48);
+  color: black;
+}
+
+#intro > div > * {
+  font-size: var(--size-40-48);
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+  text-wrap: balance;
 }
 
 #intro > div:first-of-type {
@@ -581,10 +589,9 @@ body.keyboard-up #agent-response {
 
 #intro > div:last-of-type {
   background-image: url("../assets/backgrounds/bg2.webp");
-  animation: bg2 4000ms forwards;
-  animation-delay: 3900ms;
+  animation: bg2 3000ms forwards;
+  animation-delay: 3800ms;
   opacity: 0;
-  margin-left: -10dvw;
 }
 
 @keyframes bg2 {
@@ -592,11 +599,11 @@ body.keyboard-up #agent-response {
     opacity: 0;
     margin-left: 0;
   }
-  10% {
+  15% {
     opacity: 1;
   }
 
-  92% {
+  85% {
     margin-left: 0;
     opacity: 1;
   }
@@ -606,26 +613,60 @@ body.keyboard-up #agent-response {
   } */
 
   100% {
-    margin-left: -10dvw;
+    /* margin-left: -10dvw; */
     opacity: 0;
+  }
+}
+
+#intro::before {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/icons/full-logo.svg");
+  background-position: center;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  animation: full-logo 6000ms;
+  animation-delay: 7000ms;
+}
+
+@keyframes full-logo {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  70% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
 #intro::after {
   position: absolute;
-  /* top: 35%;
-  left: 35%; */
   opacity: 0;
   transform: rotate(45deg);
   content: "";
   width: 30%;
   height: 30%;
-  background-image: url("../assets/icons/rocket.svg");
+  background-image: url("../assets/icons/logo-color.svg");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  animation: logo 1000ms;
-  animation-delay: 9500ms;
+  animation: logo 2000ms;
+  animation-delay: 10500ms;
+  --_filter: brightness(0.1) drop-shadow(30px 30px 30px #00000033);
+  -webkit-filter: var(--_filter);
+  filter: var(--_filter);
 }
 
 @keyframes logo {

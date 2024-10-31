@@ -14,19 +14,6 @@ h1 {
   line-height: 50%;
 }
 
-h1, h2, .title-gradient {
-  background-clip: text;
-  box-decoration-break: clone;
-  -webkit-background-clip: text;
-  -webkit-box-decoration-break: clone;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-box-decoration-break: clone;
-  -moz-text-fill-color: transparent;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(45deg, #9B51E0, #3DA5E0);
-}
-
 #nav {
   position: relative;
   width: 100%;

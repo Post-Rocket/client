@@ -33,6 +33,7 @@
   /* Sizes */
   --size-48-96: min(max(8.7009dvw, 48px), 96px);
   --size-48-56: min(max(6.2840dvw, 48px), 56px);
+  --size-40-48: min(max(5.4381dvw, 40px), 48px);
   --size-32-48: min(max(4.8338dvw, 32px), 48px);
   --size-24-48: min(max(4.3504dvw, 24px), 48px);
   --size-16-24: min(max(2.4169dvw, 16px), 24px);
@@ -313,6 +314,20 @@ button {
 .link-color * {
   color: var(--link-color);
   font-weight: 500;
+}
+
+h1, h2,
+.title-gradient {
+  background-clip: text;
+  box-decoration-break: clone;
+  -webkit-background-clip: text;
+  -webkit-box-decoration-break: clone;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-box-decoration-break: clone;
+  -moz-text-fill-color: transparent;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(45deg, #9B51E0, #3DA5E0);
 }
 
 /* Pulsing */
