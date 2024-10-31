@@ -5,35 +5,56 @@
       https://postrocket.app/
     </loc>
     <xhtml:link rel="canonical" hreflang="x-default" href="https://postrocket.app/"/>
+    <image:image>
+      <image:loc>https://postrocket.app/assets/favicon/app.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>
       https://postrocket.app/account-login.html
     </loc>
+    <image:image>
+      <image:loc>https://postrocket.app/assets/favicon/app.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>
       https://postrocket.app/account-creation.html
     </loc>
+    <image:image>
+      <image:loc>https://postrocket.app/assets/favicon/app.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>
       https://postrocket.app/faq.html
     </loc>
+    <image:image>
+      <image:loc>https://postrocket.app/assets/favicon/app.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>
       https://postrocket.app/help.html
     </loc>
+    <image:image>
+      <image:loc>https://postrocket.app/assets/favicon/app.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>
       https://postrocket.app/privacy-policy.html
     </loc>
+    <image:image>
+      <image:loc>https://postrocket.app/assets/favicon/app.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>
       https://postrocket.app/terms-of-use.html
     </loc>
+    <image:image>
+      <image:loc>https://postrocket.app/assets/favicon/app.webp</image:loc>
+    </image:image>
   </url>
 </urlset>
