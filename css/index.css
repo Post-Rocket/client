@@ -669,6 +669,16 @@ body.keyboard-up #agent-response {
   filter: var(--_filter);
 }
 
+#close-intro {
+  cursor: pointer;
+  opacity: 0.1;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 100000;
+  transition: var(--transition-time);
+}
+
 @keyframes logo {
   0% {
     opacity: 0;
@@ -702,6 +712,10 @@ body.keyboard-up #agent-response {
 
 /* Hover, only for non-touchable devices */
 @media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
+  #close-intro:hover {
+    opacity: 0.9;
+  }
+  
   button:not(:disabled):not(.disabled):hover {
     opacity: 0.8;
   }

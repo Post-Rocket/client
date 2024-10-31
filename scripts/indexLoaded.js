@@ -173,6 +173,10 @@ intro.onanimationend = event => {
     addPulsingShaking();
   }
 }
+intro.onclick = event => {
+  event.stopPropagation();
+  intro.close();
+}
 
 setTimeout(addPulsingShaking, 11000);
 
