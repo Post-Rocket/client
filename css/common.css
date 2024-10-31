@@ -167,13 +167,12 @@ button, button:visited, button:active, button:disabled {
 /* Nav */
 nav {
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   top: 0;
   height: var(--nav-height);
   padding-top: var(--safearea-top);
   display: flex;
   align-items: center;
-  z-index: 100000;
 }
 
 /* Main */

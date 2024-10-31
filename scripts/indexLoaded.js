@@ -164,7 +164,8 @@ removePulsingShaking = input.onfocus = () => {
   // Add defocus event handler.
   // setTimeout(() => document.addEventListener('scroll', blurActiveElement), 400);
 }
-addPulsingShaking();
+
+setTimeout(addPulsingShaking, 11000);
 
 // Thinking.
 let timeoutId3;
