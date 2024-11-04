@@ -664,7 +664,7 @@ body.keyboard-up #agent-response {
   background-repeat: no-repeat;
   animation: logo 2000ms;
   animation-delay: 10500ms;
-  --_filter: brightness(0.15) drop-shadow(30px 30px 30px #00000033);
+  --_filter: brightness(0.1) drop-shadow(30px 30px 30px #00000033);
   -webkit-filter: var(--_filter);
   filter: var(--_filter);
 }
