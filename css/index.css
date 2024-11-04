@@ -494,6 +494,7 @@ body.keyboard-up #agent-response {
   opacity: 0.3;
 }
 
+#main-content > #form:has(input:not(:placeholder-shown)) > button,
 #main-content > #form:has(input:focus:not(:placeholder-shown)) > button {
   top: 0;
   opacity: 1;
