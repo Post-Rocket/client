@@ -167,18 +167,19 @@ removePulsingShaking = input.onfocus = () => {
 
 // Intro animation.
 const intro = document.getElementById("intro");
-intro.onanimationend = event => {
-  if (event.animationName === "bg") {
+intro && (
+  intro.onanimationend = event => {
+    if (event.animationName === "bg") {
+      intro.close();
+      addPulsingShaking();
+    }
+  },
+  intro.onclick = event => {
+    event.stopPropagation();
     intro.close();
-    addPulsingShaking();
-  }
-}
-intro.onclick = event => {
-  event.stopPropagation();
-  intro.close();
-}
-
-setTimeout(addPulsingShaking, 11000);
+  },
+  setTimeout(addPulsingShaking, 11000)
+) || addPulsingShaking();
 
 // Thinking.
 let timeoutId3;
