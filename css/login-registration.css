@@ -1,16 +1,6 @@
 @import "./page.css";
 @import "./flexbox.css";
 
-#login::after {
-  --_size: 16px;
-  background-image: url("../assets/icons/login.svg");
-}
-
-#account-creation::after {
-  --_size: 16px;
-  background-image: url("../assets/icons/add-user.svg");
-}
-
 #form {
   width: 100%;
   --_input-height: 48px;

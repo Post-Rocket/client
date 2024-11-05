@@ -102,6 +102,7 @@ h1 {
     padding-right: calc(var(--padding-horizontal) + var(--_offset));
   }
   #home:hover,
+  .nav-text:hover,
   .nav-icon:hover {
     opacity: 0.7;
   }
