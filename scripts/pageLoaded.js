@@ -1,11 +1,22 @@
 (() => { // START OF SCRIPT
 
-  const back = document.getElementById("back");
-  back && (back.onclick = () => {
-    window.history && window.history.length && window.history.back ?
+  const addBackOption = str => str && (
+    str.includes("?") && (str + "&back=true")
+    || str + "?back=true"
+  );
+  const createBackCallback = (
+    backUrl,
+    decrementHistory = true
+  ) => () => {
+    decrementHistory && window.history && window.history.length && window.history.back ?
       window.history.back()
-    : window.location.href = document.referrer || "./index.html";
-  });
+    : window.location.href = addBackOption(backUrl || document.referrer || "../index.html");
+  }
+
+  let back = document.getElementById("back");
+  back && (back.onclick = createBackCallback(null, back.hasAttribute("data-decrement-history")));
+  back = document.getElementById("back-home");
+  back && (back.onclick = createBackCallback("../index.html", back.hasAttribute("data-decrement-history")));
 
   // Disabling transition mode on window resize
   // and keep menu status.

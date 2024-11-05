@@ -86,7 +86,8 @@
       </div>
     </dialog>
     <script>
-      ((document.referrer || "").toLowerCase().match("postrocket") || []).length
+      (document.referrer || "").toLowerCase().includes("postrocket")
+        || window.location.href.includes("back=true")
         || (document.getElementById("intro").open = true);
     </script>
 
