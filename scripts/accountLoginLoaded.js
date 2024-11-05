@@ -33,7 +33,10 @@ form.onsubmit = event => {
   const formData = createFormData(form);
   (formData.verify = toggle()) || (delete formData.code);
 
+  // --- TO BE REPLACED ---
   console.log(formData);
+  formData.verify && (window.location.href = "./home.html");
+  // ----------------------
 
 }
 
