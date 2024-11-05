@@ -1,9 +1,9 @@
 (() => { // START OF SCRIPT
 
-  const addBackOption = str => str && (
-    str.includes("?") && (str + "&back=true")
-    || str + "?back=true"
-  );
+  const addBackOption = str => str && str.includes("index.html") && (
+    str.includes("?") && (str + "&intro=false")
+    || str + "?intro=false"
+  ) || str;
   const createBackCallback = (
     backUrl,
     decrementHistory = true

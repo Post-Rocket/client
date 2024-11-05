@@ -498,7 +498,7 @@ body.keyboard-up #agent-response {
 #main-content > #form:has(input:focus:not(:placeholder-shown)) > button {
   top: 0;
   opacity: 1;
-  transform: rotate(45deg);
+  transform: rotate(-45deg) translate(2px, -2px);
   pointer-events: auto;
 }
 
@@ -796,7 +796,7 @@ body.keyboard-up #agent-response {
   }
 
   #main-content > #form:has(input:not(:placeholder-shown)) > button:hover {
-    transform: rotate(45deg) translate(0px, -2px);
+    transform: rotate(-45deg) translate(4px, -2px);
   }
 }
 
