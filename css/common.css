@@ -241,6 +241,7 @@ dialog * {
 
 @keyframes close-dialog {
   from {
+    display: flex;
     opacity: 1;
     padding-top: var(--padding-vertical);
   }

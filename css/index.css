@@ -514,6 +514,7 @@ body.keyboard-up #agent-response {
   align-items: flex-end;
   padding: 0;
   opacity: 0;
+  animation: none;
   &[open] {
     display: flex;
     flex-direction: row;
