@@ -17,7 +17,7 @@
   }
 
   let back = document.getElementById("back");
-  back && (back.onclick = createBackCallback(null, "../index.html", back.hasAttribute("data-decrement-history")));
+  back && (back.onclick = createBackCallback(null, "../index.html", true));
   back = document.getElementById("back-home");
   back && (back.onclick = createBackCallback("../index.html", "../index.html", back.hasAttribute("data-decrement-history")));
 
