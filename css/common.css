@@ -176,6 +176,17 @@ nav {
   align-items: center;
 }
 
+nav .fill {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex: 1;
+  padding-right: var(--padding-horizontal);
+  gap: var(--padding-horizontal);
+  height: 100%;
+  flex: 1;
+}
+
 /* Main */
 main {
   flex-direction: column;
@@ -311,6 +322,24 @@ button {
   transition: var(--transition-time);
 }
 
+.button-outlined,
+.button-filled {
+  border-radius: var(--border-radius-round);
+  padding: 0 10px;
+  height: 26px;
+  font-size: 12px;
+  font-weight: 400;
+  border: 1.5px solid var(--color);
+}
+
+button.button-filled,
+.button.button-filled,
+.button-filled {
+  border: 1.5px solid var(--color);
+  color: var(--background);
+  background: var(--color);
+}
+
 .link-color,
 .link-color * {
   color: var(--link-color);
@@ -369,6 +398,24 @@ h1, h2,
     outline: 0;
     outline-offset: 0;
     transform: none;
+  }
+
+  .button-outlined:hover,
+  .button-filled:hover {
+    --_shadow-color: var(--color);
+    --_shadow: 4px 4px 0px var(--_shadow-color);
+    -webkit-box-shadow: var(--_shadow);
+    box-shadow: var(--_shadow);
+    color: var(--color);
+    background: none;
+    opacity: 1;
+  }
+
+  *:has(.button-outlined:hover,.button-filled:hover) > .button-outlined:not(:hover),
+  *:has(.button-outlined:hover,.button-filled:hover) > .button-filled:not(:hover) {
+    opacity: 0.3;
+    color: var(--color);
+    background: none;
   }
 }
 

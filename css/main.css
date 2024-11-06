@@ -145,29 +145,6 @@ body.menu-opened #nav > button > hr:last-of-type {
   transform: translate(-3px, -4px) rotate(-45deg);
 }
 
-/* Nav | Menu buttons right */
-#nav > div {
-  display: flex;
-  justify-content: end;
-  flex: 1;
-  padding-right: var(--padding-horizontal);
-  gap: var(--padding-horizontal);
-}
-
-#nav > div > .button {
-  border-radius: var(--border-radius-round);
-  padding: 0 10px;
-  height: 26px;
-  font-size: 12px;
-  font-weight: 400;
-  border: 1.5px solid var(--color);
-}
-
-#nav > div > .button:last-of-type {
-  color: var(--background);
-  background: var(--color);
-}
-
 /* Main */
 #main {
   padding: 0 var(--padding-horizontal);
@@ -733,24 +710,6 @@ body.keyboard-up #agent-response {
     opacity: 1 !important;
     background: var(--color-5-percent);
     padding: 12px calc(0.5 * var(--padding-horizontal));
-  }
-
-  /* Nav | Menu buttons right */
-  #nav > div > .button:hover {
-    --_shadow-color: var(--color);
-    --_shadow: 4px 4px 0px var(--_shadow-color);
-    -webkit-box-shadow: var(--_shadow);
-    box-shadow: var(--_shadow);
-    color: var(--color);
-    background: none;
-    opacity: 1;
-  }
-
-  /* Nav | Menu buttons right */
-  #nav > div:has(.button:hover) > .button:not(:hover) {
-    opacity: 0.3;
-    color: var(--color);
-    background: none;
   }
 
   /* Nav | Menu button left */

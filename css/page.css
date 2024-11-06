@@ -22,11 +22,6 @@ h1 {
   height: var(--_height);
 }
 
-#nav .fill {
-  height: 100%;
-  flex: 1;
-}
-
 #home,
 #next,
 #back,
