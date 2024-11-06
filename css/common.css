@@ -323,7 +323,9 @@ button {
 }
 
 .button-outlined,
-.button-filled {
+.button-filled,
+.button-outlined:active,
+.button-filled:active {
   border-radius: var(--border-radius-round);
   padding: 0 10px;
   height: 26px;
@@ -334,7 +336,8 @@ button {
 
 button.button-filled,
 .button.button-filled,
-.button-filled {
+.button-filled,
+.button-filled:active {
   border: 1.5px solid var(--color);
   color: var(--background);
   background: var(--color);
