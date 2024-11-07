@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Links -->
+    <link href="../css/flexbox.css" rel="stylesheet" type="text/css">
     <link href="../css/page.css" rel="stylesheet" type="text/css">
     <link href="../assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -83,13 +84,13 @@
       </div>
     </nav>
     <main id="main">
-      <h1 class='page-title'>Terms of Use</h1>
+      <h1 id="top" class='page-title'>Terms of Use</h1>
       <br/>
       <br/>
-      <i>This version of the Terms of Use was last updated on August 28, 2023.</i>
+      <i>This version of the Terms of Use was last updated on November 6th, 2024.</i>
       
       <br/>
-      <br/><span>Post Rocket is a product/software (the “Product”) created and delivered by Post Rocket, Inc. (the “Company”).</span><br/>
+      <br/><span>Post Rocket is a product/software (the “Product”) created and delivered by Post Rocket, Inc. (the “Company”). </span><br/>
 
       <br/>
       Welcome to the Post Rocket Terms of Use (also known as “Terms of Services”, and referred as “Terms”).
@@ -428,8 +429,13 @@
       authorized representative of the Company. Except as expressly set forth in these Terms, the exercise by either
       party of any of its remedies under these Terms will be without prejudice to its other remedies under these
       Terms or otherwise.
-      <br/>
-      <br/>
+      <br/><br/>
+      <div id="copyright" class="row middle center extend user-select-none">
+        <script>
+          const year = new Date(Date.now()).getFullYear();
+          document.currentScript.parentNode.innerHTML = `<a class="link" href="./terms-of-use.html#intellectual-property">© Copyright RocketPost 2024${year !== 2024 && `-${year}` || ''}</a>`;
+        </script>
+      </div>
 
     </main>
   </body>

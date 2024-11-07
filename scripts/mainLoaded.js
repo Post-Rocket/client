@@ -92,9 +92,13 @@ vv && (vv.onresize = _throttle(() => {
 const close = event => {
   event.preventDefault();
   event.stopPropagation();
-  document.body.classList.remove("menu-opened");
-  document.body.clientWidth <= 800 && (document.body.scrollLeft = 0);
-  whileSideMenuToggled();
+  const hasMenuOpened = document.body.classList.contains("menu-opened");
+  hasMenuOpened && (
+    document.body.classList.remove("menu-opened"),
+    document.body.clientWidth <= 800 && (document.body.scrollLeft = 0),
+    whileSideMenuToggled()
+  );
+  return hasMenuOpened;
 }
 
 const getOnclick = onclick => event => (
@@ -104,7 +108,7 @@ const getOnclick = onclick => event => (
     || ((event = event.target.getAttribute("href")) && (onclick = () => {
       window.location.href = event
     })),
-  onclick && setTimeout(onclick, 310)
+  onclick && setTimeout(() => onclick(event), 310)
 ); 
 
 for (let i = 0, cn = menu.getElementsByTagName('a'), l = cn.length, el; i !== l; ++i) {

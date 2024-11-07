@@ -97,8 +97,15 @@
 
         </pre>
       </div>
+      
       <div class="row middle center extend user-select-none">
         <a class="link" href="./privacy-policy.html"> Privacy Policy </a> &nbsp; <span>｜</span> &nbsp; <a class="link" href="./terms-of-use.html"> Terms of Use </a>
+      </div>
+      <div id="copyright" class="row middle center extend user-select-none">
+        <script>
+          const year = new Date(Date.now()).getFullYear();
+          document.currentScript.parentNode.innerHTML = `<a class="link" href="./terms-of-use.html#intellectual-property">© Copyright RocketPost 2024${year !== 2024 && `-${year}` || ''}</a>`;
+        </script>
       </div>
     </main>
   </body>

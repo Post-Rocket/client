@@ -384,42 +384,11 @@ h1, h2,
   }
 }
 
-@media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
-  .pulsing:not(:hover) {
-    animation: pulsing 3s linear infinite;
-    outline: 0;
-    outline-offset: 0;
-  }
-
-  .shaking:not(:hover) {
-    animation: shaking 3s linear infinite;
-    transform: none;
-  }
-
-  .pulsing.shaking:not(:hover) {
-    animation: pulsing 3s linear infinite, shaking 3s linear infinite;
-    outline: 0;
-    outline-offset: 0;
-    transform: none;
-  }
-
-  .button-outlined:hover,
-  .button-filled:hover {
-    --_shadow-color: var(--color);
-    --_shadow: 4px 4px 0px var(--_shadow-color);
-    -webkit-box-shadow: var(--_shadow);
-    box-shadow: var(--_shadow);
-    color: var(--color);
-    background: none;
-    opacity: 1;
-  }
-
-  *:has(.button-outlined:hover,.button-filled:hover) > .button-outlined:not(:hover),
-  *:has(.button-outlined:hover,.button-filled:hover) > .button-filled:not(:hover) {
-    opacity: 0.3;
-    color: var(--color);
-    background: none;
-  }
+#copyright > * {
+  font-size: 12px;
+  opacity: 0.3;
+  font-style: italic;
+  transition: var(--transition-time);
 }
 
 @keyframes pulsing {
@@ -481,5 +450,47 @@ h1, h2,
 
   100% {
     transform: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
+  .pulsing:not(:hover) {
+    animation: pulsing 3s linear infinite;
+    outline: 0;
+    outline-offset: 0;
+  }
+
+  .shaking:not(:hover) {
+    animation: shaking 3s linear infinite;
+    transform: none;
+  }
+
+  .pulsing.shaking:not(:hover) {
+    animation: pulsing 3s linear infinite, shaking 3s linear infinite;
+    outline: 0;
+    outline-offset: 0;
+    transform: none;
+  }
+
+  .button-outlined:hover,
+  .button-filled:hover {
+    --_shadow-color: var(--color);
+    --_shadow: 4px 4px 0px var(--_shadow-color);
+    -webkit-box-shadow: var(--_shadow);
+    box-shadow: var(--_shadow);
+    color: var(--color);
+    background: none;
+    opacity: 1;
+  }
+
+  *:has(.button-outlined:hover,.button-filled:hover) > .button-outlined:not(:hover),
+  *:has(.button-outlined:hover,.button-filled:hover) > .button-filled:not(:hover) {
+    opacity: 0.3;
+    color: var(--color);
+    background: none;
+  }
+
+  #copyright > a:hover {
+    opacity: 1;
   }
 }
