@@ -328,9 +328,9 @@ button {
 .button-filled:active {
   border-radius: var(--border-radius-round);
   padding: 0 10px;
-  height: 26px;
+  height: 28px;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
   border: 1.5px solid var(--color);
 }
 
