@@ -1,6 +1,12 @@
 # robots.txt file for the website.
 
 User-agent: *
-Allow: /
+Disallow: /account
+Disallow: /billing
+Disallow: /history
+Disallow: /home
+Disallow: /payement
+Disallow: /posts
+
 
 Sitemap: https://postrocket.app/sitemap.xml
