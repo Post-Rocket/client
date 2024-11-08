@@ -44,7 +44,7 @@ export class CopyrightLine extends HTMLElement {
       this.#anchor.setAttribute("href", href)
     );
     target && this.#anchor.setAttribute("target", target);
-    this.setAttribute("title", `Copyright ${text.replace(/(\s+ | $)(©|Copyright)/gi, "")}`);
+    this.setAttribute("title", `Copyright ${text.replace(/(\s+|$)(©|Copyright)/gi, "")}`);
     this.#anchor.innerHTML = text;
   }
 }
