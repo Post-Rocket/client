@@ -126,7 +126,12 @@ const blurActiveElement = event => (
 let timeoutId2;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
-addPulsingShaking = input.onblur = () => {
+addPulsingShaking = input.onblur = event => {
+  if (event.relatedTarget.type === "submit") {
+    event.preventDefault();
+    return;
+  }
+
   // Add pulsing after a certain time.
   timeoutId2 = setTimeout(() => {
     input.classList.add("pulsing");
@@ -208,10 +213,6 @@ form.onsubmit = event => {
   );
 
   // --- TO BE REPLACED ---
-  const inputs = form.getElementsByTagName("input");
-  for (let i = 0, l = inputs.length; i !== l; ++i) {
-    inputs[i].value = "";
-  }
   console.log(formData);
   // ----------------------
 
