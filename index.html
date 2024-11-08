@@ -162,12 +162,9 @@ Let's unleash your social media together! Do you have a website?
       <a title="View our terms of use" class="link" href="./pages/terms-of-use.html">
         Terms of use
       </a>
-      <div id="copyright" class="row middle center extend user-select-none">
-        <script>
-          const year = new Date(Date.now()).getFullYear();
-          document.currentScript.parentNode.innerHTML = `<a class="link" href="./pages/terms-of-use.html#intellectual-property">© RocketPost 2024${year !== 2024 && `-${year}` || ''}</a>`;
-        </script>
-      </div>
+      <copyright-line
+        class="row middle center extend user-select-none"
+      ></copyright-line>
     </div>
     <dialog id="agent-dialog">
       <div>

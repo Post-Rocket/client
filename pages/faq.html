@@ -20,6 +20,7 @@
     <link href="../assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
     <!-- Modules / Scripts -->
+    <script src="../modules/src/components/CopyrightLine.js" type="module"></script>
     <script src="../modules/src/loaded/pageLoaded.js" type="module" defer></script>
 
     <!-- Canonical url -->
@@ -110,12 +111,9 @@
       </h2>
       <b>A:</b> Mostly people who do not have time for social media marketing. Nearly half of the U.S. economy is powered by +33M small and medium businesses (SMBs), over 40% of those businesses are owned by women, and over 20% by minorities. A hard-working workforce that cranks more than 50 hours a week ― sometime working 7 days a week ― who has no time, no expertise and no money for their marketing. We are here to help, with a super intuitive <i>"set once and forget it"</i> platform at the most affordable and flexible pricing point.
       <br/><br/>
-      <div id="copyright" class="row middle center extend user-select-none">
-        <script>
-          const year = new Date(Date.now()).getFullYear();
-          document.currentScript.parentNode.innerHTML = `<a class="link" href="./terms-of-use.html#intellectual-property">© Copyright RocketPost 2024${year !== 2024 && `-${year}` || ''}</a>`;
-        </script>
-      </div>
+      <copyright-line
+        class="row middle center extend user-select-none"
+      ></copyright-line>
     </main>
   </body>
 </html>

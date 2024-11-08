@@ -19,6 +19,7 @@
     <link href="../assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
     <!-- Modules / Scripts -->
+    <script src="../modules/src/components/CopyrightLine.js" type="module"></script>
     <script src="../modules/src/loaded/accountCreationLoaded.js" type="module" defer></script>
 
     <!-- Canonical url -->
@@ -99,12 +100,9 @@
       <div class="row middle center extend user-select-none">
         <a class="link" href="./privacy-policy.html"> Privacy Policy </a> &nbsp; <span>｜</span> &nbsp; <a class="link" href="./terms-of-use.html"> Terms of Use </a>
       </div>
-      <div id="copyright" class="row middle center extend user-select-none">
-        <script>
-          const year = new Date(Date.now()).getFullYear();
-          document.currentScript.parentNode.innerHTML = `<a class="link" href="./terms-of-use.html#intellectual-property">© Copyright RocketPost 2024${year !== 2024 && `-${year}` || ''}</a>`;
-        </script>
-      </div>
+      <copyright-line
+        class="row middle center extend user-select-none"
+      ></copyright-line>
     </main>
   </body>
 </html>

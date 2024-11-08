@@ -384,13 +384,6 @@ h1, h2,
   }
 }
 
-#copyright > * {
-  font-size: 12px;
-  opacity: 0.35;
-  font-style: italic;
-  transition: var(--transition-time);
-}
-
 @keyframes pulsing {
   0% {
     outline: 0px solid transparent;
@@ -488,9 +481,5 @@ h1, h2,
     opacity: 0.3;
     color: var(--color);
     background: none;
-  }
-
-  #copyright > a:hover {
-    opacity: 1;
   }
 }

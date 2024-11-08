@@ -1,6 +1,6 @@
 const re = /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&]{10,12})/;
 
-class YoutubeVideo extends HTMLElement {
+export class YoutubeVideo extends HTMLElement {
   #iframe;
   #src;
   #headline;
@@ -116,3 +116,8 @@ const createTemplate = () => {
 
 // Register component.
 customElements.define('youtube-video', YoutubeVideo);
+
+// Exports.
+export default Object.freeze(Object.defineProperty(YoutubeVideo, 'YoutubeVideo', {
+  value: YoutubeVideo
+}));
