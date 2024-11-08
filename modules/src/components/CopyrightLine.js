@@ -1,6 +1,6 @@
 const COPYRIGHT = "PostRocket",
   YEAR = 2024,
-  HREF = "./terms-of-use.html#intellectual-property",
+  HREF = "/terms-of-use.html#intellectual-property",
   TARGET = "_self";
 
 export class CopyrightLine extends HTMLElement {
