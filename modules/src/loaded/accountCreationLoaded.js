@@ -1,5 +1,5 @@
-import createFormData from "./createFormData";
-import "./pageLoaded";
+import createFormData from "./createFormData.js";
+import "./pageLoaded.js";
 
 const form = document.getElementById("form"),
 [identifier, code] = form.getElementsByTagName("input"),
