@@ -25,7 +25,9 @@ export class CopyrightLine extends HTMLElement {
     startYear = this.getAttribute("start") || this.getAttribute("year") || YEAR,
     value = this.getAttribute("entity") || this.getAttribute("company") || this.getAttribute("name") || COPYRIGHT,
     short = this.hasAttribute("short"),
-    text = this.getAttribute("value") || `©${!short && " Copyright" || ""} ${value} ${startYear}${endYear !== startYear && `-${endYear}` || ''}`;
+    text = this.getAttribute("value") || `©${!short && " Copyright" || ""} ${value} ${startYear}${endYear !== startYear && `-${endYear}` || ''}`,
+    href = this.getAttribute("href") || HREF,
+    target = this.getAttribute("target") || TARGET;
     
     // Remove specific attributes.
     this.removeAttribute("year");
@@ -37,8 +39,11 @@ export class CopyrightLine extends HTMLElement {
     this.removeAttribute("value");
 
     // Transfer the rest of the attributes.
-    this.#anchor.setAttribute("href", this.getAttribute("href") || HREF);
-    this.#anchor.setAttribute("target", this.getAttribute("target") || TARGET);
+    href && (
+      this.setAttribute("href", href),
+      this.#anchor.setAttribute("href", href)
+    );
+    target && this.#anchor.setAttribute("target", target);
     this.setAttribute("title", `Copyright ${text.replace(/(\s+ | $)(©|Copyright)/gi, "")}`);
     this.#anchor.innerHTML = text;
   }
