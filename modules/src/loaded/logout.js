@@ -1,3 +1,5 @@
+(() => { // START OF SCRIPT
+
 // Logout.
 const logout = document.getElementById("logout");
 logout && (logout.onclick = event => {
@@ -10,3 +12,5 @@ logout && (logout.onclick = event => {
     // ----------------------
   }
 });
+
+})(); // END OF SCRIPT

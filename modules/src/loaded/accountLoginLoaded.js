@@ -1,3 +1,6 @@
+import createFormData from "./createFormData";
+import "./pageLoaded";
+
 const form = document.getElementById("form"),
 [identifier, code] = form.getElementsByTagName("input"),
 newCodeButton = document.getElementById("new-code"),

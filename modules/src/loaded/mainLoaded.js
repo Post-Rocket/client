@@ -1,3 +1,5 @@
+import "./common";
+
 (() => { // START OF SCRIPT
 
 // Util function for side menu interaction.
@@ -49,33 +51,6 @@ document.body.addEventListener('scroll', () => {
     : document.body.classList.add("menu-opened")
   );
 } );
-
-// Disabling transition mode on window resize
-// and keep menu status.
-let timeoutId, _throttle;
-try {
-  _throttle = throttle;
-} catch {
-  _throttle = x => x;
-}
-window.onresize = _throttle(() => {
-  document.body.clientWidth <= 800 && (
-    document.body.scrollLeft = document.body.classList.contains("menu-opened") &&
-      -document.body.scrollWidth
-      || 0
-  );
-  timeoutId || document.body.classList.remove('transition-on');
-  clearTimeout(timeoutId);
-  timeoutId = setTimeout(() => {
-    document.body.classList.add('transition-on');
-    timeoutId = 0;
-  }, 100);
-});
-
-// Add transition mode.
-setTimeout(() => {
-  document.body.classList.add('transition-on');
-}, 100);
 
 // Keyboard push the content top.
 const vv = window.visualViewport,
