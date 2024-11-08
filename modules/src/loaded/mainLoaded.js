@@ -208,6 +208,10 @@ form.onsubmit = event => {
   );
 
   // --- TO BE REPLACED ---
+  const inputs = form.getElementsByTagName("input");
+  for (let i = 0, l = inputs.length; i !== l; ++i) {
+    inputs[i].value = "";
+  }
   console.log(formData);
   // ----------------------
 
