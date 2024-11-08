@@ -78,7 +78,7 @@
   gap: var(--padding-vertical);
 }
 
-#main > div:nth-last-of-type(2) > * {
+#main > div:last-of-type > * {
   opacity: 0.5;
   transition: var(--transition-time);
 }
@@ -119,7 +119,7 @@ input[type="search"]::-webkit-search-cancel-button {
     background: none;
   }
 
-  #main > div:nth-last-of-type(2) > a:hover {
+  #main > div:last-of-type > a:hover {
     opacity: 1;
   }
 }
