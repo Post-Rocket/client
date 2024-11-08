@@ -30,7 +30,6 @@ newCodeButton.onclick = event => {
 // When a code request or code validation is submitted.
 form.onsubmit = event => {
   event.preventDefault();
-  const form = event.target;
   form.checkValidity();
   form.reportValidity();
   const formData = createFormData(form);

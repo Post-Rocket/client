@@ -1,4 +1,5 @@
 import "./common.js";
+import createFormData from "./createFormData.js";
 import throttle from "../utils/throttle.js";
 
 (() => { // START OF SCRIPT
@@ -191,6 +192,25 @@ removeThinking = () => {
   thinking.classList.add("hidden");
   document.activeElement || addPulsingShaking();
   input.disabled = null;
+}
+
+// When a user talk to the bot.
+form.onsubmit = event => {
+  event.preventDefault();
+  form.checkValidity();
+  form.reportValidity();
+  const formData = createFormData(form),
+    msg = formData.msg || formData.demoMsg,
+    isDemo = !!formData.demoMsg;
+  (formData.isDemo = isDemo) && (
+    delete formData.demoMsg,
+    formData.msg = msg
+  );
+
+  // --- TO BE REPLACED ---
+  console.log(formData);
+  // ----------------------
+
 }
 
 })(); // END OF SCRIPT
