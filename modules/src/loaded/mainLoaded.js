@@ -1,4 +1,5 @@
 import "./common.js";
+import throttle from "../utils/throttle.js";
 
 (() => { // START OF SCRIPT
 
@@ -55,7 +56,7 @@ document.body.addEventListener('scroll', () => {
 // Keyboard push the content top.
 const vv = window.visualViewport,
 origHeight = Math.max(document.documentElement && document.documentElement.clientHeight || 0, window.innerHeight || 0);
-vv && (vv.onresize = _throttle(() => {
+vv && (vv.onresize = throttle(() => {
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
 
