@@ -37,8 +37,8 @@ export class CopyrightLine extends HTMLElement {
     this.removeAttribute("value");
 
     // Transfer the rest of the attributes.
-    this.#anchor.setAttributes("href", this.getAttribute("href") || HREF);
-    this.#anchor.setAttributes("target", this.getAttribute("target") || TARGET);
+    this.#anchor.setAttribute("href", this.getAttribute("href") || HREF);
+    this.#anchor.setAttribute("target", this.getAttribute("target") || TARGET);
     this.setAttribute("title", text);
   }
 }
