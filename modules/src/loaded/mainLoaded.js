@@ -127,6 +127,7 @@ let timeoutId2;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
+  console.log(">>>>", event && event.relatedTarget && event.relatedTarget.type);
   if (event && event.relatedTarget && event.relatedTarget.type === "submit") {
     event.preventDefault();
     return;
