@@ -129,6 +129,8 @@ input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
   if (event && event.relatedTarget && event.relatedTarget.type === "submit") {
     event.preventDefault();
+    event.target.focus();
+    console.log("blur");
     return;
   }
 
@@ -212,6 +214,7 @@ form.onsubmit = event => {
     formData.msg = msg
   );
   input.value = "";
+  input.focus();
 
   // --- TO BE REPLACED ---
   console.log(formData);
