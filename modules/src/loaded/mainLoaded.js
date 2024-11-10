@@ -130,7 +130,7 @@ addPulsingShaking = input.onblur = event => {
   if (event && event.relatedTarget && event.relatedTarget.type === "submit") {
     event.preventDefault();
     event.target.focus();
-    console.log("blur");
+    removePulsingShaking();
     return;
   }
 
@@ -148,9 +148,6 @@ removePulsingShaking = input.onfocus = () => {
   clearTimeout(timeoutId2);
   input.classList.remove("pulsing");
   input.classList.remove("shaking");
-
-  // Add defocus event handler.
-  // setTimeout(() => document.addEventListener('scroll', blurActiveElement), 400);
 }
 
 // Intro animation.
