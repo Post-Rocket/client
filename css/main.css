@@ -328,6 +328,14 @@ body.keyboard-up #agent-response {
   font-size: 16px;
 }
 
+#text .row {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-horizontal);
+  overflow-x: auto;
+  max-width: 100%;
+}
+
 #text button {
   border-radius: var(--border-radius-round);
   padding: 0 10px 1px 10px;
