@@ -67,15 +67,17 @@ vv && (vv.onresize = throttle(() => {
 // Write text to chat box.
 const chat = document.getElementById("text"),
 writeText = (text, elmt = chat, i = 0) => (
-  elmt.innerHTML = (text = `${text || ""}`).slice(0, Math.min(i, text.length)),
-  i < text.length && (
+  i = Math.min(i, text.length),
+  elmt.innerHTML = (text = `${text || ""}`).slice(0, i - 1),
+  elmt.innerHTML += `<b>${text.charAt(i - 1)}</b>`,
+  i < text.length ? (
     setTimeout(() => writeText(
       text,
       elmt,
       i += 1 + Math.round(Math.random() * 3)
     ), 30 + Math.floor(Math.random() * 50)),
-    i < text.length - 2 && (elmt.innerHTML += ' <span style="opacity: 0.5">⬤</span>')
-  )
+    i < text.length - 1 && (elmt.innerHTML += ` <span style="opacity: 0.2">⬤</span>`)
+  ) : elmt.innerHTML = text
 );
 
 window.location.href.includes("index.html") &&
