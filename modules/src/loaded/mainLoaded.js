@@ -106,12 +106,12 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     typeof c !== 'object' ? (
       elmt.appendChild(writeText(
         c,
-        document.createTextNode(""),
+        document.createElement('pre'),
         () => writeContent(arr, elmt, cb, ++i, null, c)
       ))
     ) : Array.isArray(c) && (c = c.filter(isValid)).length ? (
       c.length > 1 && (
-        p = document.createElement('pre'),
+        p = document.createElement("pre"),
         p.classList.add("row"),
         elmt.appendChild(p)
       ) || (
@@ -121,7 +121,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     ) : (
       Array.isArray(c) || !c || (
         c.type === "button" && (
-          p = document.createElement('button'),
+          p = document.createElement("button"),
           p.textContent = c.text,
           p.onclick = event => (
             event.preventDefault(),
@@ -132,14 +132,14 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           ),
           elmt.appendChild(p)
         ) || c.type === "img" && c.src && (
-          p = document.createElement('img'),
+          p = document.createElement("img"),
           p.setAttribute("src", c.src),
           p.setAttribute("alt", (c.alt || c.title) && `Image of ${c.alt || c.title}` || "image"),
           p.setAttribute("title", (c.title || c.alt) && `Image of ${c.title || c.alt}` || "image"),
           p.setAttribute("loading", c.loading || "lazy"),
           elmt.appendChild(p)
         ) || c.type === "youtube" && c.src && (
-          p = document.createElement('youtube-video'),
+          p = document.createElement("youtube-video"),
           p.setAttribute("src", c.src),
           elmt.appendChild(p)
         )
