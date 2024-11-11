@@ -71,8 +71,8 @@ writeText = (text, elmt = chat, i = 0) => (
   i < text.length && setTimeout(() => writeText(
     text,
     elmt,
-    i += 1 + Math.floor(Math.random() * 3)
-  ), 10 + Math.floor(Math.random() * 50))
+    i += 1 + Math.floor(Math.random() * 4)
+  ), 20 + Math.floor(Math.random() * 80))
 );
 
 window.location.href.includes("index.html") &&
