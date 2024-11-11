@@ -139,12 +139,14 @@ window.location.href.includes("index.html") && writeContent([
 `Welcome to PostRocket 🚀
 Let's unleash your social media together! Do you have a website?`,
 {
-  type: 'button',
-  text: 'yes'
+  type: "button",
+  text: "yes",
+  send: "[WEBSITE:0]"
 },
 {
   type: 'button',
-  text: 'no'
+  text: "no",
+  send: "[WEBSITE:1]"
 }
 ]) || writeContent(`What can I help with today?`);
 
