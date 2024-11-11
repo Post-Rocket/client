@@ -81,7 +81,7 @@ writeText = (text, elmt = chat, i = 0, c) => (
       text,
       elmt,
       nextChar(text, i)
-    ), 20 + Math.floor(Math.random() * 30))
+    ), 10 + Math.floor(Math.random() * 50))
   ) || (elmt.innerHTML = text)
 );
 
