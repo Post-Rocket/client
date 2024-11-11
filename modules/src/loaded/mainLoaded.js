@@ -75,7 +75,7 @@ resizeChatText = (
   elmt.style.fontSize = `${fontSize}px`;
   console.log(text);
   console.log("> CHAT:", surface, `${text.length} vs. ${textLines} x ${textArray.length} ->`, fontSize, "|", width, height);
-
+  elmt.textContent = `surface: ${surface} fontSize: ${fontSize}px dim: ${width} x ${height}`;
 }
 
 // Keyboard push the content top.
