@@ -54,16 +54,30 @@ document.body.addEventListener('scroll', () => {
   );
 } );
 
+// Resize chat text based on the viewport surface.
+const chat = document.getElementById("text"),
+resizeChatText = (
+  surface,
+  elmt = chat
+ ) => {
+  console.log("CHAT:", elmt.textContent);
+}
+
 // Keyboard push the content top.
 const vv = window.visualViewport,
 origHeight = Math.max(document.documentElement && document.documentElement.clientHeight || 0, window.innerHeight || 0);
-vv && (vv.onresize = throttle(() => {
+vv && (
+vv.onresize = throttle(() => {
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
-
+  resizeChatText((vv.height - vv.offsetTop) * (vv.width - vv.offsetLeft));
   const offset = Math.max(vv.offsetTop || 0, origHeight - (vv.height || 0));
   document.body.classList[offset && "add" || "remove"]("keyboard-up");
-}));
+}),
+resizeChatText((vv.height - vv.offsetTop) * (vv.width - vv.offsetLeft))
+);
+
+
 
 // Delay navigation.
 const close = event => {
