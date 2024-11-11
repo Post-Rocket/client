@@ -70,8 +70,8 @@ writeText = (text, elmt = chat, cb, i = 0) => (
   i >= 0 || (i = 0),
   i || Array.isArray(text) || (text = [...`${text || ""}`]),
   i = Math.min(i, text.length),
-  elmt.innerHTML = text.slice(0, i - 1).join(""),
-  elmt.innerHTML += `<b>${text[i - 1] || ""}</b>`,
+  elmt.textContent = text.slice(0, i - 1).join(""),
+  elmt.textContent += `<b>${text[i - 1] || ""}</b>`,
   i < text.length && (
     setTimeout(() => writeText(
       text,
@@ -80,9 +80,10 @@ writeText = (text, elmt = chat, cb, i = 0) => (
       ++i
     ), 1 + Math.floor(Math.random() * 30))
   ) || (
-    elmt.innerHTML = text.join(""),
+    elmt.textContent = text.join(""),
     typeof cb === "function" && cb()
-  )
+  ),
+  elmt
 ),
 isValid = x => x || x === 0 || x === false,
 writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
@@ -97,16 +98,16 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
       elmt.innerHTML += "<br/><br/>"
     ),
     typeof c !== 'object' ? (
-      writeText(
+      elmt.appendChild(writeText(
         c,
-        elmt,
+        document.createTextNode(),
         () => writeContent(arr, elmt, cb, ++i, null, c)
-      )
+      ))
     ) : Array.isArray(c) && (c = c.filter(isValid)).length ? (
       c.length > 1 && (
-        elmt.innerHTML += `<pre${elmt instanceof HTMLPreElement && ' class="row"' || ""}></pre>`,
-        p = elmt.getElementsByTagName('pre'),
-        p = p[p.length - 1]
+        p = document.createElement('pre'),
+        p.classList.add("row"),
+        elmt.appendChild(p)
       ) || (
         p = elmt
       ),
@@ -114,9 +115,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     ) : (
       Array.isArray(c) || !c || (
         c.type === "button" && (
-          elmt.innerHTML += `<button>${c.text}</button>`,
-          p = elmt.getElementsByTagName('button'),
-          p = p[p.length - 1],
+          p = document.createElement('button'),
+          p.textContent = c.text,
           p.onclick = event => (
             event.preventDefault(),
             event.stopPropagation(),
@@ -124,11 +124,18 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
             // form.submit(),
             console.log(p, c.send || c.text)
           ),
-          console.log(p, c.send || c.text, p.innerHTML, p.onclick)
+          elmt.appendChild(p)
         ) || c.type === "img" && (
-          elmt.innerHTML += `<img src="${c.src} loading="lazy"></img>`
+          p = document.createElement('img'),
+          p.setAttribute("src", c.src),
+          p.setAttribute("alt", (c.alt || c.title) && `Image of ${c.alt || c.title}` || "image"),
+          p.setAttribute("title", (c.title || c.alt) && `Image of ${c.title || c.alt}` || "image"),
+          p.setAttribute("loading", c.loading || "lazy"),
+          elmt.appendChild(p)
         ) || c.type === "youtube" && (
-          elmt.innerHTML += `<youtube-video src="${c.src}></youtube-video>`
+          p = document.createElement('youtube-video'),
+          p.setAttribute("src", c.src),
+          elmt.appendChild(p)
         )
       ),
       setTimeout(
@@ -138,7 +145,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     )
   ) || (
     typeof cb === "function" && cb()
-  )
+  ),
+  elmt
 );
 
 window.location.href.includes("index.html") && writeContent([
@@ -154,7 +162,7 @@ Let's unleash your social media together! Do you have a website?`, [
   },
   {
     type: "button",
-    text: "not sure"
+    text: "not sure..."
   }
 ]
 ]) || writeContent(`What can I help with today?`);
