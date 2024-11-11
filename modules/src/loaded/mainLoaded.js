@@ -147,8 +147,12 @@ Let's unleash your social media together! Do you have a website?`, [
     text: "yes"
   },
   {
-    type: 'button',
+    type: "button",
     text: "no"
+  },
+  {
+    type: "button",
+    text: "not sure"
   }
 ]
 ]) || writeContent(`What can I help with today?`);
