@@ -67,11 +67,13 @@ resizeChatText = (
   width = (elmt.clientWidth || 0) - paddingLeft - paddingRight,
   height = (elmt.clientHeight || 0) - paddingTop - paddingBottom,
   surface = width * height,
-  textArray = (elmt.textContent || elmt.innerHTML || "").split(/\n\r/g),
-  textSurface = textArray.reduce((out, arr) => out = Math.max(out, arr.length), 0) * textArray.length,
+  text = elmt.textContent || elmt.innerHTML || "",
+  textArray = text.split(/\n\r/g),
+  textLines = textArray.reduce((out, arr) => out = Math.max(out, arr.length), 0),
+  textSurface = textLines * textArray.length,
   fontSize = Math.max(Math.min(Math.sqrt(surface / (textSurface || 1)), 64), 14);
   // elmt.style.fontSize = `${fontSize}px`;
-  console.log("#> CHAT:", surface, textSurface, fontSize, "|", width, height);
+  console.log("#> CHAT:", surface, `${text.length} vs. ${textLines} x ${textArray.length}`, fontSize, "|", width, height);
 
 }
 
