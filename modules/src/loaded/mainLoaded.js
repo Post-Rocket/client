@@ -66,15 +66,15 @@ vv && (vv.onresize = throttle(() => {
 
 // Write text to chat box.
 const chat = document.getElementById("text"),
-writeText = (text, elmt = chat, i = 0) => (
+writeText = (text, elmt = chat, i = 0, c) => (
   i = Math.min(i, text.length),
   elmt.innerHTML = (text = `${text || ""}`).slice(0, i - 1),
-  elmt.innerHTML += `<b>${text.charAt(i - 1)}</b>`,
+  elmt.innerHTML += `<b>${c = text.charAt(i - 1)}</b>`,
   i < text.length && (
     setTimeout(() => writeText(
       text,
       elmt,
-      i += 2 + Math.round(Math.random() * 3)
+      i += (c === "□" ||  c === "�") && 3 || 1
     ), 20 + Math.floor(Math.random() * 20))
   ) || (elmt.innerHTML = text)
 );
