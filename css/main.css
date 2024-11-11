@@ -333,6 +333,7 @@ body.keyboard-up #agent-response {
   align-items: center;
   gap: var(--padding-horizontal);
   overflow-x: auto;
+  overflow-y: visible;
   max-width: 100%;
 }
 
@@ -786,6 +787,7 @@ body.keyboard-up #agent-response {
     color: var(--color);
     background: none;
     opacity: 1;
+    border: 1.5px solid var(--color);
   }
 }
 
