@@ -73,7 +73,7 @@ writeText = (text, elmt = chat, i = 0) => (
       text,
       elmt,
       i += 1 + Math.round(Math.random() * 3)
-    ), 20 + Math.floor(Math.random() * 50)),
+    ), 30 + Math.floor(Math.random() * 50)),
     elmt.textContent += " 🟣"
   )
 );
