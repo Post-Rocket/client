@@ -176,8 +176,8 @@ window.location.href.includes("index.html") && writeContent([
   ],
   [{
     type: "image",
-    src: "https://i.giphy.com/D8xNev92dfqdG9FPx4.webp",
-    title: "random"
+    src: "https://media.tenor.com/NtzA1v_UCkEAAAAj/bork.gif",
+    title: "dog barking"
   }],
   [{
     type: "youtube",
