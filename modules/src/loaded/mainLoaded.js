@@ -101,7 +101,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     c = arr[i],
     (typeof c === "number" || typeof c === "boolean") && (c = `${c}`),
     i && Array.isArray(c) && (
-      elmt.innerHTML += "<br/><br/>"
+      elmt.appendChild(document.createElement('br')),
+      elmt.appendChild(document.createElement('br'))
     ),
     typeof c !== 'object' ? (
       elmt.appendChild(writeText(
