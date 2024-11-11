@@ -118,7 +118,9 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p = elmt.getElementsByTagName('button'),
           p = p[p.length - 1],
           console.log(p, c.send || c.text, p.innerHTML),
-          p.onclick = () => (
+          p.onclick = event => (
+            event.preventDefault(),
+            event.stopPropagation(),
             // input.value = c.send || c.text,
             // form.submit(),
             console.log(p, c.send || c.text)
