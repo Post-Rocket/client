@@ -67,8 +67,8 @@ vv && (vv.onresize = throttle(() => {
 // Write text to chat box.
 const chat = document.getElementById("text"),
 writeText = (text, elmt = chat, i = 0) => (
-  elmt.textContent = (text = `${text || ""}`).slice(0, i),
-  i < text.length && setTimeout(() => writeText(text, elmt, ++i), Math.floor(Math.random() * 50))
+  elmt.textContent = (text = `${text || ""}`).slice(0, Math.min(i, text.length)),
+  i < text.length && setTimeout(() => writeText(text, elmt, i += 1 + Math.floor(Math.random() * 3)), Math.floor(Math.random() * 50))
 );
 
 window.location.href.includes("index.html") &&
