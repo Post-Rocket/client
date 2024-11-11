@@ -352,6 +352,7 @@ body.keyboard-up #agent-response {
   max-width: 100%;
   object-fit: contain;
   object-position: left;
+  border-radius: 8px;
 }
 
 #thinking {

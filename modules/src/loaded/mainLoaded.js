@@ -156,25 +156,25 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
 );
 
 window.location.href.includes("index.html") && writeContent([
-"Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
-  {
-    type: "button",
-    text: "yes"
-  },
-  {
-    type: "button",
-    text: "no"
-  },
-  {
-    type: "button",
-    text: "not sure"
-  },
+  "Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
+    {
+      type: "button",
+      text: "yes"
+    },
+    {
+      type: "button",
+      text: "no"
+    },
+    {
+      type: "button",
+      text: "not sure"
+    }
+  ],
   {
     type: "image",
     src: "https://gratisography.com/wp-content/uploads/2024/11/gratisography-leg-warmers-1170x780.jpg",
     title: "random"
   }
-]
 ]) || writeContent(`What can I help with today?`);
 
 // Delay navigation.
