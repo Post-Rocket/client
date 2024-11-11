@@ -125,14 +125,14 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
             console.log(p, c.send || c.text)
           ),
           elmt.appendChild(p)
-        ) || c.type === "img" && (
+        ) || c.type === "img" && c.src && (
           p = document.createElement('img'),
           p.setAttribute("src", c.src),
           p.setAttribute("alt", (c.alt || c.title) && `Image of ${c.alt || c.title}` || "image"),
           p.setAttribute("title", (c.title || c.alt) && `Image of ${c.title || c.alt}` || "image"),
           p.setAttribute("loading", c.loading || "lazy"),
           elmt.appendChild(p)
-        ) || c.type === "youtube" && (
+        ) || c.type === "youtube" && c.src && (
           p = document.createElement('youtube-video'),
           p.setAttribute("src", c.src),
           elmt.appendChild(p)
