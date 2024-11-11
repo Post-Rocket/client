@@ -70,7 +70,7 @@ writeText = (text, elmt = chat, i = 0) => (
   Array.isArray(text) || (text = [...`${text || ""}`]),
   i = Math.min(i, text.length),
   elmt.innerHTML = text.slice(0, i - 1).join(""),
-  elmt.innerHTML += `<b style="opacity:0.5;font-size:20px">${text[i - 1] || ""}</b>`,
+  elmt.innerHTML += `<b style="color:var(--link-color)">${text[i - 1] || ""}</b>`,
   i < text.length && (
     setTimeout(() => writeText(
       text,
