@@ -68,7 +68,7 @@ vv && (vv.onresize = throttle(() => {
 const chat = document.getElementById("text"),
 writeText = (text, elmt = chat, i = 0) => (
   elmt.textContent = (text = `${text || ""}`).slice(0, i),
-  i < text.length && setTimeout(() => writeText(text, elmt, ++i), Math.floor(20 + Math.random() * 20))
+  i < text.length && setTimeout(() => writeText(text, elmt, ++i), Math.floor(Math.random() * 50))
 );
 
 window.location.href.includes("index.html") &&
