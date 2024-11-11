@@ -328,6 +328,16 @@ body.keyboard-up #agent-response {
   font-size: 16px;
 }
 
+#text button {
+  border-radius: var(--border-radius-round);
+  padding: 0 10px;
+  height: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--color-5-percent);
+  border: 1.5px solid transparent;
+}
+
 #thinking {
   position: absolute;
   width: 100%;
@@ -758,6 +768,16 @@ body.keyboard-up #agent-response {
 
   #main-content > #form:has(input:not(:placeholder-shown)) > button:hover {
     transform: rotate(-45deg) translate(4px, -2px);
+  }
+
+  #text button:hover {
+    --_shadow-color: var(--color);
+    --_shadow: 4px 4px 0px var(--_shadow-color);
+    -webkit-box-shadow: var(--_shadow);
+    box-shadow: var(--_shadow);
+    color: var(--color);
+    background: none;
+    opacity: 1;
   }
 }
 

@@ -87,12 +87,8 @@ writeText = (text, elmt = chat, cb, i = 0) => (
 isValid = x => x || x === 0 || x === false,
 writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
   i >= 0 || (i = 0),
-  elmt instanceof HTMLPreElement || Array.isArray(arr) || (
-    arr = [arr]
-  ),
-  i || (
-    Array.isArray(arr) || (arr = [arr].filter(isValid))
-  ),
+  i || Array.isArray(arr) || (arr = [arr]),
+  arr = arr.filter(isValid),
   i = Math.min(i, arr.length),
   i < arr.length && (
     c = arr[i],
@@ -137,17 +133,18 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
 
 window.location.href.includes("index.html") && writeContent([
 `Welcome to PostRocket 🚀
-Let's unleash your social media together! Do you have a website?`,
-{
-  type: "button",
-  text: "yes",
-  send: "[WEBSITE:0]"
-},
-{
-  type: 'button',
-  text: "no",
-  send: "[WEBSITE:1]"
-}
+Let's unleash your social media together! Do you have a website?`, [
+  {
+    type: "button",
+    text: "yes",
+    send: "[WEBSITE:0]"
+  },
+  {
+    type: 'button',
+    text: "no",
+    send: "[WEBSITE:1]"
+  }
+]
 ]) || writeContent(`What can I help with today?`);
 
 // Delay navigation.
