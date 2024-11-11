@@ -78,7 +78,7 @@ writeText = (text, elmt = chat, i = 0) => (
       elmt,
       ++i
     ), 10 + Math.floor(Math.random() * 50))
-  ) || (elmt.innerHTML = text)
+  ) || (elmt.innerHTML = text.join())
 );
 
 window.location.href.includes("index.html") &&
