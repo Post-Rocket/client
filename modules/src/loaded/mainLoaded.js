@@ -76,7 +76,7 @@ writeText = (text, elmt = chat, i = 0) => (
       text,
       elmt,
       ++i
-    ), 5 + Math.floor(Math.random() * 45))
+    ), 5 + Math.round(Math.random() * 45))
   ) || (elmt.innerHTML = text.join(""))
 );
 
