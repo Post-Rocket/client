@@ -54,43 +54,31 @@ document.body.addEventListener('scroll', () => {
   );
 } );
 
-// Resize chat text based on the viewport surface.
-const chat = document.getElementById("text"),
-resizeChatText = (
-  elmt = chat
- ) => {
-  const style = window.getComputedStyle && getComputedStyle(elmt, null) || el.currentStyle || "",
-  paddingTop = parseFloat(style.paddingTop) || 0,
-  paddingLeft = parseFloat(style.paddingLeft) || 0,
-  paddingBottom = parseFloat(style.paddingBottom) || 0,
-  paddingRight = parseFloat(style.paddingRight) || 0,
-  width = (elmt.clientWidth || 0) - paddingLeft - paddingRight,
-  height = (elmt.clientHeight || 0) - paddingTop - paddingBottom,
-  surface = width * height,
-  text = elmt.textContent || elmt.innerHTML || "",
-  textArray = text.split(/\n|\r/g),
-  textLines = textArray.reduce((out, arr) => out = Math.max(out, arr.length), 0),
-  textSurface = textLines * textArray.length,
-  fontSize = Math.max(Math.min(Math.sqrt(surface / (textSurface || 1)), 64), 14);
-  elmt.style.fontSize = `${fontSize}px`;
-  console.log(text);
-  console.log("#> CHAT:", surface, `${text.length} vs. ${textLines} x ${textArray.length} ->`, fontSize, "|", width, height);
-  elmt.textContent = `surface: ${surface}\nfontSize: ${fontSize}px\ndim: ${width} x ${height}\ntext: ${text.length} vs. ${textLines} x ${textArray.length}`;
-}
-
 // Keyboard push the content top.
 const vv = window.visualViewport,
 origHeight = Math.max(document.documentElement && document.documentElement.clientHeight || 0, window.innerHeight || 0);
-vv && (
-vv.onresize = throttle(() => {
+vv && (vv.onresize = throttle(() => {
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
   const offset = Math.max(vv.offsetTop || 0, origHeight - (vv.height || 0));
   document.body.classList[offset && "add" || "remove"]("keyboard-up");
-})
+}));
+
+// Write text to chat box.
+const chat = document.getElementById("text"),
+writeText = (text, elmt = chat, i = 0) => (
+  elmt.textContent = (text = `${text || ""}`).slice(0, i),
+  i < text.length && setTimeout(() => writeText(text, elmt, ++i), Math.floor(20 + Math.random() * 20))
 );
 
+window.location.href.includes("index.html") &&
+writeText(`Welcome to PostRocket 🚀
+Let's unleash your social media together! Do you have a website?
 
+▹  yes
+▹  no`) ||
+writeText(`Welcome to PostRocket 🚀
+Please let me know if there's anything I can help you with today.`);
 
 // Delay navigation.
 const close = event => {
