@@ -343,7 +343,7 @@ body.keyboard-up #agent-response {
   font-size: 12px;
   font-weight: 500;
   background: var(--color-5-percent);
-  border: 1.5px solid var(--color-5-percent);
+  border: 1.5px solid transparent;
 }
 
 #thinking {

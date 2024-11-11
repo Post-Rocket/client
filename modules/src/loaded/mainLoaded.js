@@ -93,7 +93,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
   i < arr.length && (
     c = arr[i],
     (typeof c === "number" || typeof c === "boolean") && (c = `${c}`),
-    i && typeof c === "object" && (
+    i && Array.isArray(c) && (
       elmt.innerHTML += "<br/><br/>"
     ),
     typeof c !== 'object' ? (
