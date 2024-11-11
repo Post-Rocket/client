@@ -119,7 +119,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p = p[p.length - 1],
           p.onclick = () => (
             input.value = c.send || c.text,
-            form.submit(),
+            // form.submit(),
             console.log(p)
           )
         ) || c.type === "img" && (
