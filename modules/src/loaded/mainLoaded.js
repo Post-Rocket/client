@@ -68,11 +68,14 @@ vv && (vv.onresize = throttle(() => {
 const chat = document.getElementById("text"),
 writeText = (text, elmt = chat, i = 0) => (
   elmt.textContent = (text = `${text || ""}`).slice(0, Math.min(i, text.length)),
-  i < text.length && setTimeout(() => writeText(
-    text,
-    elmt,
-    i += 1 + Math.floor(Math.random() * 4)
-  ), 20 + Math.floor(Math.random() * 80))
+  i < text.length && (
+    setTimeout(() => writeText(
+      text,
+      elmt,
+      i += 1 + Math.round(Math.random() * 3)
+    ), 20 + Math.floor(Math.random() * 50)),
+    elmt.textContent += "✍️"
+  )
 );
 
 window.location.href.includes("index.html") &&
