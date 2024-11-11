@@ -57,10 +57,20 @@ document.body.addEventListener('scroll', () => {
 // Resize chat text based on the viewport surface.
 const chat = document.getElementById("text"),
 resizeChatText = (
-  surface,
   elmt = chat
  ) => {
-  console.log("CHAT:", elmt.textContent);
+  const style = window.getComputedStyle && getComputedStyle(elmt, null) || el.currentStyle || "",
+  paddingTop = parseFloat(style.paddingTop) || 0,
+  paddingLeft = parseFloat(style.paddingLeft) || 0,
+  paddingBottom = parseFloat(style.paddingBottom) || 0,
+  paddingRight = parseFloat(style.paddingRight) || 0,
+  width = (elmt.clientWidth || 0) - paddingLeft - paddingRight,
+  height = (elmt.clientHeight || 0) - paddingTop - paddingBottom,
+  surface = width * height,
+  textArray = (elmt.textContent || "").split(/\n\r/g),
+  textSurface = textArray.reduce((out, arr) => out = Math.max(out, arr.length), 0) * textArray.length,
+  fontSize = Math.max(Math.min(Math.sqrt(surface / (textSurface || 1)), 64), 14);
+  console.log("CHAT:", elmt.textContent, surface, fontSize);
 }
 
 // Keyboard push the content top.
@@ -70,11 +80,11 @@ vv && (
 vv.onresize = throttle(() => {
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
-  resizeChatText((vv.height - vv.offsetTop) * (vv.width - vv.offsetLeft));
+  resizeChatText();
   const offset = Math.max(vv.offsetTop || 0, origHeight - (vv.height || 0));
   document.body.classList[offset && "add" || "remove"]("keyboard-up");
 }),
-resizeChatText((vv.height - vv.offsetTop) * (vv.width - vv.offsetLeft))
+resizeChatText()
 );
 
 
