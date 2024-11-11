@@ -71,13 +71,12 @@ writeText = (text, elmt = chat, i = 0) => (
   i = Math.min(i, text.length),
   elmt.innerHTML = text.slice(0, i - 1).join(""),
   elmt.innerHTML += `<b>${text[i - 1] || ""}</b>`,
-  console.log(">",text[i - 1], i - 1, text.length),
   i < text.length && (
     setTimeout(() => writeText(
       text,
       elmt,
       ++i
-    ), 10 + Math.floor(Math.random() * 50))
+    ), 5 + Math.floor(Math.random() * 45))
   ) || (elmt.innerHTML = text.join(""))
 );
 
