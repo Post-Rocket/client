@@ -335,6 +335,7 @@ body.keyboard-up #agent-response {
   overflow-x: auto;
   overflow-y: visible;
   max-width: 100%;
+  padding: 4px 0px;
 }
 
 #text button {
