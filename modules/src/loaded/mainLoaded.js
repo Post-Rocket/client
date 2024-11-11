@@ -66,12 +66,18 @@ vv && (vv.onresize = throttle(() => {
 
 // Write text to chat box.
 const chat = document.getElementById("text"),
-writeText = (text, elmt = chat, cb, i = 0) => (
+writeText = (
+  text,
+  elmt = chat,
+  cb,
+  i = 0,
+  k = elmt instanceof Text && "nodeValue" || "textContent"
+) => (
   i >= 0 || (i = 0),
   i || Array.isArray(text) || (text = [...`${text || ""}`]),
   i = Math.min(i, text.length),
-  elmt.textContent = text.slice(0, i - 1).join(""),
-  elmt.textContent += `<b>${text[i - 1] || ""}</b>`,
+  elmt[k] = text.slice(0, i - 1).join(""),
+  elmt[k] += `<b>${text[i - 1] || ""}</b>`,
   i < text.length && (
     setTimeout(() => writeText(
       text,
@@ -80,7 +86,7 @@ writeText = (text, elmt = chat, cb, i = 0) => (
       ++i
     ), 1 + Math.floor(Math.random() * 30))
   ) || (
-    elmt.textContent = text.join(""),
+    elmt[k] = text.join(""),
     typeof cb === "function" && cb()
   ),
   elmt
