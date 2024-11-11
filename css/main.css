@@ -348,6 +348,12 @@ body.keyboard-up #agent-response {
   border: 1.5px solid transparent;
 }
 
+#text img {
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left;
+}
+
 #thinking {
   position: absolute;
   width: 100%;
