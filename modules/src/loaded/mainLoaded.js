@@ -68,7 +68,7 @@ vv && (vv.onresize = throttle(() => {
 const chat = document.getElementById("text"),
 nextChar = (text, i) => {
   console.log('>', text.charAt(i));
-  for (let c, l = text.length; i !== l && ((c = text.charAt(i)) < 'n' || c > '~'); ++i);
+  for (let c, l = text.length; i !== l && ((c = text.charAt(i)) < ' ' || c > '~'); ++i);
   console.log(text.charAt(i + 1));
   return i + 1;
 },
