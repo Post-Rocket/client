@@ -117,12 +117,12 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           elmt.innerHTML += `<button>${c.text}</button>`,
           p = elmt.getElementsByTagName('button'),
           p = p[p.length - 1],
-          console.log(p, c.send || c.text),
-          p.onclick = (() => (
+          console.log(p, c.send || c.text, p.innerHTML),
+          p.onclick = () => (
             // input.value = c.send || c.text,
             // form.submit(),
             console.log(p, c.send || c.text)
-          ))
+          )
         ) || c.type === "img" && (
           elmt.innerHTML += `<img src="${c.src} loading="lazy"></img>`
         ) || c.type === "youtube" && (
