@@ -61,6 +61,8 @@ export class YoutubeVideo extends HTMLElement {
         break;
       default:
     }
+
+    console.log(">>>", name, oldValue, newValue);
   }
 }
 
