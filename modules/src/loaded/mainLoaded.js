@@ -106,7 +106,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     typeof c !== 'object' ? (
       elmt.appendChild(writeText(
         c,
-        document.createElement("pre"),
+        document.createTextNode(""),
         () => writeContent(arr, elmt, cb, ++i, null, c)
       ))
     ) : Array.isArray(c) && (c = c.filter(isValid)).length ? (
