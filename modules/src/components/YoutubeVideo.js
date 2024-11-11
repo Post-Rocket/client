@@ -41,6 +41,7 @@ export class YoutubeVideo extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     name = name.toLowerCase();
+    console.log(">>>", name, oldValue, newValue);
     switch (name) {
       case "headline":
         (this.#headline.innerHTML = newValue) ?
@@ -62,8 +63,6 @@ export class YoutubeVideo extends HTMLElement {
         break;
       default:
     }
-
-    console.log(">>>", name, oldValue, newValue);
   }
 }
 
