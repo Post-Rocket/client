@@ -117,14 +117,14 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           elmt.innerHTML += `<button>${c.text}</button>`,
           p = elmt.getElementsByTagName('button'),
           p = p[p.length - 1],
-          console.log(p, c.send || c.text, p.innerHTML),
           p.onclick = event => (
             event.preventDefault(),
             event.stopPropagation(),
             // input.value = c.send || c.text,
             // form.submit(),
             console.log(p, c.send || c.text)
-          )
+          ),
+          console.log(p, c.send || c.text, p.innerHTML, p.onclick)
         ) || c.type === "img" && (
           elmt.innerHTML += `<img src="${c.src} loading="lazy"></img>`
         ) || c.type === "youtube" && (
@@ -154,7 +154,7 @@ Let's unleash your social media together! Do you have a website?`, [
   },
   {
     type: "button",
-    text: "not sure?"
+    text: "not sure"
   }
 ]
 ]) || writeContent(`What can I help with today?`);
