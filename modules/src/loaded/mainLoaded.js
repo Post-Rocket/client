@@ -131,7 +131,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
             console.log(p, c.send || c.text)
           ),
           elmt.appendChild(p)
-        ) || c.type === "img" && c.src && (
+        ) || (c.type === "img" || c.type === "image") && c.src && (
           p = document.createElement("img"),
           p.setAttribute("src", c.src),
           p.setAttribute("alt", (c.alt || c.title || c.text) && `Image of ${c.alt || c.title || c.text}` || "image"),
