@@ -330,7 +330,7 @@ body.keyboard-up #agent-response {
 
 #text button {
   border-radius: var(--border-radius-round);
-  padding: 0 10px;
+  padding: 0 10px 1px 10px;
   height: 28px;
   font-size: 12px;
   font-weight: 500;
