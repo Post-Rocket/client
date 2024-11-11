@@ -170,11 +170,11 @@ window.location.href.includes("index.html") && writeContent([
       text: "not sure"
     }
   ],
-  {
+  [{
     type: "image",
     src: "https://gratisography.com/wp-content/uploads/2024/11/gratisography-leg-warmers-1170x780.jpg",
     title: "random"
-  }
+  }]
 ]) || writeContent(`What can I help with today?`);
 
 // Delay navigation.
