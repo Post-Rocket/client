@@ -71,7 +71,7 @@ resizeChatText = (
   textSurface = textArray.reduce((out, arr) => out = Math.max(out, arr.length), 0) * textArray.length,
   fontSize = Math.max(Math.min(Math.sqrt(surface / (textSurface || 1)), 64), 14);
   elmt.style.fontSize = `${fontSize}px`;
-  console.log(">> CHAT:", surface, textSurface, fontSize);
+  console.log(">>> CHAT:", surface, textSurface, fontSize);
 
 }
 
