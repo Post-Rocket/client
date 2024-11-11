@@ -117,6 +117,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           elmt.innerHTML += `<button>${c.text}</button>`,
           p = elmt.getElementsByTagName('button'),
           p = p[p.length - 1],
+          console.log(p),
           p.onclick = () => (
             input.value = c.send || c.text,
             form.submit()
@@ -142,13 +143,11 @@ window.location.href.includes("index.html") && writeContent([
 Let's unleash your social media together! Do you have a website?`, [
   {
     type: "button",
-    text: "yes",
-    send: "[WEBSITE:0]"
+    text: "yes"
   },
   {
     type: 'button',
-    text: "no",
-    send: "[WEBSITE:1]"
+    text: "no"
   }
 ]
 ]) || writeContent(`What can I help with today?`);
