@@ -76,7 +76,7 @@ writeText = (text, elmt = chat, i = 0, c) => (
       elmt,
       i += ((c = text.charAt(i)) == "□" ||  c == "�") && 3 || 1,
       console.log(c, c == "□" || c == "�")
-    ), 500 + Math.floor(Math.random() * 30))
+    ), 20 + Math.floor(Math.random() * 30))
   ) || (elmt.innerHTML = text)
 );
 
