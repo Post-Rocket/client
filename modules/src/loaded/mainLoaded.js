@@ -121,6 +121,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
       writeContent(c, p, () => writeContent(arr, elmt, cb, ++i, null, c))
     ) : (
       Array.isArray(c) || !c || (
+        c.type = (c.type || "").toLowerCase(),
         c.type === "button" && (
           p = document.createElement("button"),
           p.textContent = c.text,
@@ -139,7 +140,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p.setAttribute("title", (c.title || c.alt || c.text) && `Image of ${c.title || c.alt || c.text}` || "image"),
           p.setAttribute("loading", c.loading || "lazy"),
           elmt.appendChild(p)
-        ) || c.type === "youtube" && c.src && (
+        ) || (c.type === "yt" || c.type === "youtube") && c.src && (
           p = document.createElement("youtube-video"),
           p.setAttribute("src", c.src),
           p.setAttribute("headline", c.headline),
@@ -179,6 +180,7 @@ window.location.href.includes("index.html") && writeContent([
     title: "random"
   }],
   [{
+    type: "youtube",
     src: "https://www.youtube.com/watch?v=k3kjJDGBa_o"
   }]
 ]) || writeContent(`What can I help with today?`);
