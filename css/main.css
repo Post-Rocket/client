@@ -338,6 +338,11 @@ body.keyboard-up #agent-response {
   padding: 4px 0px;
 }
 
+#text .br {
+  width: var(--padding-horizontal);
+  height: var(--padding-vertical);
+}
+
 #text button {
   border-radius: var(--border-radius-round);
   padding: 0 10px 1px 10px;
