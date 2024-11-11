@@ -168,7 +168,7 @@ window.location.href.includes("index.html") && writeContent([
   },
   {
     type: "button",
-    text: "not sure..."
+    text: "not sure"
   }
 ]
 ]) || writeContent(`What can I help with today?`);
