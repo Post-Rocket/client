@@ -66,7 +66,7 @@ vv && (vv.onresize = throttle(() => {
 
 // Write text to chat box.
 const chat = document.getElementById("text"),
-writeText = (text, elmt = chat, i = 0) => (
+writeText = (text, elmt = chat, i = 0, c) => (
   i = Math.min(i, text.length),
   elmt.innerHTML = (text = `${text || ""}`).slice(0, i - 1),
   elmt.innerHTML += `<b>${text.charAt(i - 1)}</b>`,
