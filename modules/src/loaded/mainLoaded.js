@@ -173,7 +173,7 @@ window.location.href.includes("index.html") && writeContent([
   ],
   [{
     type: "image",
-    src: "https://gratisography.com/wp-content/uploads/2024/11/gratisography-leg-warmers-1170x780.jpg",
+    src: "https://i.giphy.com/D8xNev92dfqdG9FPx4.webp",
     title: "random"
   }]
 ]) || writeContent(`What can I help with today?`);
