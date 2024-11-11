@@ -154,7 +154,7 @@ Let's unleash your social media together! Do you have a website?`, [
   },
   {
     type: "button",
-    text: "not sure"
+    text: "not sure?"
   }
 ]
 ]) || writeContent(`What can I help with today?`);
