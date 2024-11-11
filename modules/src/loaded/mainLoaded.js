@@ -121,8 +121,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
       writeContent(c, p, () => writeContent(arr, elmt, cb, ++i, null, c))
     ) : (
       Array.isArray(c) || !c || (
-        c.type = (c.type || "").toLowerCase(),
-        c.type === "button" && (
+        p = (c.type || "").toLowerCase(),
+        p === "button" && (
           p = document.createElement("button"),
           p.textContent = c.text,
           p.onclick = event => (
@@ -133,14 +133,14 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
             console.log(p, c.send || c.text)
           ),
           elmt.appendChild(p)
-        ) || (c.type === "img" || c.type === "image") && c.src && (
+        ) || (p === "img" || p === "image") && c.src && (
           p = document.createElement("img"),
           p.setAttribute("src", c.src),
           p.setAttribute("alt", (c.alt || c.title || c.text) && `Image of ${c.alt || c.title || c.text}` || "image"),
           p.setAttribute("title", (c.title || c.alt || c.text) && `Image of ${c.title || c.alt || c.text}` || "image"),
           p.setAttribute("loading", c.loading || "lazy"),
           elmt.appendChild(p)
-        ) || (c.type === "yt" || c.type === "youtube") && c.src && (
+        ) || (p === "yt" || p === "youtube") && c.src && (
           p = document.createElement("youtube-video"),
           p.setAttribute("src", c.src),
           p.setAttribute("headline", c.headline),
