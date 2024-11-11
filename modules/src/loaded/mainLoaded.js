@@ -76,7 +76,7 @@ writeText = (
   i >= 0 || (i = 0),
   i || Array.isArray(text) || (text = [...`${text || ""}`]),
   i = Math.min(i, text.length),
-  elmt[k] = text.slice(0, i).join("") + " ◉",
+  elmt[k] = text.slice(0, i).join("") + " ⬤",
   i < text.length && (
     setTimeout(() => writeText(
       text,
