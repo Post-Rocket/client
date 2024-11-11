@@ -22,7 +22,6 @@ export class YoutubeVideo extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log(">>> connectedCallback");
     // Get the headline.
     (this.#headline.innerHTML = this.getAttribute('headline'))
       || this.#headline.classList.add("hidden");
@@ -36,7 +35,9 @@ export class YoutubeVideo extends HTMLElement {
       this.#src = this.#src.match(re)[1],
       this.#src = `https://www.youtube.com/embed/${this.#src}?&theme=dark&autohide=2&modestbranding=1`,
       this.#iframe.setAttribute("src", this.#src)
-    ) : this.#description.classList.add("hidden");
+    ) : this.#iframe.classList.add("hidden");
+
+    console.log(">>> connectedCallback", this.#headline.innerHTML, this.#description.innerHTML, this.#src);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
