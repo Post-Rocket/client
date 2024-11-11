@@ -71,7 +71,7 @@ nextChar = (text, i) => {
   for (let c, l = text.length; i !== l && ((c = text.charAt(i)) < 'n' || c > '~'); ++i);
   console.log(text.charAt(i + 1));
   return i + 1;
-}
+},
 writeText = (text, elmt = chat, i = 0, c) => (
   i = Math.min(i, text.length),
   elmt.innerHTML = (text = `${text || ""}`).slice(0, i - 1),
