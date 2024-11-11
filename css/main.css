@@ -151,6 +151,7 @@ body.menu-opened #nav > button > hr:last-of-type {
   padding-top: var(--main-padding-top);
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 }
 
 body.keyboard-up #main {
