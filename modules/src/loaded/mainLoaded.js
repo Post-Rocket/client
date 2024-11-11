@@ -74,7 +74,7 @@ resizeChatText = (
   fontSize = Math.max(Math.min(Math.sqrt(surface / (textSurface || 1)), 64), 14);
   elmt.style.fontSize = `${fontSize}px`;
   console.log(text);
-  console.log(">> CHAT:", surface, `${text.length} vs. ${textLines} x ${textArray.length} ->`, fontSize, "|", width, height);
+  console.log("> CHAT:", surface, `${text.length} vs. ${textLines} x ${textArray.length} ->`, fontSize, "|", width, height);
 
 }
 
@@ -85,7 +85,7 @@ vv && (
 vv.onresize = throttle(() => {
   document.documentElement.style.setProperty('--top', `${vv.offsetTop}px`);
   document.documentElement.style.setProperty('--height', `${vv.height}px`);
-  // resizeChatText();
+  resizeChatText();
   const offset = Math.max(vv.offsetTop || 0, origHeight - (vv.height || 0));
   document.body.classList[offset && "add" || "remove"]("keyboard-up");
 }),
