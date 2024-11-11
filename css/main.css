@@ -325,7 +325,7 @@ body.keyboard-up #agent-response {
   flex-grow: 1;
   padding: 0 calc(0.5 * var(--picture-size));
   font-weight: 300;
-  /* font-size: 16px; */
+  font-size: 16px;
 }
 
 #thinking {
