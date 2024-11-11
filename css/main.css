@@ -331,7 +331,7 @@ body.keyboard-up #agent-response {
 #text .row {
   display: flex;
   align-items: center;
-  gap: calc(0.8 * var(--padding-horizontal));
+  gap: var(--padding-horizontal);
   overflow-x: auto;
   overflow-y: visible;
   max-width: 100%;
