@@ -213,6 +213,13 @@ pre {
   white-space: pre-wrap;
 }
 
+pre .row {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
 /* Footer */
 footer {
   position: fixed;
@@ -460,6 +467,10 @@ h1, h2,
 }
 
 @media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
+  pre .row {
+    flex-wrap: wrap;
+  }
+
   .pulsing:not(:hover) {
     animation: pulsing 3s linear infinite;
     outline: 0;

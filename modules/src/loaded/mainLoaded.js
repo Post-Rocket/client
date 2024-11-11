@@ -66,8 +66,9 @@ vv && (vv.onresize = throttle(() => {
 
 // Write text to chat box.
 const chat = document.getElementById("text"),
-writeText = (text, elmt = chat, i = 0) => (
-  Array.isArray(text) || (text = [...`${text || ""}`]),
+writeText = (text, elmt = chat, cb, i = 0) => (
+  i >= 0 || (i = 0),
+  i || Array.isArray(text) || (text = [...`${text || ""}`]),
   i = Math.min(i, text.length),
   elmt.innerHTML = text.slice(0, i - 1).join(""),
   elmt.innerHTML += `<b>${text[i - 1] || ""}</b>`,
@@ -75,19 +76,77 @@ writeText = (text, elmt = chat, i = 0) => (
     setTimeout(() => writeText(
       text,
       elmt,
+      cb,
       ++i
     ), 1 + Math.floor(Math.random() * 30))
-  ) || (elmt.innerHTML = text.join(""))
+  ) || (
+    elmt.innerHTML = text.join(""),
+    typeof cb === "function" && cb()
+  )
+),
+isValid = x => x || x === 0 || x === false,
+writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
+  i >= 0 || (i = 0),
+  elmt instanceof HTMLPreElement || Array.isArray(arr) || (
+    arr = [arr]
+  ),
+  i || (
+    Array.isArray(arr) || (arr = [arr].filter(isValid))
+  ),
+  i = Math.min(i, arr.length),
+  i < arr.length && (
+    c = arr[i],
+    (typeof c === "number" || typeof c === "boolean") && (c = `${c}`),
+    i && typeof c === "object" && (
+      elmt.innerHTML += "<br/><br/>"
+    ),
+    typeof c !== 'object' ? (
+      writeText(
+        c,
+        elmt,
+        () => writeContent(arr, elmt, cb, ++i, null, c)
+      )
+    ) : Array.isArray(c) && (c = c.filter(isValid)).length ? (
+      c.length > 1 && (
+        elmt.innerHTML += `<pre${elmt instanceof HTMLPreElement && ' class="row"' || ""}></pre>`,
+        p = elmt.getElementsByTagName('pre'),
+        p = p[p.length - 1]
+      ) || (
+        p = elmt
+      ),
+      writeContent(c, p, () => writeContent(arr, elmt, cb, ++i, null, c))
+    ) : (
+      Array.isArray(c) || !c || (
+        c.type === "button" && (
+          elmt.innerHTML += `<button>${c.text}</button>`
+        ) || c.type === "img" && (
+          elmt.innerHTML += `<img src="${c.src} loading="lazy"></img>`
+        ) || c.type === "youtube" && (
+          elmt.innerHTML += `<youtube-video src="${c.src}></youtube-video>`
+        )
+      ),
+      setTimeout(
+        () => writeContent(arr, elmt, cb, ++i, null, c),
+        1 + Math.floor(Math.random() * 30)
+      )
+    )
+  ) || (
+    typeof cb === "function" && cb()
+  )
 );
 
-window.location.href.includes("index.html") &&
-writeText(`Welcome to PostRocket 🚀
-Let's unleash your social media together! Do you have a website?
-
-▹  yes
-▹  no`) ||
-writeText(`Welcome to PostRocket 🚀
-Please let me know if there's anything I can help you with today.`);
+window.location.href.includes("index.html") && writeContent([
+`Welcome to PostRocket 🚀
+Let's unleash your social media together! Do you have a website?`,
+{
+  type: 'button',
+  text: 'yes'
+},
+{
+  type: 'button',
+  text: 'no'
+}
+]) || writeContent(`What can I help with today?`);
 
 // Delay navigation.
 const close = event => {
