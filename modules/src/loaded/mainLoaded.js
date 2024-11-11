@@ -133,7 +133,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
       ),
       setTimeout(
         () => writeContent(arr, elmt, cb, ++i, null, c),
-        1 + Math.floor(Math.random() * 30)
+        20 + Math.floor(Math.random() * 20)
       )
     )
   ) || (
