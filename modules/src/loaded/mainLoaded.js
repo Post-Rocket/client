@@ -134,8 +134,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
         ) || c.type === "img" && c.src && (
           p = document.createElement("img"),
           p.setAttribute("src", c.src),
-          p.setAttribute("alt", (c.alt || c.title) && `Image of ${c.alt || c.title}` || "image"),
-          p.setAttribute("title", (c.title || c.alt) && `Image of ${c.title || c.alt}` || "image"),
+          p.setAttribute("alt", (c.alt || c.title || c.text) && `Image of ${c.alt || c.title || c.text}` || "image"),
+          p.setAttribute("title", (c.title || c.alt || c.text) && `Image of ${c.title || c.alt || c.text}` || "image"),
           p.setAttribute("loading", c.loading || "lazy"),
           elmt.appendChild(p)
         ) || c.type === "youtube" && c.src && (
@@ -168,6 +168,11 @@ window.location.href.includes("index.html") && writeContent([
   {
     type: "button",
     text: "not sure"
+  },
+  {
+    type: "image",
+    src: "https://gratisography.com/wp-content/uploads/2024/11/gratisography-leg-warmers-1170x780.jpg",
+    title: "random"
   }
 ]
 ]) || writeContent(`What can I help with today?`);
