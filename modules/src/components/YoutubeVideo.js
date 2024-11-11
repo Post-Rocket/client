@@ -22,6 +22,7 @@ export class YoutubeVideo extends HTMLElement {
   }
 
   connectedCallback() {
+    console.log(">>> connectedCallback");
     // Get the headline.
     (this.#headline.innerHTML = this.getAttribute('headline'))
       || this.#headline.classList.add("hidden");
