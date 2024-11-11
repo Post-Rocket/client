@@ -70,14 +70,13 @@ writeText = (text, elmt = chat, i = 0) => (
   i = Math.min(i, text.length),
   elmt.innerHTML = (text = `${text || ""}`).slice(0, i - 1),
   elmt.innerHTML += `<b>${text.charAt(i - 1)}</b>`,
-  i < text.length ? (
+  i < text.length && (
     setTimeout(() => writeText(
       text,
       elmt,
-      i += 1 + Math.round(Math.random() * 3)
-    ), 30 + Math.floor(Math.random() * 50)),
-    i < text.length - 1 && (elmt.innerHTML += ` <span style="opacity: 0">⬤</span>`)
-  ) : elmt.innerHTML = text
+      i += 2 + Math.round(Math.random() * 3)
+    ), 20 + Math.floor(Math.random() * 20))
+  ) || (elmt.innerHTML = text)
 );
 
 window.location.href.includes("index.html") &&
