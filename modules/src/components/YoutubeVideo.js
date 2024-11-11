@@ -31,10 +31,36 @@ export class YoutubeVideo extends HTMLElement {
       || this.#description.classList.add("hidden");
 
     // Get the video id and set the source.
-    this.#src = this.getAttribute('src');
-    this.#src = this.#src.match(re)[1];
-    this.#src = `https://www.youtube.com/embed/${this.#src}?&theme=dark&autohide=2&modestbranding=1`;
-    this.#iframe.setAttribute("src", this.#src);
+    (this.#src = this.getAttribute('src')) ? (
+      this.#src = this.#src.match(re)[1],
+      this.#src = `https://www.youtube.com/embed/${this.#src}?&theme=dark&autohide=2&modestbranding=1`,
+      this.#iframe.setAttribute("src", this.#src)
+    ) : this.#description.classList.add("hidden");
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    name = name.toLowerCase();
+    switch (name) {
+      case "headline":
+        (this.#headline.innerHTML = newValue) ?
+          this.#headline.classList.remove("hidden")
+          : this.#headline.classList.add("hidden")
+        break;
+      case "description":
+        (this.#description.innerHTML = newValue) ?
+          this.#description.classList.remove("hidden")
+          : this.#description.classList.add("hidden")
+        break;
+      case "src":
+        (this.#src = newValue) ? (
+          this.#src = this.#src.match(re)[1],
+          this.#src = `https://www.youtube.com/embed/${this.#src}?&theme=dark&autohide=2&modestbranding=1`,
+          this.#iframe.setAttribute("src", this.#src),
+          this.#description.classList.remove("hidden")
+        ) : this.#headline.classList.add("hidden");
+        break;
+      default:
+    }
   }
 }
 
