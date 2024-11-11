@@ -139,6 +139,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p.setAttribute("alt", (c.alt || c.title || c.text) && `Image of ${c.alt || c.title || c.text}` || "image"),
           p.setAttribute("title", (c.title || c.alt || c.text) && `Image of ${c.title || c.alt || c.text}` || "image"),
           p.setAttribute("loading", c.loading || "lazy"),
+          c.class && p.classList.add(...c.class.split(/\s+/g)),
+          c.style && (p.style.cssText += c.style),
           elmt.appendChild(p)
         ) || (p === "yt" || p === "youtube") && c.src && (
           p = document.createElement("youtube-video"),
@@ -176,6 +178,7 @@ window.location.href.includes("index.html") && writeContent([
   ],
   [{
     type: "image",
+    class: "small",
     src: "https://media.tenor.com/NtzA1v_UCkEAAAAj/bork.gif",
     title: "dog barking"
   }],

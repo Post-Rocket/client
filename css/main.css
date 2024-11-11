@@ -360,6 +360,10 @@ body.keyboard-up #agent-response {
   border-radius: 8px;
 }
 
+#text img.small {
+  max-width: 30%;
+}
+
 #thinking {
   position: absolute;
   width: 100%;
