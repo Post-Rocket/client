@@ -142,6 +142,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
         ) || c.type === "youtube" && c.src && (
           p = document.createElement("youtube-video"),
           p.setAttribute("src", c.src),
+          p.setAttribute("headline", c.headline),
+          p.setAttribute("description", c.description || c.text),
           elmt.appendChild(p)
         )
       ),
@@ -175,6 +177,9 @@ window.location.href.includes("index.html") && writeContent([
     type: "image",
     src: "https://i.giphy.com/D8xNev92dfqdG9FPx4.webp",
     title: "random"
+  }],
+  [{
+    src: "https://www.youtube.com/watch?v=k3kjJDGBa_o"
   }]
 ]) || writeContent(`What can I help with today?`);
 

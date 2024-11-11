@@ -23,10 +23,12 @@ export class YoutubeVideo extends HTMLElement {
 
   connectedCallback() {
     // Get the headline.
-    this.#headline.innerHTML = this.getAttribute('headline');
+    (this.#headline.innerHTML = this.getAttribute('headline'))
+      || this.#headline.classList.add("hidden");
 
     // Get the description.
-    this.#description.innerHTML = this.getAttribute('description');
+    (this.#description.innerHTML = this.getAttribute('description'))
+      || this.#description.classList.add("hidden");
 
     // Get the video id and set the source.
     this.#src = this.getAttribute('src');
@@ -63,17 +65,17 @@ const createTemplate = () => {
   }
 
   h2 {
-  background-clip: text;
-  box-decoration-break: clone;
-  -webkit-background-clip: text;
-  -webkit-box-decoration-break: clone;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-box-decoration-break: clone;
-  -moz-text-fill-color: transparent;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(45deg, #9B51E0, #3DA5E0);
-}
+    background-clip: text;
+    box-decoration-break: clone;
+    -webkit-background-clip: text;
+    -webkit-box-decoration-break: clone;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-box-decoration-break: clone;
+    -moz-text-fill-color: transparent;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(45deg, #9B51E0, #3DA5E0);
+  }
 
   .video-container {
     position: relative;
@@ -90,6 +92,10 @@ const createTemplate = () => {
     height: 100%;
     border-radius: 8px;
     overflow: hidden;
+  }
+
+  .hidden {
+    display: none;
   }
   `;
 
