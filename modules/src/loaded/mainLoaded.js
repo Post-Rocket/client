@@ -69,7 +69,7 @@ const chat = document.getElementById("text"),
 writeText = (text, elmt = chat, i = 0) => (
   Array.isArray(text) || (text = [...`${text || ""}`]),
   i = Math.min(i, text.length),
-  elmt.innerHTML = text.slice(0, i - 1).join(),
+  elmt.innerHTML = text.slice(0, i - 1).join(""),
   elmt.innerHTML += `<b>${text[i - 1] || ""}</b>`,
   console.log(text[i - 1]),
   i < text.length && (
@@ -78,7 +78,7 @@ writeText = (text, elmt = chat, i = 0) => (
       elmt,
       ++i
     ), 10 + Math.floor(Math.random() * 50))
-  ) || (elmt.innerHTML = text.join())
+  ) || (elmt.innerHTML = text.join(""))
 );
 
 window.location.href.includes("index.html") &&
