@@ -130,11 +130,16 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
             event.preventDefault();
             event.stopPropagation();
             switch ((c.action || "").toLowerCase()) {
+              case "nav":
+              case "goto":
               case "navigate":
                 const url = c.url || c.uri || c.href;
                 (url === "back" || url === -1) ?
                 window.history && window.history.length && window.history.back && window.history.back()
                 : url && (window.location.href = url);
+                break;
+              case "back":
+                window.history && window.history.length && window.history.back && window.history.back();
                 break;
               case "submit":
               default:
@@ -188,7 +193,9 @@ window.location.href.includes("index.html") && writeContent([
     },
     {
       type: "button",
-      text: "not sure"
+      text: "not sure",
+      action: "navigate",
+      href: "pages/help.html"
     }
   ],
   [{
