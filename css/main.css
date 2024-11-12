@@ -486,6 +486,7 @@ body.keyboard-up #agent-response {
   background: var(--color-10-percent);
   padding-left: var(--_border-radius);
   padding-right: var(--_border-radius);
+  transition: var(--transition-time);
 }
 
 #input:focus {
@@ -499,6 +500,11 @@ body.keyboard-up #agent-response {
 
 #input:disabled::placeholder {
   opacity: 0;
+}
+
+#input:disabled {
+  width: auto;
+  aspect-ratio: 1 / 1;
 }
 
 #form > button {
