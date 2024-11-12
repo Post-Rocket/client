@@ -359,6 +359,7 @@ form.onsubmit = event => {
   input.value = "";
   console.log("isFocused", isFocused);
   isFocused && input.click();
+  console.log("isClicked", isFocused);
 
   // --- TO BE REPLACED ---
   console.log(formData);
