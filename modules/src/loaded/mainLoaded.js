@@ -275,13 +275,17 @@ let timeoutId2, isFocused = false;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
-  if (event && event.relatedTarget && event.relatedTarget.type === "submit") {
+  let relatedTarget;
+  if (event
+    && (relatedTarget = event.relatedTarget || event.rangeParent || document.activeElement)
+    && (relatedTarget.type || relatedTarget.getAttribute("type")) === "submit"
+  ) {
     event.preventDefault();
     event.stopPropagation();
     setTimeout(() => {
-      console.log(">>", event.target === input, event.target, input);
+      console.log(">>>>", event.target === input, event.target, input);
       event.target.focus();
-    }, 1000);
+    }, 0);
     removePulsingShaking();
     return;
   }
