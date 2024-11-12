@@ -272,7 +272,7 @@ input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
   isFocused = false;
 
-  input.value = `> ${isFocused} [${isSubmitedViaButton}}]`;
+  input.value = `> ${isFocused} [${isSubmitedViaButton}]`;
 
   if (isSubmitedViaButton) {
     event.preventDefault();
