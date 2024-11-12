@@ -509,7 +509,7 @@ body.keyboard-up #agent-response {
   height: var(--_input-height);
 }
 
-#form > button {
+#submit-button {
   width: var(--_input-height);
   height: var(--_input-height);
   padding: 16px;
@@ -521,7 +521,7 @@ body.keyboard-up #agent-response {
   pointer-events: none;
 }
 
-#form > button > img {
+#submit-button > img {
   object-fit: contain;
   object-position: center;
   width: 100%;
@@ -530,17 +530,33 @@ body.keyboard-up #agent-response {
   filter: var(--icon-filter);
 }
 
-#form:has(input:focus:placeholder-shown) > button {
+#form:has(input:focus:placeholder-shown) > #submit-button {
   right: 0;
   opacity: 0.3;
 }
 
-#form:has(input:not(:placeholder-shown)) > button,
-#form:has(input:focus:not(:placeholder-shown)) > button {
+#form:has(input:not(:placeholder-shown)) > #submit-button,
+#form:has(input:focus:not(:placeholder-shown)) > #submit-button {
   right: 0;
   opacity: 1;
   transform: rotate(-45deg) translate(2px, -2px);
   pointer-events: auto;
+}
+
+#cancel-button {
+  width: var(--_input-height);
+  height: var(--_input-height);
+  position: absolute;
+  left: calc(50% - 0.5 * var(--_input-height));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: var(--transition-time);
+}
+
+#cancel-button:disabled {
+  opacity: 0;
 }
 
 #intro {
@@ -809,7 +825,7 @@ body.keyboard-up #agent-response {
     color: var(--color-75-percent);
   }
 
- #form:has(input:not(:placeholder-shown)) > button:hover {
+ #form:has(input:not(:placeholder-shown)) > #submit-button:hover {
     transform: rotate(-45deg) translate(4px, -2px);
   }
 

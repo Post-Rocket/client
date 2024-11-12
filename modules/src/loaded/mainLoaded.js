@@ -366,6 +366,7 @@ document.getElementById("home") === document.body && writeContent(`What can I he
 let timeoutId3;
 const thinking = document.getElementById("thinking"),
 thinkingText = document.getElementById("thinking-text"),
+cancelButton = document.getElementById("cancel-button"),
 defaultThinkingMsg = [
   "🙇🏻‍♀️ Thinking hard...",
   "🙆🏻‍♀️ Almost there...",
@@ -376,6 +377,7 @@ addThinking = msg => {
   thinking.classList.remove("hidden");
   removePulsingShaking();
   input.disabled = true;
+  cancelButton.disabled = null;
   timeoutId3 = setTimeout(() => {
     thinkingText.innerHTML = msg[0] || defaultThinkingMsg[0];
     timeoutId3 = setTimeout(() => {
@@ -392,6 +394,7 @@ removeThinking = () => {
   thinking.classList.add("hidden");
   document.activeElement || addPulsingShaking();
   input.disabled = null;
+  cancelButton.disabled = true;
 }
 
 // Intro animation.
