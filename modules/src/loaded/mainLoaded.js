@@ -161,7 +161,7 @@ const sendCancel = data => {
       ]
     ]
     || [
-      "🤷🏻‍♀️ Ok, I'll stop thinking about it.\n Anything else you wanted to add?",
+      "💁🏻‍♀️ Ok, I'll stop thinking about it.\n Anything else you wanted to add?",
       [
         {
           type: "button",
