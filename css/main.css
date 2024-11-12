@@ -497,11 +497,6 @@ body.keyboard-up #agent-response {
   opacity: 70%;
 }
 
-#main-content > #form > #shortcut-input {
-  visibility: hidden;
-  position: absolute;
-}
-
 #main-content > #form > button {
   width: var(--_input-height);
   height: var(--_input-height);

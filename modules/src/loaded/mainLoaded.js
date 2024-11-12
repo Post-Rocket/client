@@ -67,7 +67,6 @@ vv && (vv.onresize = throttle(() => {
 
 // Write text to chat box.
 const chat = document.getElementById("text"),
-shortcutInput = document.getElementById("shortcut-input"),
 writeText = (
   text,
   elmt = chat,
@@ -356,7 +355,6 @@ form.onsubmit = event => {
     formData.msg = msg
   );
   input.value = "";
-  shortcutInput.value = "";
   // input.focus();
 
   // --- TO BE REPLACED ---
