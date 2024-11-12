@@ -129,7 +129,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p.textContent = c.text,
           p.setAttribute("type", "submit"),
           p.onclick = event => {
-            // event.preventDefault();
+            isSubmitedViaButton = true;
+            event.preventDefault();
             event.stopPropagation();
             switch ((c.action || "").toLowerCase()) {
               case "nav":
@@ -150,7 +151,6 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
                   // input.value = content,
                   form.requestSubmit()
                 );
-              return false;
             }
           },
           elmt.appendChild(p)
@@ -265,21 +265,15 @@ const getOpenDialog = target => (
 document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 
 // Pulsing.
-let timeoutId2, isFocused = false;
+let timeoutId2, isFocused = false, isSubmitedViaButton = false;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
   isFocused = false;
-  const relatedTarget = event && (
-    event.relatedTarget || document.activeElement
-  );
 
-  input.value = `>> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")} | ${relatedTarget && relatedTarget.tagName || "null"}]`;
+  input.value = `> ${isFocused} [${isSubmitedViaButton}}]`;
 
-  if (relatedTarget && (
-      relatedTarget.type || relatedTarget.getAttribute("type")
-    ) === "submit"
-  ) {
+  if (isSubmitedViaButton) {
     event.preventDefault();
     event.stopPropagation();
     event.target.focus();
@@ -292,9 +286,6 @@ addPulsingShaking = input.onblur = event => {
     input.classList.add("pulsing");
     input.classList.add("shaking");
   }, 10000);
-
-  // Remove defocus event handler.
-  // () => document.removeEventListener('scroll', blurActiveElement);
 },
 removePulsingShaking = input.onfocus = () => {
   // Remove pulsing.
@@ -366,9 +357,9 @@ form.onsubmit = event => {
     delete formData.demoMsg,
     formData.msg = msg
   );
-  // const isFocused = document.activeElement === input;
   input.value += ` # ${isFocused}`;
   isFocused && input.focus();
+  isSubmitedViaButton = false;
 
   // --- TO BE REPLACED ---
   console.log(formData);
