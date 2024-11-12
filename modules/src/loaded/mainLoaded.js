@@ -174,6 +174,8 @@ form.onsubmit = event => {
   console.log(formData);
   const wasFocused = isFocused;
   chat.innerHTML = "";
+
+  // Simulating response.
   addThinking();
   setTimeout(() => {
     removeThinking();
