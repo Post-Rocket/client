@@ -145,7 +145,7 @@ form.onsubmit = event => {
   form.reportValidity();
 
   // Normalize input.
-  const formData = createFormData(form),
+  const formData = createFormData(event),
     msg = formData.msg || formData.demoMsg,
     isDemoCancel = formData.demoCancel,
     isDemo = !!(formData.demoMsg || isDemoCancel);
