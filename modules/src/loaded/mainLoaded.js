@@ -92,6 +92,7 @@ writeText = (
   elmt
 ),
 isValid = x => x || x === 0 || x === false,
+// Write content to chat box.
 writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
   i >= 0 || (i = 0),
   i || Array.isArray(arr) || (arr = [arr]),
@@ -149,6 +150,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
                   // input.value = content,
                   form.requestSubmit()
                 );
+              return false;
             }
           },
           elmt.appendChild(p)
@@ -262,13 +264,6 @@ const getOpenDialog = target => (
 );
 document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 
-// Remove focus.
-// const blurActiveElement = event => (
-//   event.preventDefault(),
-//   (origHeight > vv.height || vv.offsetTop)
-//     && document.activeElement && document.activeElement.blur()
-// );
-
 // Pulsing.
 let timeoutId2, isFocused = false;
 const form = document.getElementById("form"),
@@ -276,10 +271,10 @@ input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
   isFocused = false;
   const relatedTarget = event && (
-    event.relatedTarget || event.rangeParent || document.activeElement
+    event.relatedTarget
   );
 
-  input.value = `> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")} | ${relatedTarget && relatedTarget.tagName || "null"}]`;
+  input.value = `>> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")} | ${relatedTarget && relatedTarget.tagName || "null"}]`;
 
   if (relatedTarget && (
       relatedTarget.type || relatedTarget.getAttribute("type")
