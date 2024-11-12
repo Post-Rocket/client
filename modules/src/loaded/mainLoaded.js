@@ -181,7 +181,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
   elmt
 );
 
-window.location.href.includes("index.html") && writeContent([
+(window.location.href.includes("index.html") || !window.location.href.includes(".html")) && writeContent([
   "Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
     {
       type: "button",
@@ -357,9 +357,9 @@ form.onsubmit = event => {
   );
   const isFocused = document.activeElement === input;
   input.value = `${isFocused}`;
-  console.log("> isFocused", isFocused);
+  console.log("isFocused", isFocused);
   isFocused && setTimeout(() => input.click(), 10);
-  console.log("> isClicked", isFocused);
+  console.log("isClicked", isFocused);
 
   // --- TO BE REPLACED ---
   console.log(formData);

@@ -29,7 +29,7 @@ document.addEventListener('click', event => (
     event.preventDefault(),
     event.stopPropagation(),
     document.activeElement.blur()
-  );
+  )
 ));
 
 })(); // END OF SCRIPT
