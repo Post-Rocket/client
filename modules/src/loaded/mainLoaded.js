@@ -355,9 +355,10 @@ form.onsubmit = event => {
     delete formData.demoMsg,
     formData.msg = msg
   );
-  const isFocus = document.activeElement === input;
+  const isFocused = document.activeElement === input;
   input.value = "";
-  isFocus && input.focus();
+  console.log("isFocused", isFocused);
+  isFocused && input.click();
 
   // --- TO BE REPLACED ---
   console.log(formData);
