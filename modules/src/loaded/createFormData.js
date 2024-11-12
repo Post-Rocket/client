@@ -35,8 +35,6 @@ export const createFormData = (input, defaultOutput = {}) => {
     submitter.value || (submitter.value = !!submitter.name)
   );
 
-  console.log(">> createFormData", submitter);
-
   // If we can't capture the form element.
   if (!(input instanceof HTMLFormElement)) return defaultOutput;
 
