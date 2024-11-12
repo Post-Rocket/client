@@ -65,6 +65,117 @@ vv && (vv.onresize = throttle(() => {
   document.body.classList[offset && "add" || "remove"]("keyboard-up");
 }));
 
+// Delay navigation.
+const close = event => {
+  event.preventDefault();
+  event.stopPropagation();
+  const hasMenuOpened = document.body.classList.contains("menu-opened");
+  hasMenuOpened && (
+    document.body.classList.remove("menu-opened"),
+    document.body.clientWidth <= 800 && (document.body.scrollLeft = 0),
+    whileSideMenuToggled()
+  );
+  return hasMenuOpened;
+}
+
+const getOnclick = onclick => event => (
+  close(event),
+  typeof onclick === 'function'
+    || (typeof onclick === 'string' && (onclick = eval(onclick)))
+    || ((event = event.target.getAttribute("href")) && (onclick = () => {
+      window.location.href = event
+    })),
+  onclick && setTimeout(() => onclick(event), 310)
+); 
+
+for (let i = 0, cn = menu.getElementsByTagName('a'), l = cn.length, el; i !== l; ++i) {
+  (el = cn[i]).onclick = getOnclick(el.onclick);
+}
+
+for (let i = 0, cn = menu.getElementsByTagName('button'), l = cn.length, el; i !== l; ++i) {
+  (el = cn[i]).onclick = getOnclick(el.onclick);
+}
+
+// Dialog closing.
+const closeDialog = event => {
+  event.stopPropagation();
+  event.target.tagName.toLowerCase() === "dialog" && event.target.close();
+}
+for (let i = 0, cn = document.getElementsByTagName('dialog'), l = cn.length; i !== l; ++i) {
+  cn[i].onclick = closeDialog;
+}
+
+// Agent dialog opening.
+const getOpenDialog = target => (
+  typeof target === "string" && (target = document.getElementById(target)),
+  event => {
+    event.stopPropagation();
+    target.showModal();
+  }
+);
+document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
+
+// Form and pulsing.
+let timeoutId2, isFocused = false, isSubmitedViaButton = false;
+const form = document.getElementById("form"),
+input = document.getElementById("input"),
+// Add pulsing / onblur. 
+addPulsingShaking = input.onblur = event => {
+  isFocused = false;
+
+  if (event && (
+    isSubmitedViaButton
+    || (
+      event.relatedTarget &&
+      (event.relatedTarget.type || event.relatedTarget.getAttribute("type")) === "submit"
+    )
+  )) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.target.focus();
+    removePulsingShaking();
+    return;
+  }
+
+  // Add pulsing after a certain time.
+  timeoutId2 = setTimeout(() => {
+    input.classList.add("pulsing");
+    input.classList.add("shaking");
+  }, 10000);
+},
+// Remove pulsing / onfocus
+removePulsingShaking = input.onfocus = () => {
+  // Remove pulsing.
+  clearTimeout(timeoutId2);
+  input.classList.remove("pulsing");
+  input.classList.remove("shaking");
+  isFocused = true;
+}
+
+// When a user talk to the bot.
+form.onsubmit = event => {
+  event.preventDefault();
+  event.stopPropagation();
+  form.checkValidity();
+  form.reportValidity();
+  const formData = createFormData(form),
+    msg = formData.msg || formData.demoMsg,
+    isDemo = !!formData.demoMsg;
+  (formData.isDemo = isDemo) && (
+    delete formData.demoMsg,
+    formData.msg = msg
+  );
+  input.value = "";
+  isFocused && input.focus();
+  isSubmitedViaButton = false;
+
+  // --- TO BE REPLACED ---
+  console.log(formData);
+  // ----------------------
+
+  return false;
+}
+
 // Write text to chat box.
 const chat = document.getElementById("text"),
 writeText = (
@@ -128,15 +239,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p = document.createElement("button"),
           p.textContent = c.text,
           p.setAttribute("type", "submit"),
-          p.onmousedown = event => {
-            isSubmitedViaButton = true;
-            console.log("> touchstart");
-            event.preventDefault();
-            event.stopPropagation();
-          },
           p.onclick = event => {
             isSubmitedViaButton = true;
-            console.log("> clicked");
             event.preventDefault();
             event.stopPropagation();
             switch ((c.action || "").toLowerCase()) {
@@ -155,7 +259,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
               default:
                 const content = c.send || c.text;
                 content && (
-                  // input.value = content,
+                  input.value = content,
                   form.requestSubmit()
                 );
             }
@@ -188,6 +292,25 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
   ),
   elmt
 );
+
+// Add onmousedown event for isSubmittedViaButton.
+for (let i = 0,
+   buttons = document.getElementsByTagName("button"),
+   l = buttons.length,
+   b, f;
+   i !== l;
+   ++i
+) {
+  ((b = buttons[i]).type || b.getAttribute("type")) === "submit" && (
+    f = b.onmousedown,
+    b.onmousedown = event => {
+      isSubmitedViaButton = true;
+      event.preventDefault();
+      event.stopPropagation();
+      f && f(event);
+    }
+  )
+}
 
 // Remove isSubmittedViaButton if scrolling happen.
 chat && (
@@ -226,111 +349,6 @@ document.getElementById("index") === document.body && writeContent([
 
 document.getElementById("home") === document.body && writeContent(`What can I help with today?`);
 
-// Delay navigation.
-const close = event => {
-  event.preventDefault();
-  event.stopPropagation();
-  const hasMenuOpened = document.body.classList.contains("menu-opened");
-  hasMenuOpened && (
-    document.body.classList.remove("menu-opened"),
-    document.body.clientWidth <= 800 && (document.body.scrollLeft = 0),
-    whileSideMenuToggled()
-  );
-  return hasMenuOpened;
-}
-
-const getOnclick = onclick => event => (
-  close(event),
-  typeof onclick === 'function'
-    || (typeof onclick === 'string' && (onclick = eval(onclick)))
-    || ((event = event.target.getAttribute("href")) && (onclick = () => {
-      window.location.href = event
-    })),
-  onclick && setTimeout(() => onclick(event), 310)
-); 
-
-for (let i = 0, cn = menu.getElementsByTagName('a'), l = cn.length, el; i !== l; ++i) {
-  (el = cn[i]).onclick = getOnclick(el.onclick);
-}
-
-for (let i = 0, cn = menu.getElementsByTagName('button'), l = cn.length, el; i !== l; ++i) {
-  (el = cn[i]).onclick = getOnclick(el.onclick);
-}
-
-// Dialog closing.
-const closeDialog = event => {
-  event.stopPropagation();
-  event.target.tagName.toLowerCase() === "dialog" && event.target.close();
-}
-for (let i = 0, cn = document.getElementsByTagName('dialog'), l = cn.length; i !== l; ++i) {
-  cn[i].onclick = closeDialog;
-}
-
-// Agent dialog opening.
-const getOpenDialog = target => (
-  typeof target === "string" && (target = document.getElementById(target)),
-  event => {
-    event.stopPropagation();
-    target.showModal();
-  }
-);
-document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
-
-// Pulsing.
-let timeoutId2, isFocused = false, isSubmitedViaButton = false;
-const form = document.getElementById("form"),
-input = document.getElementById("input"),
-addPulsingShaking = input.onblur = event => {
-  isFocused = false;
-
-  input.value = `> ${isFocused} [${isSubmitedViaButton}]`;
-  console.log('blur');
-
-  if (event && (
-    isSubmitedViaButton
-    || (
-      event.relatedTarget &&
-      (event.relatedTarget.type || event.relatedTarget.getAttribute("type")) === "submit"
-    )
-  )) {
-    event.preventDefault();
-    event.stopPropagation();
-    event.target.focus();
-    removePulsingShaking();
-    return;
-  }
-
-  // Add pulsing after a certain time.
-  timeoutId2 = setTimeout(() => {
-    input.classList.add("pulsing");
-    input.classList.add("shaking");
-  }, 10000);
-},
-removePulsingShaking = input.onfocus = () => {
-  // Remove pulsing.
-  clearTimeout(timeoutId2);
-  input.classList.remove("pulsing");
-  input.classList.remove("shaking");
-  isFocused = true;
-  input.value = `> ${isFocused}`;
-}
-
-// Intro animation.
-const intro = document.getElementById("intro");
-intro && (
-  intro.onanimationend = event => {
-    if (event.animationName === "bg") {
-      intro.close();
-      addPulsingShaking();
-    }
-  },
-  intro.onclick = event => {
-    event.stopPropagation();
-    intro.close();
-  },
-  setTimeout(addPulsingShaking, 11000)
-) || addPulsingShaking();
-
 // Thinking.
 let timeoutId3;
 const thinking = document.getElementById("thinking"),
@@ -363,28 +381,20 @@ removeThinking = () => {
   input.disabled = null;
 }
 
-// When a user talk to the bot.
-form.onsubmit = event => {
-  event.preventDefault();
-  event.stopPropagation();
-  form.checkValidity();
-  form.reportValidity();
-  const formData = createFormData(form),
-    msg = formData.msg || formData.demoMsg,
-    isDemo = !!formData.demoMsg;
-  (formData.isDemo = isDemo) && (
-    delete formData.demoMsg,
-    formData.msg = msg
-  );
-  input.value += ` # ${isFocused}`;
-  isFocused && input.focus();
-  isSubmitedViaButton = false;
-
-  // --- TO BE REPLACED ---
-  console.log(formData);
-  // ----------------------
-
-  return false;
-}
+// Intro animation.
+const intro = document.getElementById("intro");
+intro && (
+  intro.onanimationend = event => {
+    if (event.animationName === "bg") {
+      intro.close();
+      addPulsingShaking();
+    }
+  },
+  intro.onclick = event => {
+    event.stopPropagation();
+    intro.close();
+  },
+  setTimeout(addPulsingShaking, 11000)
+) || addPulsingShaking();
 
 })(); // END OF SCRIPT
