@@ -838,7 +838,7 @@ body.keyboard-up #agent-response {
   }
 
   #cancel-button:hover,
-  #input:has(#cancel-button:hover) {
+  #input:disabled:has(#cancel-button:hover) {
     width: 128px;
   }
 
