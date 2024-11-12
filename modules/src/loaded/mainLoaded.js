@@ -129,7 +129,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p.textContent = c.text,
           p.setAttribute("type", "submit"),
           p.onclick = event => {
-            event.preventDefault();
+            // event.preventDefault();
             event.stopPropagation();
             switch ((c.action || "").toLowerCase()) {
               case "nav":
