@@ -283,7 +283,7 @@ addPulsingShaking = input.onblur = event => {
     event.preventDefault();
     event.stopPropagation();
     setTimeout(() => {
-      console.log(">>", event.target === input);
+      console.log(">>>", event.target === input);
       event.target.focus();
     }, 0);
     removePulsingShaking();
@@ -373,7 +373,7 @@ form.onsubmit = event => {
   );
   // const isFocused = document.activeElement === input;
   input.value = `${isFocused}`;
-  isFocused && setTimeout(() => input.focus(), 0);
+  isFocused && input.focus();
 
   // --- TO BE REPLACED ---
   console.log(formData);
