@@ -119,6 +119,7 @@ document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 let timeoutId2, isFocused = false, isSubmitedViaButton = false;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
+submitButton = document.getElementById("submit-button"),
 // Add pulsing / onblur. 
 addPulsingShaking = input.onblur = event => {
   isFocused = false;
@@ -239,6 +240,11 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p = document.createElement("button"),
           p.textContent = c.text,
           p.setAttribute("type", "submit"),
+          p.onmousedown = event => {
+            isSubmitedViaButton = true;
+            event.preventDefault();
+            event.stopPropagation();
+          },
           p.onclick = event => {
             isSubmitedViaButton = true;
             event.preventDefault();
@@ -293,24 +299,12 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
   elmt
 );
 
-// Add onmousedown event for isSubmittedViaButton.
-for (let i = 0,
-   buttons = document.getElementsByTagName("button"),
-   l = buttons.length,
-   b, f;
-   i !== l;
-   ++i
-) {
-  ((b = buttons[i]).type || b.getAttribute("type")) === "submit" && (
-    f = b.onmousedown,
-    b.onmousedown = event => {
-      isSubmitedViaButton = true;
-      event.preventDefault();
-      event.stopPropagation();
-      f && f(event);
-    }
-  )
-}
+// Add onmousedown event for submit-button.
+submitButton && (submitButton.onmousedown = event => {
+  isSubmitedViaButton = true;
+  event.preventDefault();
+  event.stopPropagation();
+});
 
 // Remove isSubmittedViaButton if scrolling happen.
 chat && (
