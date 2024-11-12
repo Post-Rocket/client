@@ -321,11 +321,11 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
 );
 
 // Capture a keybord key down and set the focus on the input.
-document.addEventListener("keydown", (e) => {
-  document.activeElement !== input && e.key.length === 1 (
+document.addEventListener("keydown", event => {
+  document.activeElement !== input && event.key.length === 1 (
     input.focus(),
-    input.value += e.key,
-    console.log("keydown:", e.key)
+    input.value += event.key,
+    console.log("keydown:", event.key)
   );
 });
 
