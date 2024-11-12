@@ -836,6 +836,14 @@ body.keyboard-up #agent-response {
     transform: rotate(-45deg) translate(4px, -2px);
   }
 
+  #input:has(#cancel-button:hover) {
+    width: 128px;
+  }
+
+  #cancel-button:hover {
+    font-size: 16px;
+  }
+
   #cancel-button:hover::after {
     content: "cancel"
   }
