@@ -140,7 +140,7 @@ const sendCancel = data => {
   removeThinking();
   writeContent(
     data && data.timeout && [
-      "I could not figure it out on time 🤷🏻‍♀️\nAnything else you wanted to add?",
+      "🤷🏻‍♀️ I could not figure it out on time...\nAnything else you wanted to add?",
       [
         {
           type: "button",
@@ -161,7 +161,7 @@ const sendCancel = data => {
       ]
     ]
     || [
-      "Ok, I'll stop thinking about it 🤷🏻‍♀️\n Anything else you wanted to add?",
+      "🤷🏻‍♀️ Ok, I'll stop thinking about it.\n Anything else you wanted to add?",
       [
         {
           type: "button",
