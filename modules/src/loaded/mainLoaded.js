@@ -139,7 +139,7 @@ removePulsingShaking = input.onfocus = () => {
 const sendCancel = data => {
   removeThinking();
   writeContent(
-    data && data.timeout && "I could not figure it out on time 🤷🏻‍♀️. Maybe try again later?"
+    data && data.timeout && "I could not figure it out on time 🤷🏻‍♀️\nMaybe try again later?"
     || "Ok, I'll stop thinking about it 🤷🏻‍♀️\n Anything else you wanted to add?"
   );
 
