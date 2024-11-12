@@ -836,6 +836,7 @@ body.keyboard-up #agent-response {
     transform: rotate(-45deg) translate(4px, -2px);
   }
 
+  #cancel-button:hover,
   #input:has(#cancel-button:hover) {
     width: 128px;
   }
