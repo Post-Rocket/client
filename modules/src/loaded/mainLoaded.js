@@ -165,7 +165,7 @@ form.onsubmit = event => {
     delete formData.demoMsg,
     formData.msg = msg
   );
-  input.value = "";
+  input.value = `${isFocused} | ${isSubmitedViaButton}`;
   isFocused && input.focus();
   isSubmitedViaButton = false;
 
