@@ -146,7 +146,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
               default:
                 const content = c.send || c.text;
                 content && (
-                  input.value = content,
+                  // input.value = content,
                   form.requestSubmit()
                 );
             }
