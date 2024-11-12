@@ -147,9 +147,9 @@ form.onsubmit = event => {
   // Normalize input.
   const formData = createFormData(form),
     msg = formData.msg || formData.demoMsg,
-    isDemoCancel = formData.hasOwnProperty("demoCancel"),
+    isDemoCancel = formData.demoCancel,
     isDemo = !!(formData.demoMsg || isDemoCancel);
-  (isDemoCancel || formData.hasOwnProperty("cancel")) && (formData.cancel = true);
+  (isDemoCancel || formData.cancel) && (formData.cancel = true);
   (formData.isDemo = isDemo) && (
     delete formData.demoMsg,
     delete formData.demoCancel,
