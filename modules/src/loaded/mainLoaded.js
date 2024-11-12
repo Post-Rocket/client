@@ -126,6 +126,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
         p === "button" && (
           p = document.createElement("button"),
           p.textContent = c.text,
+          p.setAttribute("type", "submit"),
           p.onclick = event => {
             event.preventDefault();
             event.stopPropagation();
