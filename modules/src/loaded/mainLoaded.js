@@ -366,9 +366,9 @@ form.onsubmit = event => {
   );
   const isFocused = document.activeElement === input;
   // input.value = `${isFocused}`;
-  console.log(">> isFocused", isFocused);
+  console.log(">>> isFocused", isFocused);
   isFocused && setTimeout(() => input.click(), 10);
-  console.log(">> isClicked", isFocused);
+  console.log(">>> isClicked", isFocused);
 
   // --- TO BE REPLACED ---
   console.log(formData);
