@@ -144,10 +144,10 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           elmt.appendChild(p)
         ) || (p === "yt" || p === "youtube") && c.src && (
           p = document.createElement("youtube-video"),
-          elmt.appendChild(p),
           p.setAttribute("src", c.src),
           c.headline && p.setAttribute("headline", c.headline),
-          (c.description || c.text) && p.setAttribute("description", c.description || c.text)
+          (c.description || c.text) && p.setAttribute("description", c.description || c.text),
+          elmt.appendChild(p)
         )
       ),
       setTimeout(
