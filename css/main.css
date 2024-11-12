@@ -557,6 +557,10 @@ body.keyboard-up #agent-response {
   font-size: 20px;
 }
 
+#cancel-button::after {
+  content: "◼︎";
+}
+
 #cancel-button:disabled {
   opacity: 0;
   pointer-events: none;
@@ -832,8 +836,8 @@ body.keyboard-up #agent-response {
     transform: rotate(-45deg) translate(4px, -2px);
   }
 
-  #cancel-button:hover {
-    transform: rotate(180deg);
+  #cancel-button:hover::after {
+    content: "cancel"
   }
 
   #text button:hover {
