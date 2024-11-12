@@ -197,7 +197,7 @@ form.onsubmit = event => {
     timeoutIdTest = setTimeout(() => {
       removeThinking();
       writeContent("Ok. Roger that.");
-    }, 5000);
+    }, 50000);
     // ----------------------
   }
 
