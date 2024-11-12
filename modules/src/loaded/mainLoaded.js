@@ -126,12 +126,27 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
         p === "button" && (
           p = document.createElement("button"),
           p.textContent = c.text,
-          p.onclick = event => (
-            event.preventDefault(),
-            event.stopPropagation(),
-            input.value = c.send || c.text,
-            form.requestSubmit()
-          ),
+          p.onclick = event => {
+            event.preventDefault();
+            event.stopPropagation();
+            switch ((c.action || "").toLowerCase()) {
+              case "navigate":
+                const url = c.url || c.uri || c.href;
+                (url === "back" || url === -1) ?
+                window.history && window.history.length && window.history.back && window.history.back()
+                : url && (window.location.href = url);
+                break;
+              case "submit":
+              default:
+                const isFocused = input === document.activeElement,
+                  content = c.send || c.text;
+                content && (
+                  input.value = content,
+                  form.requestSubmit(),
+                  input[isFocused && "focus" || "blur"]()
+                );
+            }
+          },
           elmt.appendChild(p)
         ) || (p === "img" || p === "image") && c.src && (
           p = document.createElement("img"),
