@@ -116,11 +116,28 @@ const getOpenDialog = target => (
 document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 
 // Form and pulsing.
-let timeoutId2;
+let timeoutId2, isFocused = false, isSubmitedViaButton = false;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
+submitButton = document.getElementById("submit-button"),
 // Add pulsing / onblur. 
-addPulsingShaking = input.onblur = () => {
+addPulsingShaking = input.onblur = event => {
+  isFocused = false;
+
+  if (event && (
+    isSubmitedViaButton
+    || (
+      event.relatedTarget &&
+      (event.relatedTarget.type || event.relatedTarget.getAttribute("type")) === "submit"
+    )
+  )) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.target.focus();
+    removePulsingShaking();
+    return;
+  }
+
   // Add pulsing after a certain time.
   timeoutId2 = setTimeout(() => {
     input.classList.add("pulsing");
@@ -133,6 +150,7 @@ removePulsingShaking = input.onfocus = () => {
   clearTimeout(timeoutId2);
   input.classList.remove("pulsing");
   input.classList.remove("shaking");
+  isFocused = true;
 }
 
 // When a user talk to the bot.
@@ -149,21 +167,19 @@ form.onsubmit = event => {
     formData.msg = msg
   );
   input.value = "";
+  isFocused && input.focus();
+  isSubmitedViaButton = false;
 
   // --- TO BE REPLACED ---
   console.log(formData);
-
-  // Clear the chat.
-  while (chat.lastChild) {
-    chat.removeChild(chat.lastChild);
-  }
-
-  // Add thinking animation.
-  addThinking();
+  const wasFocused = isFocused;
+  chat.innerHTML = "";
 
   // Simulating response.
+  addThinking();
   setTimeout(() => {
     removeThinking();
+    wasFocused && input.focus();
     writeContent("Ok. Roger that.");
   }, 3000);
   // ----------------------
@@ -200,66 +216,50 @@ writeText = (
 isValid = x => x || x === 0 || x === false,
 // Write content to chat box.
 writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
-  // Normalize input.
   i >= 0 || (i = 0),
   i || Array.isArray(arr) || (arr = [arr]),
   arr = arr.filter(isValid),
   i = Math.min(i, arr.length),
-  // If not beyond last item.
   i < arr.length && (
-    // Normalize item.
     c = arr[i],
     (typeof c === "number" || typeof c === "boolean") && (c = `${c}`),
-    // Add spacer if needed.
     i && Array.isArray(c) && (
       p = document.createElement("div"),
       p.classList.add("br"),
       elmt.appendChild(p)
     ),
-    // String, number, boolean item.
     typeof c !== 'object' ? (
-      // Add element to the chat.
-      elmt.appendChild(
-        // Add characters to the chat like someone's typing them.
-        writeText(
-          c,
-          document.createTextNode(""),
-          // Go to next item.
-          () => writeContent(arr, elmt, cb, ++i, null, c)
-        )
-      )
-    )
-    // sub array of items, i.e. a row of items.
-    : Array.isArray(c) && (c = c.filter(isValid)).length ? (
+      elmt.appendChild(writeText(
+        c,
+        document.createTextNode(""),
+        () => writeContent(arr, elmt, cb, ++i, null, c)
+      ))
+    ) : Array.isArray(c) && (c = c.filter(isValid)).length ? (
       c.length > 1 && (
-        // Add row container, unless it's only one element in the row.
         p = document.createElement("pre"),
         p.classList.add("row"),
         elmt.appendChild(p)
       ) || (
         p = elmt
       ),
-      // Add row to the chat.
       writeContent(c, p, () => writeContent(arr, elmt, cb, ++i, null, c))
-    )
-    // Item is a non-null object that is not an array,
-    // like inforamtion about a button or an image or a video.
-    : (
+    ) : (
       Array.isArray(c) || !c || (
-        // Get the object type.
         p = (c.type || "").toLowerCase(),
-        // If item is info about a button
         p === "button" && (
-          // Create element.
           p = document.createElement("button"),
-          // Set button text.
           p.textContent = c.text,
-          // Onclick callback based on the button action.
+          p.setAttribute("type", "submit"),
+          p.onmousedown = event => {
+            isSubmitedViaButton = true;
+            event.preventDefault();
+            event.stopPropagation();
+          },
           p.onclick = event => {
+            isSubmitedViaButton = true;
             event.preventDefault();
             event.stopPropagation();
             switch ((c.action || "").toLowerCase()) {
-              // Navigation action.
               case "nav":
               case "goto":
               case "navigate":
@@ -271,7 +271,6 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
               case "back":
                 window.history && window.history.length && window.history.back && window.history.back();
                 break;
-              // Submit to chatbot action.
               case "submit":
               default:
                 const content = c.send || c.text;
@@ -281,53 +280,46 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
                 );
             }
           },
-          // Add element to the chat.
           elmt.appendChild(p)
         ) || (p === "img" || p === "image") && c.src && (
-          // Create image element.
           p = document.createElement("img"),
-          // Add attributes to the image.
           p.setAttribute("src", c.src),
           p.setAttribute("alt", (c.alt || c.title || c.text) && `Image of ${c.alt || c.title || c.text}` || "image"),
           p.setAttribute("title", (c.title || c.alt || c.text) && `Image of ${c.title || c.alt || c.text}` || "image"),
           p.setAttribute("loading", c.loading || "lazy"),
           c.class && p.classList.add(...c.class.split(/\s+/g)),
           c.style && (p.style.cssText += c.style),
-          // Add element to the chat.
           elmt.appendChild(p)
         ) || (p === "yt" || p === "youtube") && c.src && (
-          // Create YT video custome element.
           p = document.createElement("youtube-video"),
-          // Add attributes to the element.
           p.setAttribute("src", c.src),
           c.headline && p.setAttribute("headline", c.headline),
           (c.description || c.text) && p.setAttribute("description", c.description || c.text),
-          // Add element to the chat.
           elmt.appendChild(p)
         )
       ),
-      // Go to the next item after a delay.
       setTimeout(
         () => writeContent(arr, elmt, cb, ++i, null, c),
         20 + Math.floor(Math.random() * 20)
       )
     )
   ) || (
-    // If done, call the callback.
     typeof cb === "function" && cb()
   ),
-  // Return the parent.
   elmt
 );
 
-// Capture a keybord key down and set the focus on the input.
-document.addEventListener("keydown", (e) => {
-  document.activeElement !== input && e.key.length === 1 (
-    input.focus(),
-    input.value += e.key,
-    console.log("keydown:", e.key)
-  );
+// Add onmousedown event for submit-button.
+submitButton && (submitButton.onmousedown = event => {
+  isSubmitedViaButton = true;
+  event.preventDefault();
+  event.stopPropagation();
 });
+
+// Remove isSubmittedViaButton if scrolling happen.
+chat && (
+  chat.onscroll = throttle(() => isSubmitedViaButton = false)
+);
 
 // Original content.
 document.getElementById("index") === document.body && writeContent([
