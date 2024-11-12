@@ -326,7 +326,7 @@ document.addEventListener("keydown", event => {
     event.stopPropagation(),
     event.preventDefault(),
     input.focus(),
-    input.value += event.key,
+    input.value = (input.value || "") + event.key,
     console.log("> keydown:", event.key)
   );
 });
