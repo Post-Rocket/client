@@ -17,6 +17,15 @@
   gap: var(--gap-column, var(--gap, var(--padding-vertical, 0)));
 }
 
+.flex.gap-2x,
+.row.gap-2x {
+  gap: calc(2 * var(--gap-row, var(--gap, var(--padding-horizontal, 0))));
+}
+
+.column.gap-2x {
+  gap: calc(2 * var(--gap-column, var(--gap, var(--padding-vertical, 0))));
+}
+
 .flex.shrink,
 .row.shrink,
 .column.shrink {
