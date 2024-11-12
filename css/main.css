@@ -455,7 +455,7 @@ body.keyboard-up #agent-response {
 }
 
 /* Input text */
-#main-content > #form {
+#form {
   position: absolute;
   z-index: 1;
   bottom: 0;
@@ -472,7 +472,7 @@ body.keyboard-up #agent-response {
   padding-bottom: var(--footer-padding-bottom);
 }
 
-#main-content > #form > #input {
+#input {
   width: 100%;
   height: 100%;
   border-radius: var(--_border-radius);
@@ -488,16 +488,20 @@ body.keyboard-up #agent-response {
   padding-right: var(--_border-radius);
 }
 
-#main-content > #form > #input:focus {
+#input:focus {
   padding-right: var(--_input-height);
 }
 
-#main-content > #form > #input::placeholder {
+#input::placeholder {
   font-style: italic;
   opacity: 70%;
 }
 
-#main-content > #form > button {
+#input:disabled::placeholder {
+  opacity: 0;
+}
+
+#form > button {
   width: var(--_input-height);
   height: var(--_input-height);
   padding: 16px;
@@ -509,7 +513,7 @@ body.keyboard-up #agent-response {
   pointer-events: none;
 }
 
-#main-content > #form > button > img {
+#form > button > img {
   object-fit: contain;
   object-position: center;
   width: 100%;
@@ -518,13 +522,13 @@ body.keyboard-up #agent-response {
   filter: var(--icon-filter);
 }
 
-#main-content > #form:has(input:focus:placeholder-shown) > button {
+#form:has(input:focus:placeholder-shown) > button {
   right: 0;
   opacity: 0.3;
 }
 
-#main-content > #form:has(input:not(:placeholder-shown)) > button,
-#main-content > #form:has(input:focus:not(:placeholder-shown)) > button {
+#form:has(input:not(:placeholder-shown)) > button,
+#form:has(input:focus:not(:placeholder-shown)) > button {
   right: 0;
   opacity: 1;
   transform: rotate(-45deg) translate(2px, -2px);
@@ -797,7 +801,7 @@ body.keyboard-up #agent-response {
     color: var(--color-75-percent);
   }
 
-  #main-content > #form:has(input:not(:placeholder-shown)) > button:hover {
+ #form:has(input:not(:placeholder-shown)) > button:hover {
     transform: rotate(-45deg) translate(4px, -2px);
   }
 
