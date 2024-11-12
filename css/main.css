@@ -558,7 +558,7 @@ body.keyboard-up #agent-response {
 }
 
 #cancel-button::after {
-  content: "█";
+  content: "◼◾⏹⬜";
 }
 
 #cancel-button:disabled {
@@ -838,12 +838,12 @@ body.keyboard-up #agent-response {
 
   #cancel-button:hover,
   #form:has(#cancel-button:hover) > #input:disabled {
-    width: 128px;
+    width: 112px;
   }
 
   #cancel-button:hover {
     font-size: 14px;
-    left: calc(50% - 64px);
+    left: calc(50% - 56px);
   }
 
   #cancel-button:hover::after {
