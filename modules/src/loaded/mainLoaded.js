@@ -128,6 +128,12 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p = document.createElement("button"),
           p.textContent = c.text,
           p.setAttribute("type", "submit"),
+          p.onmousedown = event => {
+            isSubmitedViaButton = true;
+            console.log("> touchstart");
+            event.preventDefault();
+            event.stopPropagation();
+          },
           p.onclick = event => {
             isSubmitedViaButton = true;
             console.log("> clicked");
@@ -181,6 +187,11 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     typeof cb === "function" && cb()
   ),
   elmt
+);
+
+// Remove isSubmittedViaButton if scrolling happen.
+chat && (
+  chat.onscroll = throttle(() => isSubmitedViaButton = false)
 );
 
 // Original content.
@@ -275,7 +286,13 @@ addPulsingShaking = input.onblur = event => {
   input.value = `> ${isFocused} [${isSubmitedViaButton}]`;
   console.log('blur');
 
-  if (isSubmitedViaButton) {
+  if (event && (
+    isSubmitedViaButton
+    || (
+      event.relatedTarget &&
+      (event.relatedTarget.type || event.relatedTarget.getAttribute("type")) === "submit"
+    )
+  )) {
     event.preventDefault();
     event.stopPropagation();
     event.target.focus();
