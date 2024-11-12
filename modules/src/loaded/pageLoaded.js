@@ -2,25 +2,31 @@ import "./common.js";
 
 (() => { // START OF SCRIPT
 
-  // Back nav functionality.
-  const addBackOption = str => str && str.includes("index.html") && (
-    str.includes("?") && (str + "&intro=false")
-    || str + "?intro=false"
-  ) || str;
+// Back nav functionality.
+const addBackOption = str => str && str.includes("index.html") && (
+  str.includes("?") && (str + "&intro=false")
+  || str + "?intro=false"
+) || str;
 
-  const createBackCallback = (
-    backUrl,
-    defaultBackUrl = "../index.html",
-    decrementHistory = true
-  ) => () => {
-    decrementHistory && window.history && window.history.length && window.history.back ?
-      window.history.back()
-    : window.location.href = addBackOption(backUrl || document.referrer || defaultBackUrl || "../index.html");
-  }
+const createBackCallback = (
+  backUrl,
+  defaultBackUrl = "../index.html",
+  decrementHistory = true
+) => () => {
+  decrementHistory && window.history && window.history.length && window.history.back ?
+    window.history.back()
+  : window.location.href = addBackOption(backUrl || document.referrer || defaultBackUrl || "../index.html");
+}
 
-  let back = document.getElementById("back");
-  back && (back.onclick = createBackCallback(null, "../index.html", true));
-  back = document.getElementById("back-home");
-  back && (back.onclick = createBackCallback("../index.html", "../index.html", back.hasAttribute("data-decrement-history")));
+let back = document.getElementById("back");
+back && (back.onclick = createBackCallback(null, "../index.html", true));
+back = document.getElementById("back-home");
+back && (back.onclick = createBackCallback("../index.html", "../index.html", back.hasAttribute("data-decrement-history")));
+
+// Remove focus.
+document.addEventListener('click', event => (
+  event.target === document.body && 
+    document.activeElement.blur()
+));
 
 })(); // END OF SCRIPT
