@@ -394,6 +394,11 @@ body.keyboard-up #agent-response {
   animation: thinking 1s linear infinite;
 }
 
+#thinking.warning > div:first-of-type {
+  filter: hue-rotate(180deg);
+}
+
+#thinking.warning.error > div:first-of-type,
 #thinking.error > div:first-of-type {
   filter: hue-rotate(120deg);
 }

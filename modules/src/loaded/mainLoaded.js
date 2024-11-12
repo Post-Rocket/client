@@ -457,6 +457,7 @@ addThinking = (msg, cb, ttl = 30000) => {
     thinkingText.innerHTML = msg[0] || defaultThinkingMsg[0];
     timeoutId3 = setTimeout(() => {
       thinkingText.innerHTML = msg[1] || defaultThinkingMsg[1];
+      thinking.classList.add("warning");
       timeoutId3 = setTimeout(() => {
         thinkingText.innerHTML = msg[2] || defaultThinkingMsg[2];
         thinking.classList.add("error");
@@ -469,6 +470,7 @@ removeThinking = () => {
   clearTimeout(timeoutId4);
   thinkingText.innerHTML = "";
   thinking.classList.add("hidden");
+  thinking.classList.remove("warning");
   thinking.classList.remove("error");
   document.activeElement || addPulsingShaking();
   input.disabled = null;
