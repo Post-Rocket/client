@@ -271,7 +271,7 @@ const blurActiveElement = event => (
 );
 
 // Pulsing.
-let timeoutId2, isFocused = false;
+let timeoutId2, isFocused = true;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
@@ -283,14 +283,14 @@ addPulsingShaking = input.onblur = event => {
     event.preventDefault();
     event.stopPropagation();
     setTimeout(() => {
-      console.log(">>>>", event.target === input);
+      console.log(">>", event.target === input);
       event.target.focus();
     }, 0);
     removePulsingShaking();
     return;
   }
 
-  isFocused = false;
+  // isFocused = false;
 
   // Add pulsing after a certain time.
   timeoutId2 = setTimeout(() => {
