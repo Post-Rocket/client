@@ -135,6 +135,14 @@ removePulsingShaking = input.onfocus = () => {
   input.classList.remove("shaking");
 }
 
+// Send cancelling request to the bot.
+const sendCancel = data => {
+  removeThinking();
+  writeContent("Ok, I'll stop thinking about it 🤷🏻‍♀️");
+
+  // To be completed.
+}
+
 // When a user talk to the bot.
 form.onsubmit = event => {
   event.preventDefault();
@@ -161,21 +169,27 @@ form.onsubmit = event => {
 
   // --- TO BE REPLACED ---
   console.log(formData);
+  // ----------------------
 
   // Clear the chat.
   while (chat.lastChild) {
     chat.removeChild(chat.lastChild);
   }
 
-  // Add thinking animation.
-  addThinking();
+  // Process formData.
+  if (formData.cancel) {
+    sendCancel(formData);
+  } else {
+    // Add thinking animation.
+    addThinking();
 
-  // Simulating response.
-  setTimeout(() => {
-    removeThinking();
-    writeContent("Ok. Roger that.");
-  }, 5000);
-  // ----------------------
+    // Simulating response.
+    setTimeout(() => {
+      removeThinking();
+      writeContent("Ok. Roger that.");
+    }, 5000);
+    // ----------------------
+  }
 
   return false;
 }
