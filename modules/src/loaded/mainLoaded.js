@@ -181,7 +181,10 @@ form.onsubmit = event => {
     sendCancel(formData);
   } else {
     // Add thinking animation.
-    addThinking();
+    addThinking(null, () => sendCancel({
+      ...formData,
+      timeout: true
+    }));
 
     // Simulating response.
     setTimeout(() => {
@@ -395,8 +398,8 @@ defaultThinkingMsg = [
   "🙆🏻‍♀️ Almost there...",
   "🤦🏻‍♀️ Maybe something's wrong..."
 ],
-addThinking = msg => {
-  Array.isArray(msg) || (msg = [msg]);
+addThinking = (msg, cb) => {
+  Array.isArray(msg) || (msg = [msg].filter(isValid));
   thinking.classList.remove("hidden");
   removePulsingShaking();
   input.disabled = true;
@@ -407,6 +410,7 @@ addThinking = msg => {
       thinkingText.innerHTML = msg[1] || defaultThinkingMsg[1];
       timeoutId3 = setTimeout(() => {
         thinkingText.innerHTML = msg[2] || defaultThinkingMsg[2];
+        typeof cb === "function" && (timeoutId3 = setTimeout(() => cb(), 5000));
       }, 10000);
     }, 10000);
   }, 5000);
