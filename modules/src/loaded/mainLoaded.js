@@ -172,6 +172,8 @@ form.onsubmit = event => {
 
   // --- TO BE REPLACED ---
   console.log(formData);
+  chat.innerHTML = "";
+  addThinking();
   // ----------------------
 
   return false;
