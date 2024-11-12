@@ -139,16 +139,24 @@ removePulsingShaking = input.onfocus = () => {
 form.onsubmit = event => {
   event.preventDefault();
   event.stopPropagation();
+
+  // Check validity.
   form.checkValidity();
   form.reportValidity();
+
+  // Normalize input.
   const formData = createFormData(form),
     msg = formData.msg || formData.demoMsg,
-    isDemo = !!formData.demoMsg;
+    isDemoCancel = formData.hasOwnProperty("demoCancel"),
+    isDemo = !!(formData.demoMsg || isDemoCancel);
+  (isDemoCancel || formData.hasOwnProperty("cancel")) && (formData.cancel = true);
   (formData.isDemo = isDemo) && (
     delete formData.demoMsg,
+    delete formData.demoCancel,
     formData.msg = msg
   );
-  formData.hasOwnProperty("cancel") && (formData.cancel = true);
+  
+  // Clear input.
   input.value = "";
 
   // --- TO BE REPLACED ---
