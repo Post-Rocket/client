@@ -77,7 +77,6 @@ const createTemplate = () => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 32px 0;
   }
 
   span {

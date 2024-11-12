@@ -8,6 +8,15 @@
   display: flex;
 }
 
+.flex.gap,
+.row.gap {
+  gap: var(--gap-row, var(--gap, var(--padding-horizontal, 0)));
+}
+
+.column.gap {
+  gap: var(--gap-column, var(--gap, var(--padding-vertical, 0)));
+}
+
 .flex.shrink,
 .row.shrink,
 .column.shrink {
