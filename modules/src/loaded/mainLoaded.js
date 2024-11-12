@@ -147,8 +147,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
                   content = c.send || c.text;
                 content && (
                   input.value = content,
-                  form.requestSubmit(),
-                  input[isFocused && "focus" || "blur"]()
+                  form.requestSubmit()
                 );
             }
           },
