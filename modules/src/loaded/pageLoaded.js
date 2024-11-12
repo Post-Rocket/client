@@ -25,8 +25,11 @@ back && (back.onclick = createBackCallback("../index.html", "../index.html", bac
 
 // Remove focus.
 document.addEventListener('click', event => (
-  event.target === document.body && 
+  event.target === document.body && (
+    event.preventDefault(),
+    event.stopPropagation(),
     document.activeElement.blur()
+  );
 ));
 
 })(); // END OF SCRIPT
