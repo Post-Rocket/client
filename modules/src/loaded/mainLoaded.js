@@ -271,10 +271,10 @@ input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
   isFocused = false;
   const relatedTarget = event && (
-    event.relatedTarget
+    event.relatedTarget || document.activeElement
   );
 
-  input.value = `>>> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")} | ${relatedTarget && relatedTarget.tagName || "null"}]`;
+  input.value = `>> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")} | ${relatedTarget && relatedTarget.tagName || "null"}]`;
 
   if (relatedTarget && (
       relatedTarget.type || relatedTarget.getAttribute("type")
