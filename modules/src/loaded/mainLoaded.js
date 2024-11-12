@@ -279,7 +279,7 @@ addPulsingShaking = input.onblur = event => {
     event.relatedTarget || event.rangeParent || document.activeElement
   );
 
-  input.value = `> ${isFocused} [${!!relatedTarget}]`;
+  input.value = `> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")}]`;
 
   if (relatedTarget && (
       relatedTarget.type || relatedTarget.getAttribute("type")
