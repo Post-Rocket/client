@@ -24,4 +24,5 @@ setTimeout(() => {
   document.body.classList.add('transition-on');
 }, 100);
 
+
 })(); // END OF SCRIPT
