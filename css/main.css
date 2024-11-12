@@ -554,12 +554,11 @@ body.keyboard-up #agent-response {
   opacity: 1;
   transition: var(--transition-time);
   cursor: pointer;
-  font-size: 20px;
   font-weight: 500;
 }
 
 #cancel-button::after {
-  content: "◼︎";
+  content: "■";
 }
 
 #cancel-button:disabled {
@@ -838,17 +837,17 @@ body.keyboard-up #agent-response {
   }
 
   #cancel-button:hover,
-  #input:disabled:has(#cancel-button:hover) {
+  #form:has(#cancel-button:hover) > #input:disabled {
     width: 128px;
   }
 
   #cancel-button:hover {
-    font-size: 16px;
+    font-size: 14px;
     left: calc(50% - 64px);
   }
 
   #cancel-button:hover::after {
-    content: "cancel!"
+    content: "cancel"
   }
 
   #text button:hover {
