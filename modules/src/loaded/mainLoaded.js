@@ -139,8 +139,47 @@ removePulsingShaking = input.onfocus = () => {
 const sendCancel = data => {
   removeThinking();
   writeContent(
-    data && data.timeout && "I could not figure it out on time 🤷🏻‍♀️\nMaybe try again later?"
-    || "Ok, I'll stop thinking about it 🤷🏻‍♀️\n Anything else you wanted to add?"
+    data && data.timeout && [
+      "I could not figure it out on time 🤷🏻‍♀️\nAnything else you wanted to add?",
+      [
+        {
+          type: "button",
+          text: "try later"
+        },
+        {
+          type: "button",
+          text: "retry now",
+          send: "I want to try again"
+        },
+        {
+          type: "button",
+          text: "see tutorials",
+          action: "navigate",
+          href: "pages/help.html"
+        }
+      ]
+    ]
+    || [
+      "Ok, I'll stop thinking about it 🤷🏻‍♀️\n Anything else you wanted to add?",
+      [
+        {
+          type: "button",
+          text: "yes",
+          send: "nothing else to add"
+        },
+        {
+          type: "button",
+          text: "no",
+          send: "I have something to add"
+        },
+        {
+          type: "button",
+          text: "learn more",
+          action: "navigate",
+          href: "pages/help.html"
+        }
+      ]
+    ]
   );
 
   // To be completed.
@@ -368,11 +407,13 @@ document.getElementById("index") === document.body && writeContent([
   "Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
     {
       type: "button",
-      text: "yes"
+      text: "yes",
+      send: "I have a website"
     },
     {
       type: "button",
-      text: "no"
+      text: "no",
+      send: "I do not have a website"
     },
     {
       type: "button",
