@@ -848,7 +848,7 @@ body.keyboard-up #agent-response {
   }
 
   #cancel-button:hover::after {
-    content: "cancel"
+    content: "cancel!"
   }
 
   #text button:hover {
