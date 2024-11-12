@@ -138,7 +138,10 @@ removePulsingShaking = input.onfocus = () => {
 // Send cancelling request to the bot.
 const sendCancel = data => {
   removeThinking();
-  writeContent("Ok, I'll stop thinking about it 🤷🏻‍♀️");
+  writeContent(
+    data && data.timeout && "I could not figure it out on time 🤷🏻‍♀️. Maybe try again later?"
+    || "Ok, I'll stop thinking about it 🤷🏻‍♀️"
+  );
 
   // To be completed.
 }
@@ -389,7 +392,7 @@ document.getElementById("index") === document.body && writeContent([
 document.getElementById("home") === document.body && writeContent(`What can I help with today?`);
 
 // Thinking.
-let timeoutId3;
+let timeoutId3, timeoutId4;
 const thinking = document.getElementById("thinking"),
 thinkingText = document.getElementById("thinking-text"),
 cancelButton = document.getElementById("cancel-button"),
@@ -398,25 +401,26 @@ defaultThinkingMsg = [
   "🙆🏻‍♀️ Almost there...",
   "🤦🏻‍♀️ Maybe something's wrong..."
 ],
-addThinking = (msg, cb) => {
+addThinking = (msg, cb, ttl = 30000) => {
   Array.isArray(msg) || (msg = [msg].filter(isValid));
   thinking.classList.remove("hidden");
   removePulsingShaking();
   input.disabled = true;
   cancelButton.disabled = null;
+  typeof cb === "function" && (timeoutId4 = setTimeout(() => cb(), ttl));
   timeoutId3 = setTimeout(() => {
     thinkingText.innerHTML = msg[0] || defaultThinkingMsg[0];
     timeoutId3 = setTimeout(() => {
       thinkingText.innerHTML = msg[1] || defaultThinkingMsg[1];
       timeoutId3 = setTimeout(() => {
         thinkingText.innerHTML = msg[2] || defaultThinkingMsg[2];
-        typeof cb === "function" && (timeoutId3 = setTimeout(() => cb(), 5000));
       }, 10000);
     }, 10000);
   }, 5000);
 },
 removeThinking = () => {
   clearTimeout(timeoutId3);
+  clearTimeout(timeoutId4);
   thinkingText.innerHTML = "";
   thinking.classList.add("hidden");
   document.activeElement || addPulsingShaking();
