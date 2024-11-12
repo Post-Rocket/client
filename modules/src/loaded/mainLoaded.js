@@ -140,7 +140,7 @@ const sendCancel = data => {
   removeThinking();
   writeContent(
     data && data.timeout && "I could not figure it out on time 🤷🏻‍♀️. Maybe try again later?"
-    || "Ok, I'll stop thinking about it 🤷🏻‍♀️."
+    || "Ok, I'll stop thinking about it 🤷🏻‍♀️\n Anything else you wanted to add?"
   );
 
   // To be completed.
