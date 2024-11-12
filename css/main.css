@@ -330,7 +330,7 @@ body.keyboard-up #agent-response {
 
 #text,
 #text * {
-  overscroll-behavior: auto;
+  overscroll-behavior: auto !important;
 }
 
 #text .row {

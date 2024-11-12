@@ -279,10 +279,8 @@ addPulsingShaking = input.onblur = event => {
     event.preventDefault();
     event.stopPropagation();
     setTimeout(() => {
-      event.target.focus();
-      event.target.value = "should be focused";
-      console.log("refocus");
-    }, 1000);
+      event.target.click();
+    }, 0);
     removePulsingShaking();
     return;
   }
@@ -365,10 +363,8 @@ form.onsubmit = event => {
     formData.msg = msg
   );
   const isFocused = document.activeElement === input;
-  // input.value = `${isFocused}`;
-  console.log(">>> isFocused", isFocused);
-  isFocused && setTimeout(() => input.click(), 10);
-  console.log(">>> isClicked", isFocused);
+  input.value = "";
+  isFocused && setTimeout(() => input.click(), 0);
 
   // --- TO BE REPLACED ---
   console.log(formData);
