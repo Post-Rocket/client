@@ -23,13 +23,4 @@ back && (back.onclick = createBackCallback(null, "../index.html", true));
 back = document.getElementById("back-home");
 back && (back.onclick = createBackCallback("../index.html", "../index.html", back.hasAttribute("data-decrement-history")));
 
-// Remove focus.
-document.addEventListener('click', event => (
-  event.target === document.body && (
-    event.preventDefault(),
-    event.stopPropagation(),
-    document.activeElement.blur()
-  )
-));
-
 })(); // END OF SCRIPT
