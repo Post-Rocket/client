@@ -839,11 +839,11 @@ body.keyboard-up #agent-response {
 
   #cancel-button:hover,
   #form:has(#cancel-button:hover) > #input:disabled {
-    width: 112px;
+    width: 96px;
   }
 
   #cancel-button:hover {
-    left: calc(50% - 56px);
+    left: calc(50% - 48px);
   }
 
   #cancel-button:hover::after {
