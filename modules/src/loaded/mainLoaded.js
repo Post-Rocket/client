@@ -263,11 +263,11 @@ const getOpenDialog = target => (
 document.getElementById("agent").onclick = getOpenDialog("agent-dialog");
 
 // Remove focus.
-const blurActiveElement = event => (
-  event.preventDefault(),
-  (origHeight > vv.height || vv.offsetTop)
-    && document.activeElement && document.activeElement.blur()
-);
+// const blurActiveElement = event => (
+//   event.preventDefault(),
+//   (origHeight > vv.height || vv.offsetTop)
+//     && document.activeElement && document.activeElement.blur()
+// );
 
 // Pulsing.
 let timeoutId2, isFocused = false;
@@ -275,12 +275,15 @@ const form = document.getElementById("form"),
 input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
   isFocused = false;
-  input.value = `> ${isFocused}`;
+  const relatedTarget = event && (
+    event.relatedTarget || event.rangeParent || document.activeElement
+  );
 
-  let relatedTarget;
-  if (event
-    && (relatedTarget = event.relatedTarget || event.rangeParent || document.activeElement)
-    && (relatedTarget.type || relatedTarget.getAttribute("type")) === "submit"
+  input.value = `> ${isFocused} [${!!relatedTarget}]`;
+
+  if (relatedTarget && (
+      relatedTarget.type || relatedTarget.getAttribute("type")
+    ) === "submit"
   ) {
     event.preventDefault();
     event.stopPropagation();
@@ -296,7 +299,7 @@ addPulsingShaking = input.onblur = event => {
   }, 10000);
 
   // Remove defocus event handler.
-  () => document.removeEventListener('scroll', blurActiveElement);
+  // () => document.removeEventListener('scroll', blurActiveElement);
 },
 removePulsingShaking = input.onfocus = () => {
   // Remove pulsing.
