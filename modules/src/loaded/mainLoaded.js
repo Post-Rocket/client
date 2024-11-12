@@ -165,12 +165,12 @@ const sendCancel = data => {
         {
           type: "button",
           text: "yes",
-          send: "nothing else to add"
+          send: "I have something to add"
         },
         {
           type: "button",
           text: "no",
-          send: "I have something to add"
+          send: "nothing else to add"
         },
         {
           type: "button",
