@@ -271,7 +271,7 @@ const blurActiveElement = event => (
 );
 
 // Pulsing.
-let timeoutId2;
+let timeoutId2, isFocused = false;
 const form = document.getElementById("form"),
 input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
@@ -284,6 +284,8 @@ addPulsingShaking = input.onblur = event => {
     removePulsingShaking();
     return;
   }
+
+  isFocused = false;
 
   // Add pulsing after a certain time.
   timeoutId2 = setTimeout(() => {
@@ -299,6 +301,8 @@ removePulsingShaking = input.onfocus = () => {
   clearTimeout(timeoutId2);
   input.classList.remove("pulsing");
   input.classList.remove("shaking");
+
+  isFocused = true;
 }
 
 // Intro animation.
@@ -362,7 +366,7 @@ form.onsubmit = event => {
     delete formData.demoMsg,
     formData.msg = msg
   );
-  const isFocused = document.activeElement === input;
+  // const isFocused = document.activeElement === input;
   input.value = "";
   isFocused && setTimeout(() => input.click(), 0);
 
