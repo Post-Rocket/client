@@ -179,7 +179,7 @@ form.onsubmit = event => {
     removeThinking();
     wasFocused && input.focus();
     writeContent("Ok. Roger that.");
-  }, 5000);
+  }, 3000);
   // ----------------------
 
   return false;
