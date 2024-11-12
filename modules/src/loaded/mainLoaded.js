@@ -148,6 +148,7 @@ form.onsubmit = event => {
     delete formData.demoMsg,
     formData.msg = msg
   );
+  formData.hasOwnProperty("cancel") && (formData.cancel = true);
   input.value = "";
 
   // --- TO BE REPLACED ---
