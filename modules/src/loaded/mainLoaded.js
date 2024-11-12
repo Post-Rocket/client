@@ -274,7 +274,7 @@ addPulsingShaking = input.onblur = event => {
     event.relatedTarget
   );
 
-  input.value = `>> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")} | ${relatedTarget && relatedTarget.tagName || "null"}]`;
+  input.value = `>>> ${isFocused} [${!!relatedTarget} | ${relatedTarget && (relatedTarget.type || relatedTarget.getAttribute("type") || "unknown")} | ${relatedTarget && relatedTarget.tagName || "null"}]`;
 
   if (relatedTarget && (
       relatedTarget.type || relatedTarget.getAttribute("type")
