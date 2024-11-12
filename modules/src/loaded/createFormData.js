@@ -27,11 +27,13 @@ export const createFormData = (input, defaultOutput = {}) => {
     input = input.target
   ));
 
-  submitter && (submitter = ({
-    name: submitter.name || submitter.getAttribute("name"),
-    value: submitter.value || submitter.getAttribute("value")
-  }));
-  submitter.value || (submitter.value = !!submitter.name);
+  submitter && (
+    submitter = ({
+      name: submitter.name || submitter.getAttribute("name"),
+      value: submitter.value || submitter.getAttribute("value")
+    }),
+    submitter.value || (submitter.value = !!submitter.name)
+  );
 
   // If we can't capture the form element.
   if (!(input instanceof HTMLFormElement)) return defaultOutput;
