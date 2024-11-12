@@ -130,6 +130,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p.setAttribute("type", "submit"),
           p.onclick = event => {
             isSubmitedViaButton = true;
+            console.log("> clicked");
             event.preventDefault();
             event.stopPropagation();
             switch ((c.action || "").toLowerCase()) {
