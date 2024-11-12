@@ -26,6 +26,24 @@
   gap: calc(2 * var(--gap-column, var(--gap, var(--padding-vertical, 0))));
 }
 
+.flex.gap-3x,
+.row.gap-3x {
+  gap: calc(3 * var(--gap-row, var(--gap, var(--padding-horizontal, 0))));
+}
+
+.column.gap-2x {
+  gap: calc(3 * var(--gap-column, var(--gap, var(--padding-vertical, 0))));
+}
+
+.flex.gap-4x,
+.row.gap-4x {
+  gap: calc(4 * var(--gap-row, var(--gap, var(--padding-horizontal, 0))));
+}
+
+.column.gap-4x {
+  gap: calc(4 * var(--gap-column, var(--gap, var(--padding-vertical, 0))));
+}
+
 .flex.shrink,
 .row.shrink,
 .column.shrink {
