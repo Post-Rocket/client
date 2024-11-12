@@ -278,8 +278,11 @@ addPulsingShaking = input.onblur = event => {
   if (event && event.relatedTarget && event.relatedTarget.type === "submit") {
     event.preventDefault();
     event.stopPropagation();
-    setTimeout(() => event.target.focus(), 10);
-    event.target.value = "should be focused";
+    setTimeout(() => {
+      event.target.focus();
+      event.target.value = "should be focused";
+      console.log("refocus");
+    }, 1000);
     removePulsingShaking();
     return;
   }
@@ -351,6 +354,7 @@ removeThinking = () => {
 // When a user talk to the bot.
 form.onsubmit = event => {
   event.preventDefault();
+  event.stopPropagation();
   form.checkValidity();
   form.reportValidity();
   const formData = createFormData(form),
