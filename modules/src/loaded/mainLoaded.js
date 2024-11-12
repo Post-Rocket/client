@@ -129,9 +129,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
           p.onclick = event => (
             event.preventDefault(),
             event.stopPropagation(),
-            // input.value = c.send || c.text,
-            // form.submit(),
-            console.log(p, c.send || c.text)
+            input.value = c.send || c.text,
+            form.submit()
           ),
           elmt.appendChild(p)
         ) || (p === "img" || p === "image") && c.src && (
@@ -340,7 +339,8 @@ form.onsubmit = event => {
   // --- TO BE REPLACED ---
   console.log(formData);
   // ----------------------
-
+  
+  return false;
 }
 
 })(); // END OF SCRIPT
