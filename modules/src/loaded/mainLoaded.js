@@ -144,7 +144,8 @@ const sendCancel = data => {
       [
         {
           type: "button",
-          text: "try later"
+          text: "try later",
+          send: "I want to try later"
         },
         {
           type: "button",
