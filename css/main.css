@@ -349,7 +349,7 @@ body.keyboard-up #agent-response {
   height: 28px;
   font-size: 12px;
   font-weight: 500;
-  background: var(--color-5-percent);
+  background: var(--color-10-percent);
   border: 1.5px solid transparent;
 }
 
@@ -478,7 +478,7 @@ body.keyboard-up #agent-response {
   font-weight: 300;
   color: var(--color);
   border: none;
-  background: var(--color-5-percent);
+  background: var(--color-10-percent);
   padding-left: var(--_border-radius);
   padding-right: var(--_border-radius);
 }
@@ -746,7 +746,7 @@ body.keyboard-up #agent-response {
   #side-menu > a:hover,
   #side-menu > button:hover {
     opacity: 1 !important;
-    background: var(--color-5-percent);
+    background: var(--color-10-percent);
     padding: 12px calc(0.5 * var(--padding-horizontal));
   }
 

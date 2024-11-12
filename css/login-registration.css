@@ -21,7 +21,7 @@
   font-weight: 300;
   color: var(--color);
   border: none;
-  background: var(--color-5-percent);
+  background: var(--color-10-percent);
   padding: 0 calc(0.5 * var(--_input-height));
   opacity: 1;
   transition: var(--transition-time);
