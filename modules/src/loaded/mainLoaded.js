@@ -459,6 +459,7 @@ addThinking = (msg, cb, ttl = 30000) => {
       thinkingText.innerHTML = msg[1] || defaultThinkingMsg[1];
       timeoutId3 = setTimeout(() => {
         thinkingText.innerHTML = msg[2] || defaultThinkingMsg[2];
+        thinking.classList.add("error");
       }, 10000);
     }, 10000);
   }, 5000);
@@ -468,6 +469,7 @@ removeThinking = () => {
   clearTimeout(timeoutId4);
   thinkingText.innerHTML = "";
   thinking.classList.add("hidden");
+  thinking.classList.remove("error");
   document.activeElement || addPulsingShaking();
   input.disabled = null;
   cancelButton.disabled = true;

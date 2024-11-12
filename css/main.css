@@ -380,6 +380,7 @@ body.keyboard-up #agent-response {
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  transition: var(--transition-time);
 }
 
 #thinking > div:first-of-type {
@@ -391,6 +392,10 @@ body.keyboard-up #agent-response {
   outline: 0px solid transparent;
   outline-offset: 0px;
   animation: thinking 1s linear infinite;
+}
+
+#thinking.error > div:first-of-type {
+  filter: hue-rotate(100deg);
 }
 
 #thinking > div:first-of-type:before {
