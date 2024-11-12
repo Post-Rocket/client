@@ -367,7 +367,7 @@ form.onsubmit = event => {
     formData.msg = msg
   );
   // const isFocused = document.activeElement === input;
-  input.value = "";
+  input.value = `${isFocused}`;
   isFocused && setTimeout(() => input.click(), 0);
 
   // --- TO BE REPLACED ---
