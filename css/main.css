@@ -553,10 +553,12 @@ body.keyboard-up #agent-response {
   align-items: center;
   opacity: 1;
   transition: var(--transition-time);
+  cursor: pointer;
 }
 
 #cancel-button:disabled {
   opacity: 0;
+  pointer-events: none;
 }
 
 #intro {
@@ -825,8 +827,12 @@ body.keyboard-up #agent-response {
     color: var(--color-75-percent);
   }
 
- #form:has(input:not(:placeholder-shown)) > #submit-button:hover {
+  #form:has(input:not(:placeholder-shown)) > #submit-button:hover {
     transform: rotate(-45deg) translate(4px, -2px);
+  }
+
+  #cancel-button:hover {
+    transform: rotate(180deg);
   }
 
   #text button:hover {
