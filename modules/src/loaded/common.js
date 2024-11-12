@@ -25,12 +25,12 @@ setTimeout(() => {
 }, 100);
 
 // Remove focus.
-document.addEventListener('click', event => (
-  event.target === document.body && (
-    event.preventDefault(),
-    event.stopPropagation(),
-    document.activeElement.blur()
-  )
-));
+// document.addEventListener('click', event => (
+//   event.target === document.body && (
+//     event.preventDefault(),
+//     event.stopPropagation(),
+//     document.activeElement.blur()
+//   )
+// ));
 
 })(); // END OF SCRIPT
