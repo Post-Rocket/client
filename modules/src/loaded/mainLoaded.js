@@ -1,6 +1,7 @@
 import "./common.js";
 import createFormData from "./createFormData.js";
 import throttle from "../utils/throttle.js";
+import "../components/YoutubeVideo.js";
 
 (() => { // START OF SCRIPT
 
