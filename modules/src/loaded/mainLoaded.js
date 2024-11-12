@@ -276,6 +276,7 @@ addPulsingShaking = input.onblur = event => {
     event.preventDefault();
     event.target.focus();
     removePulsingShaking();
+    console.log(">> Related", event.relatedTarget);
     return;
   }
 
@@ -355,6 +356,7 @@ form.onsubmit = event => {
     delete formData.demoMsg,
     formData.msg = msg
   );
+  console.log(">>", document.activeElement);
   input.value = "";
   // input.focus();
 
