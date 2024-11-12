@@ -558,7 +558,8 @@ body.keyboard-up #agent-response {
 }
 
 #cancel-button::after {
-  content: "◼◾⏹⬜";
+  content: "⏹";
+  font-size: 20px;
 }
 
 #cancel-button:disabled {
@@ -842,11 +843,11 @@ body.keyboard-up #agent-response {
   }
 
   #cancel-button:hover {
-    font-size: 14px;
     left: calc(50% - 56px);
   }
 
   #cancel-button:hover::after {
+    font-size: 14px;
     content: "cancel"
   }
 
