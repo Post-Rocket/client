@@ -144,8 +144,7 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
                 break;
               case "submit":
               default:
-                const isFocused = input === document.activeElement,
-                  content = c.send || c.text;
+                const content = c.send || c.text;
                 content && (
                   input.value = content,
                   form.requestSubmit()
@@ -370,7 +369,7 @@ form.onsubmit = event => {
     formData.msg = msg
   );
   // const isFocused = document.activeElement === input;
-  input.value = `# ${isFocused}`;
+  input.value += ` # ${isFocused}`;
   isFocused && input.focus();
 
   // --- TO BE REPLACED ---
