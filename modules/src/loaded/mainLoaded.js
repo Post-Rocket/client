@@ -140,7 +140,7 @@ const sendCancel = data => {
   removeThinking();
   writeContent(
     data && data.timeout && "I could not figure it out on time 🤷🏻‍♀️. Maybe try again later?"
-    || "Ok, I'll stop thinking about it 🤷🏻‍♀️"
+    || "Ok, I'll stop thinking about it 🤷🏻‍♀️."
   );
 
   // To be completed.
@@ -184,13 +184,17 @@ form.onsubmit = event => {
     sendCancel(formData);
   } else {
     // Add thinking animation.
-    addThinking(null, () => sendCancel({
-      ...formData,
-      timeout: true
-    }));
+    let timeoutIdTest;
+    addThinking(null, () => (
+      sendCancel({
+        ...formData,
+        timeout: true
+      }),
+      clearTimeout(timeoutIdTest) // For the test below
+    ));
 
     // Simulating response.
-    setTimeout(() => {
+    timeoutIdTest = setTimeout(() => {
       removeThinking();
       writeContent("Ok. Roger that.");
     }, 5000);
