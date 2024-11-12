@@ -276,6 +276,8 @@ const form = document.getElementById("form"),
 input = document.getElementById("input"),
 addPulsingShaking = input.onblur = event => {
   isFocused = false;
+  input.value = `> ${isFocused}`;
+
   let relatedTarget;
   if (event
     && (relatedTarget = event.relatedTarget || event.rangeParent || document.activeElement)
@@ -302,8 +304,8 @@ removePulsingShaking = input.onfocus = () => {
   clearTimeout(timeoutId2);
   input.classList.remove("pulsing");
   input.classList.remove("shaking");
-
   isFocused = true;
+  input.value = `> ${isFocused}`;
 }
 
 // Intro animation.
@@ -368,7 +370,7 @@ form.onsubmit = event => {
     formData.msg = msg
   );
   // const isFocused = document.activeElement === input;
-  input.value = `${isFocused}`;
+  input.value = `# ${isFocused}`;
   isFocused && input.focus();
 
   // --- TO BE REPLACED ---
