@@ -172,8 +172,14 @@ form.onsubmit = event => {
 
   // --- TO BE REPLACED ---
   console.log(formData);
+  const wasFocused = isFocused;
   chat.innerHTML = "";
   addThinking();
+  setTimeout(() => {
+    removeThinking();
+    wasFocused && input.focus();
+    writeContent("Ok. Roger that.");
+  }, 5000);
   // ----------------------
 
   return false;
