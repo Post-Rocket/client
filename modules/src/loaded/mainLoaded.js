@@ -165,7 +165,7 @@ form.onsubmit = event => {
   setTimeout(() => {
     removeThinking();
     writeContent("Ok. Roger that.");
-  }, 3000);
+  }, 5000);
   // ----------------------
 
   return false;
