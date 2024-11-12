@@ -181,7 +181,8 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
   elmt
 );
 
-(window.location.href.includes("index.html") || !window.location.href.includes(".html")) && writeContent([
+// Original content.
+document.getElementById("index") === document.body && writeContent([
   "Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
     {
       type: "button",
@@ -208,7 +209,9 @@ writeContent = (arr, elmt = chat, cb, i = 0, c, p) => (
     type: "youtube",
     src: "https://www.youtube.com/watch?v=wbZBVu1AQSQ"
   }]
-]) || writeContent(`What can I help with today?`);
+]);
+
+document.getElementById("home") === document.body && writeContent(`What can I help with today?`);
 
 // Delay navigation.
 const close = event => {
