@@ -193,7 +193,7 @@ window.location.href.includes("index.html") && writeContent([
     },
     {
       type: "button",
-      text: "not sure",
+      text: "help me",
       action: "navigate",
       href: "pages/help.html"
     }
