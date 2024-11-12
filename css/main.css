@@ -395,7 +395,7 @@ body.keyboard-up #agent-response {
 }
 
 #thinking.error > div:first-of-type {
-  filter: hue-rotate(100deg);
+  filter: hue-rotate(120deg);
 }
 
 #thinking > div:first-of-type:before {
