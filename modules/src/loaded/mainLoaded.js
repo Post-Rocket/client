@@ -185,7 +185,7 @@ window.location.href.includes("index.html") && writeContent([
   }],
   [{
     type: "youtube",
-    src: "https://www.youtube.com/watch?v=k3kjJDGBa_o"
+    src: "https://www.youtube.com/watch?v=wbZBVu1AQSQ"
   }]
 ]) || writeContent(`What can I help with today?`);
 

@@ -19,8 +19,6 @@ export class YoutubeVideo extends HTMLElement {
     this.#headline = shadow.childNodes[1];
     this.#description = shadow.childNodes[2];
     this.#iframe = shadow.childNodes[3].firstChild;
-
-    console.log(">>> CONSTRUCTOR");
   }
 
   connectedCallback() {
@@ -38,13 +36,10 @@ export class YoutubeVideo extends HTMLElement {
       this.#src = `https://www.youtube.com/embed/${this.#src}?&theme=dark&autohide=2&modestbranding=1`,
       this.#iframe.setAttribute("src", this.#src)
     ) : this.#iframe.classList.add("hidden");
-
-    console.log(">>> connectedCallback", this.#headline.innerHTML, this.#description.innerHTML, this.#src);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     name = name.toLowerCase();
-    console.log(">>>", name, oldValue, newValue);
     switch (name) {
       case "headline":
         (this.#headline.innerHTML = newValue) ?
