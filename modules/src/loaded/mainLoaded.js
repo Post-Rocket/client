@@ -279,9 +279,9 @@ addPulsingShaking = input.onblur = event => {
     event.preventDefault();
     event.stopPropagation();
     setTimeout(() => {
-      console.log(">>", event.target === input, event.target, input);
+      console.log(">>>", event.target === input, event.target, input);
       event.target.click();
-    }, 0);
+    }, 1000);
     removePulsingShaking();
     return;
   }
