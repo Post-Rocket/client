@@ -844,6 +844,7 @@ body.keyboard-up #agent-response {
 
   #cancel-button:hover {
     font-size: 16px;
+    left: calc(50% - 128px);
   }
 
   #cancel-button:hover::after {
