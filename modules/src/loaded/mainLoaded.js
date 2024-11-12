@@ -273,6 +273,7 @@ addPulsingShaking = input.onblur = event => {
   isFocused = false;
 
   input.value = `> ${isFocused} [${isSubmitedViaButton}]`;
+  console.log('blur');
 
   if (isSubmitedViaButton) {
     event.preventDefault();
