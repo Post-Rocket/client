@@ -19,6 +19,8 @@ export class YoutubeVideo extends HTMLElement {
     this.#headline = shadow.childNodes[1];
     this.#description = shadow.childNodes[2];
     this.#iframe = shadow.childNodes[3].firstChild;
+
+    console.log(">>> CONSTRUCTOR");
   }
 
   connectedCallback() {
