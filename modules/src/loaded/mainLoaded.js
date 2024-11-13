@@ -222,6 +222,7 @@ form.onsubmit = event => {
   // Process formData.
   if (formData.cancel) {
     sendCancel(formData);
+    clearTimeout(timeoutIdTest) // For the test below
   } else {
     // Add thinking animation.
     let timeoutIdTest;
