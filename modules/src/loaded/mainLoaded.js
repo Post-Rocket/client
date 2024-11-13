@@ -146,17 +146,17 @@ const sendCancel = data => {
       [
         {
           type: "button",
-          text: "try later",
+          text: "maybe later",
           send: "I want to try later"
         },
         {
           type: "button",
-          text: "retry now",
+          text: "sure",
           send: "I want to try again"
         },
         {
           type: "button",
-          text: "see tutorials",
+          text: "watch tutorials",
           action: "navigate",
           href: "pages/help.html"
         }
