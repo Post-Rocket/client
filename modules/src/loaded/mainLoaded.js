@@ -186,6 +186,8 @@ const sendCancel = data => {
   // To be completed.
 }
 
+let timeoutIdTest; // For the test below
+
 // When a user talk to the bot.
 form.onsubmit = event => {
   event.preventDefault();
@@ -225,7 +227,6 @@ form.onsubmit = event => {
     clearTimeout(timeoutIdTest) // For the test below
   } else {
     // Add thinking animation.
-    let timeoutIdTest;
     addThinking(null, () => (
       sendCancel({
         ...formData,
