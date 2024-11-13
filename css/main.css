@@ -515,6 +515,8 @@ body.keyboard-up #agent-response {
 }
 
 #input:disabled {
+  opacity: 1;
+  background: var(--color-10-percent);
   width: var(--_input-height);
   height: var(--_input-height);
 }

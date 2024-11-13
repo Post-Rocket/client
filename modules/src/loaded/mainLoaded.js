@@ -2,6 +2,8 @@ import "./common.js";
 import createFormData from "./createFormData.js";
 import throttle from "../utils/throttle.js";
 import "../components/YoutubeVideo.js";
+import "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
+
 
 (() => { // START OF SCRIPT
 
