@@ -235,17 +235,24 @@ export class Confettis {
 
   // Start animation.
   start() {
+    this.#paused = false;
     return this;
   }
 
   // Pause animation.
   pause() {
+    this.#paused = true;
     return this;
   }
 
   // Stop animation.
   stop() {
     return this.pause().reset();
+  }
+
+  // Stop animation.
+  restart() {
+    return this.stop().start();
   }
 
   // Stringify object, for debugging.
