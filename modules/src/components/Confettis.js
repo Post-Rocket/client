@@ -1,6 +1,6 @@
 // Globals.
 const PI = Math.PI,
-  TWO_PI = PI + PI;
+  TWO_PI = PI + PI,
   HALF_PI = PI * 0.5,
   TEN_PI = 10 * PI;
 
@@ -44,20 +44,20 @@ class Particle {
   sy = 1;
 
   // Contructor.
-  constructor({p0, c0, c1, p1, delay, duration, color, draw, onDone}) {
+  constructor({ p0, c0, c1, p1, delay, duration, color, draw, onParticuleDone }) {
     // Required input.
-    this.#p0 = getValue(p0);
-    this.#c0 = getValue(c0);
-    this.#c1 = getValue(c1);
-    this.#p1 = getValue(p1);
+    this.#p0 = getValue(p0, this);
+    this.#c0 = getValue(c0, this);
+    this.#c1 = getValue(c1, this);
+    this.#p1 = getValue(p1, this);
     this.x = this.#p0.x;
     this.y = this.#p0.y;
 
     // Optional input.
-    this.#delay = Math.max(getValue(delay) || 0, 0);
-    this.#duration = Math.max(getValue(duration) || (3 + Math.random() * 2), 0);
-    this.#color = getValue(color) || `#${Math.floor((Math.random() * 0xffffff)).toString(16)}`;
-    this.#draw = getValue(getDrawFunc(draw));
+    this.#delay = Math.max(getValue(delay, this) || 0, 0);
+    this.#duration = Math.max(getValue(duration, this) || (3000 + Math.random() * 2000), 0);
+    this.#color = getValue(color, this) || `#${Math.floor((Math.random() * 0xffffff)).toString(16)}`;
+    this.#draw = getDrawFunc(getValue([draw], this));
 
     // Hidden method to update the onDone callback.
     Object.defineProperty(this, '__set_on_done__', {
@@ -65,7 +65,7 @@ class Particle {
         this.#onDone = typeof f === "function" && f || noop;
       }
     });
-    this.__set_on_done__(onDone);
+    this.__set_on_done__(onParticuleDone);
   }
 
   // Check if particle cycle is done.
@@ -74,18 +74,34 @@ class Particle {
   // Get particle color.
   get color() { return this.#color; }
 
+  // Get the temporal and spatial position of a particle.
+  getPosition(timingFunc) {
+    const t = timingFunc(this.#time - this.#delay, 1, 0, this.#duration),
+      p = cubeBezier(t, this.#p0, this.#c0, this.#c1, this.#p1);
+    return [t, p];
+  }
+
   // Update the particle state.
   update(timeStep, timingFunc) {
-    const delay = this.#delay, start = delay, end = this.#duration + delay;
+    const delay = this.#delay, end = this.#duration + delay;
+    timeStep = getValue(timeStep);
+    timingFunc = getValue([timingFunc]);
 
     // Get next time.
-    this.#time = Math.min(this.#time + timeStep, end);
+    if ((this.#time = this.#time + timeStep) > end) {
+      this.#time = end;
 
-    if (this.#time < delay) return this;
+      // The particle life is done.
+      this.#done = true;
+
+      // Callback.
+      this.#onDone(this);
+
+      return this;
+    } else if (this.#time < delay) return this;
 
     // Remap time with timing function, get new point and delta.
-    const t = timingFunc(this.#time - delay, 0, 1, this.#duration),
-      p = cubeBezier(t, this.#p0, this.#c0, this.#c1, this.#p1),
+    const [t, p] = this.getPosition(timingFunc),
       dx = p.x - this.x,
       dy = p.y - this.y;
 
@@ -95,11 +111,8 @@ class Particle {
     this.x = p.x;
     this.y = p.y;
 
-    // Check if the particle life is done.
-    this.#done = this.#time === end;
-
-    // Callback.
-    this.#done && this.#onDone();
+    // Not done yet.
+    this.#done = false;
 
     return this;
   }
@@ -107,20 +120,7 @@ class Particle {
   // Kill the particle.
   kill() {
     this.#done = true;
-    this.#onDone();
-    return this;
-  }
-
-  // Reset particle time.
-  reset(t = 0) {
-    const end = this.#duration + delay;
-    this.#time = t && Math.min(Math.max(t, 0), end) || 0;
-
-    // Check if the particle life is done.
-    this.#done = this.#time === end;
-
-    // Callback.
-    this.#done && this.#onDone();
+    this.#onDone(this);
     return this;
   }
 
@@ -132,8 +132,9 @@ class Particle {
     ctx.rotate(this.r);
     ctx.scale(this.sx, this.sy);
     const arg0 = args[0];
-    typeof arg0 === "function" && arg0(this, ...args.slice(1))
-      || this.#draw(ctx, arg0 || this.#color, ...args.slice(1))
+    typeof arg0 === "function" ?
+      arg0(ctx, this.#color, ...args.slice(1))
+      : this.#draw(ctx, this.#color, ...args)
     ctx.restore();
     return this;
   }
@@ -149,9 +150,8 @@ export class Confettis {
   #canvas = null;
   #ctx = null;
   #options;
-  #completed = 0;
   #iteration = 0;
-  #paused = false;
+  #timeoutId;
 
   // Constructor.
   constructor(canvas, options) {
@@ -177,27 +177,32 @@ export class Confettis {
       this.#options.temporary = true
     );
 
-    // Set pause.
-    his.#paused = !this.#options.autoStart;
-
     // Normalize  done callback.
-    const onDone = this.#options.onDone;
-    this.#options.onDone = function() {
-      (++this.#completed) >= this.#particles.length && (
-        typeof onDone === "function" && onDone(this),
+    const onDone = this.#options.onDone, onParticuleDone = this.#options.onParticuleDone, that = this;
+    this.#options.onDone = function(cancel = false) {
+      typeof onDone === "function" && onDone(this);
+
+      ++that.#iteration < that.#options.numIterations && !cancel && (
+        that.init(), // init animation
+        that.start() // start animation
+      ) || (
         // If it was a temporary canvas:
-        this.#options.temporary && (
-          this.#canvas ** this.#canvas.remove(), // remove canvas from dom
-          this.#particles = [] // destroy particles
-        ) || (
-          ++this.#iteration < this.#options.numIterations && (
-            this.reset(), // reset animation
-            this.start() // start animation
-          )
+        that.#options.temporary && (
+          that.#canvas && (
+            that.#canvas.remove(), // remove canvas from dom
+            that.#canvas = null // free node
+          ),
+          that.#ctx = null, // remove canvas context
+          that.#particles = [] // destroy particles
         )
-      ); 
-      return this;
+      );
+      return that;
     }
+    typeof onParticuleDone === "function" && (
+      this.#options.onParticuleDone = function(particule) {
+        return onParticuleDone(particule, this);
+      }
+    );
 
     // Init particles, if it's not temporary.
     this.#options.temporary || (
@@ -206,15 +211,19 @@ export class Confettis {
 
     // Freeze options.
     Object.freeze(this.#options);
+
+    // Set auto start.
+    this.#options.autoStart && this.start();
   }
 
-  // Get the number of particules.
-  get length() {
-    return Array.isArray(this.#particles) && this.#particles.length || 0;
-  }
+  // Get the number of particules active.
+  get active() { return Array.isArray(this.#particles) && this.#particles.length || 0; }
 
-  // Get the number of particules completed.
-  get completed() { return this.#completed; }
+  // Check if cycle is done.
+  get done() { return !this.active; }
+
+  // Check if all cycles are done.
+  get fullyDone() { return !this.active && this.#iteration >= this.#options.numIterations; }
 
   // Get input options.
   get options() { return this.#options; }
@@ -228,125 +237,79 @@ export class Confettis {
   // Get the current iteration.
   get numIterations() { return this.#options.numIterations; }
 
-  // Reset all particles at a time t.
-  reset(t = 0) {
-    this.#completed = 0;
-    for (let i = 0, p = this.#particles, n = p.length; i !== n; ++i) p[i].reset(t);
+  // Get playing.
+  get playing() { return !!this.#timeoutId; }
+
+  // Init system.
+  init(options) {
+    options = options && new Options({
+      ...this.#options,
+      ...options
+    }) || this.#options;
+
+    // If temporary canvas.
+    this.#canvas || (
+      this.#canvas = document.body.appendChild(document.createElement("canvas")),
+      this.#canvas.style = "width: 100dvw; height: 100dvh; position: fixed; z-index: 999999; top: 0; left: 0",
+      this.#canvas.width = this.#options.viewWidth,
+      this.#canvas.height = this.#options.viewHeight,
+      this.#ctx = this.#canvas.getContext('2d')
+    );
+
+    // Init particules.
+    this.#particles && this.#particles.length || (this.#particles = options.initParticles(options));
+
     return this;
   }
 
   // Start animation.
-  start() {
-    this.#paused = false;
+  start(options) {
+    this.#particles && this.#particles.length && this.#canvas && this || this.init(options);
+    requestAnimationFrame(() => this.animate());
+    return this;
+  }
+
+  // Animate.
+  animate() {
+    this.#timeoutId = setTimeout(() => {
+      let l = 0, i = 0, a = this.#particles, n = a.length, p;
+
+      // Clear canvas.
+      this.#ctx.clearRect(0, 0, this.#options.viewWidth, this.#options.viewHeight);
+
+      // Draw particles and update them.
+      for (; i !== n; ++i) {
+        (p = a[i]).draw(this.#ctx).update(this.#options.timeStep, this.#options.timingFunc).done || (a[l++] = p);
+      }
+      (a.length = l) && requestAnimationFrame(() => this.animate()) || this.#options.onDone();
+    }, this.#options.timeStep);
     return this;
   }
 
   // Pause animation.
   pause() {
-    this.#paused = true;
+    clearTimeout(this.#timeoutId);
+    this.#timeoutId = undefined;
+    return this;
+  }
+
+  // Cancel animation.
+  cancel() {
+    this.pause();
+    this.#options.onDone(true);
     return this;
   }
 
   // Stop animation.
-  stop() {
-    return this.pause().reset();
-  }
-
-  // Stop animation.
-  restart() {
-    return this.stop().start();
+  restart(options) {
+    return this.cancel().start(options);
   }
 
   // Stringify object, for debugging.
   toString() { return JSON.stringify(this, null, 2); }
 }
 
-// Option class.
-class Option {
-  // Constructor.
-  constructor (o) {
-    const {
-      ease = "outCubic", easing = ease, timing = easing, timingFunc = timing,
-      step = 1 / 60, timeStep = step,
-      temp = false,
-      temporary = temp,
-      particles, confettis = particles, init = confettis, initParticles = init,
-      n = 128, num = n, length = num, numParticles = length,
-      w = window.innerWidth || 512, width = w, viewWidth = width,
-      h = window.innerHeight || 512, height = h, viewHeight = height,
-      x = 0.5 * viewWidth, cx = x,
-      y = 0.5 * viewHeight, cy = y,
-      center = new Point(cx, cy),
-      col, color = col,
-      shape, draw = shape,
-      oncomplete, onComplete = oncomplete, done = onComplete, ondone = done, onDone = ondone,
-      loop = 1, loops = loop, iters = loops, numIters = iters, iterations = numIters, numIterations = iterations,
-      start = false, autostrt = start, autoStart = autoStart,
-      ...other
-    } = typeof o === "object" && o || (typeof o === "string" && Options[getEntry(o)]) || Options.default;
-
-    Object.assign(this, {
-      timingFunc: getTimingFunc(timingFunc),
-      timeStep,
-      temporary,
-      numParticles: Math.max(numParticles || 0, 0),
-      initParticles: Array.isArray(initParticles) && (() => initParticles) || (typeof initParticles === "function" && initParticles) || Confettis.Options.explosion.initParticles,
-      viewWidth,
-      viewHeight,
-      center,
-      color,
-      draw: getDrawFunc(draw),
-      onDone,
-      numIterations: Math.max(numIterations, 1),
-      autoStart,
-      ...other
-    });
-  }
-
-  // Stringify object, for debugging.
-  toString() { return JSON.stringify(this, null, 2); }
-}
-
-// Preset options.
-const Options = {
-  get default() { return this.explosion; },
-  explosion: new Option({
-    initParticles: ({
-      numParticles = 128,
-      viewWidth,
-      viewHeight,
-      center,
-      ...other
-    }) => {
-      const n = Math.max(numParticles || 0, 0);
-      particles = new Array(n);
-      for (let i = 0; i !== n; ++i) {
-        particles[i] = new Particle({
-          p0: center,
-          c0: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
-          c1: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
-          p1: new Point(Math.random() * viewWidth, viewHeight + 64),
-          ...other
-        });
-      }
-
-      return particles;
-    }
-  })
-}
-
-// Freeze presets.
-for (const k in Options) Object.freeze(Options[k]);
-Object.freeze(Options);
-
-// Confettis custom element.
-export class ConfettisCanvas extends HTMLElement {
-
-  // Constructor.
-  constructor() {
-    super();
-  }
-}
+export const createConfettis = Confettis.createConfettis = (...args) => new Confettis(...args);
 
 // Drawing functions.
 const Draw = Object.freeze({
@@ -376,6 +339,102 @@ const Timing = Object.freeze({
 // Helper function to normalize timing function.
 getTimingFunc = f => typeof f === "function" && f || (typeof f === "string" && Timing[getEntry(f)]) || Timing.default;
 
+// Additional utilities.
+const RE = /[\-\_\s]+/g,
+getEntry = s => (s || "").toLowerCase().replace(RE, "");
+
+// Option class.
+class Option {
+  // Constructor.
+  constructor (o) {
+    const {
+      ease = "outCubic", easing = ease, timing = easing, timingFunc = timing,
+      step = 10, timeStep = step,
+      temp = false,
+      temporary = temp,
+      particles, confettis = particles, init = confettis, initParticles = init,
+      n = 128, num = n, length = num, numParticles = length,
+      w = window.innerWidth || 512, width = w, viewWidth = width,
+      h = window.innerHeight || 512, height = h, viewHeight = height,
+      x = 0.5 * viewWidth, cx = x,
+      y = 0.5 * viewHeight, cy = y,
+      center = new Point(cx, cy),
+      col, color = col,
+      shape, draw = shape,
+      oncomplete, onComplete = oncomplete, done = onComplete, ondone = done, onDone = ondone,
+      onparticulecomplete, onParticuleComplete = onparticulecomplete,
+      onconfettisdone = onParticuleComplete, onConfettisDone = onconfettisdone,
+      onparticuledone = onconfettisdone, onParticuleDone = onparticuledone,
+      loop = 1, loops = loop, iters = loops, numIters = iters, iterations = numIters, numIterations = iterations,
+      start = false, autostart = start, autoStart = autostart,
+      ...other
+    } = typeof o === "object" && o || (typeof o === "string" && Options[getEntry(o)]) || Options.default;
+
+    Object.assign(this, {
+      timingFunc: getTimingFunc(timingFunc),
+      timeStep,
+      temporary,
+      numParticles: Math.max(numParticles || 0, 0),
+      initParticles: Array.isArray(initParticles) && (() => initParticles) || (typeof initParticles === "function" && initParticles) || Confettis.Options.explosion.initParticles,
+      viewWidth,
+      viewHeight,
+      center,
+      color,
+      draw: getDrawFunc(draw),
+      onDone,
+      onParticuleDone,
+      numIterations: Math.max(numIterations, 1),
+      autoStart,
+      ...other
+    });
+  }
+
+  // Stringify object, for debugging.
+  toString() { return JSON.stringify(this, null, 2); }
+}
+
+// Preset options.
+const Options = {
+  get default() { return this.explosion; },
+  explosion: new Option({
+    timingFunc: "outCubic",
+    initParticles: ({
+      numParticles = 128,
+      viewWidth,
+      viewHeight,
+      center,
+      ...other
+    }) => {
+      const n = Math.max(numParticles || 0, 0);
+      const particles = new Array(n);
+      for (let i = 0; i !== n; ++i) {
+        particles[i] = new Particle({
+          p0: center,
+          c0: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
+          c1: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
+          p1: new Point(Math.random() * viewWidth, viewHeight + 64),
+          ...other
+        });
+      }
+
+      return particles;
+    }
+  })
+}
+
+// Freeze presets.
+for (const k in Options) Object.freeze(Options[k]);
+Object.freeze(Options);
+
+// Confettis custom element.
+export class ConfettisCanvas extends HTMLElement {
+
+  // Constructor.
+  constructor() {
+    super();
+  }
+}
+
 // Math functions.
 const cubeBezier = (t, p0, c0, c1, p1, out = new Point) => {
   const nt = 1 - ((t || (t = 0))),
@@ -390,13 +449,10 @@ const cubeBezier = (t, p0, c0, c1, p1, out = new Point) => {
     out.y = nt3 * p0.y + tnt2_3 * c0.y + t2nt_3 * c1.y + t3 * p1.y;
     return out;
 },
-getValue = v => (Array.isArray(v) ?
-  v[Math.round(Math.random() * (v.length - 1))]
+getValue = (v, ...args) => (Array.isArray(v) && (v = v.flat()).length ?
+  v[v.length === 1 ? 0 : Math.round(Math.random() * (v.length - 1))]
+  : typeof v === "function" ? v(...args)
   : v) || 0;
-
-// Additional utilities.
-const RE = /[\-\_\s]+/g,
-getEntry = s => (s || "").toLowerCase().replace(RE, "");
 
 // Register component.
 customElements.define('confettis-canvas', ConfettisCanvas);
