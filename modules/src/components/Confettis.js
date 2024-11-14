@@ -235,7 +235,8 @@ export class Confettis {
 }
 
 // Preset options.
-Confettis.Options = {
+const Options = {
+  get default() { return this.explosion; },
   explosion: {
     initParticles: ({
       numParticles = 128,
@@ -262,8 +263,8 @@ Confettis.Options = {
 }
 
 // Freeze presets.
-for (const k in Confettis.Options) Object.freeze(Confettis.Options[k]);
-Object.freeze(Confettis.Options);
+for (const k in Options) Object.freeze(Options[k]);
+Object.freeze(Options);
 
 // Option class.
 class Option {
@@ -286,7 +287,7 @@ class Option {
       oncomplete, onComplete = oncomplete, done = onComplete, ondone = done, onDone = ondone,
       loop = 1, loops = loop, iters = loops, numIters = iters, iterations = numIters, numIterations = iterations,
       ...other
-    } = typeof o === "object" && o || (typeof o === "string" && Confettis.Options[getEntry(o)]) || Confettis.Options.explosion;
+    } = typeof o === "object" && o || (typeof o === "string" && Options[getEntry(o)]) || Options.default;
 
     Object.assign(this, {
       timingFunc: getTimingFunc(timingFunc),
@@ -320,16 +321,18 @@ export class ConfettisCanvas extends HTMLElement {
 
 // Drawing functions.
 const Draw = Object.freeze({
+  get default() { return this.rectangle; },
   rectangle: (ctx, color, w = 8, h = 6) => (
     ctx.fillStyle = color,
     ctx.fillRect(-w * 0.5, -h * 0.5, w, h)
   )
 }),
 // Helper function to normalize draw function.
-getDrawFunc = f => typeof f === "function" && f || (typeof f === "string" && Draw[getEntry(f)]) || Draw.rectangle;
+getDrawFunc = f => typeof f === "function" && f || (typeof f === "string" && Draw[getEntry(f)]) || Draw.default;
 
 // Animation timing functions.
 const Timing = Object.freeze({
+  get default() { return this.linear; },
   linear: (t, a, b, d) => a * t / d + b,
   incubic: (t, a, b, d) => a * (t /= d) * t * t + b,
   outcubic: (t, a, b, d) => a * ((t = t / d - 1) * t * t + 1) + b,
@@ -342,7 +345,7 @@ const Timing = Object.freeze({
   )
 }),
 // Helper function to normalize timing function.
-getTimingFunc = f => typeof f === "function" && f || (typeof f === "string" && Timing[getEntry(f)]) || Timing.linear;
+getTimingFunc = f => typeof f === "function" && f || (typeof f === "string" && Timing[getEntry(f)]) || Timing.default;
 
 // Math functions.
 const cubeBezier = (t, p0, c0, c1, p1, out = new Point) => {
