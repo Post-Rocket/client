@@ -172,9 +172,11 @@ export class Confettis {
     // Check if attached canvas is legit.
     canvas && canvas instanceof HTMLCanvasElement && !this.#options.temporary (
       this.#canvas = canvas,
-      this.#ctx = this.#canvas.getContext('2d')
+      this.#ctx = this.#canvas.getContext('2d'),
+      this.#paused = true
     ) || (
-      this.#options.temporary = true
+      this.#options.temporary = true,
+      this.#paused = !this.#options.autoStart
     );
 
     const onDone = this.#options.onDone;
@@ -270,6 +272,7 @@ class Option {
       shape, draw = shape,
       oncomplete, onComplete = oncomplete, done = onComplete, ondone = done, onDone = ondone,
       loop = 1, loops = loop, iters = loops, numIters = iters, iterations = numIters, numIterations = iterations,
+      start = false, autostrt = start, autoStart = autoStart,
       ...other
     } = typeof o === "object" && o || (typeof o === "string" && Options[getEntry(o)]) || Options.default;
 
@@ -286,6 +289,7 @@ class Option {
       draw: getDrawFunc(draw),
       onDone,
       numIterations: Math.max(numIterations, 1),
+      autoStart,
       ...other
     });
   }
