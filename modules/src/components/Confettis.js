@@ -151,6 +151,7 @@ export class Confettis {
   #options;
   #completed = 0;
   #iteration = 0;
+  #paused = false;
 
   // Constructor.
   constructor(canvas, options) {
@@ -230,41 +231,24 @@ export class Confettis {
     return this;
   }
 
+  // Start animation.
+  start() {
+    return this;
+  }
+
+  // Pause animation.
+  pause() {
+    return this;
+  }
+
+  // Stop animation.
+  stop() {
+    return this.pause().reset();
+  }
+
   // Stringify object, for debugging.
   toString() { return JSON.stringify(this, null, 2); }
 }
-
-// Preset options.
-const Options = {
-  get default() { return this.explosion; },
-  explosion: {
-    initParticles: ({
-      numParticles = 128,
-      viewWidth,
-      viewHeight,
-      center,
-      ...other
-    }) => {
-      const n = Math.max(numParticles || 0, 0);
-      particles = new Array(n);
-      for (let i = 0; i !== n; ++i) {
-        particles[i] = new Particle({
-          p0: center,
-          c0: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
-          c1: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
-          p1: new Point(Math.random() * viewWidth, viewHeight + 64),
-          ...other
-        });
-      }
-
-      return particles;
-    }
-  }
-}
-
-// Freeze presets.
-for (const k in Options) Object.freeze(Options[k]);
-Object.freeze(Options);
 
 // Option class.
 class Option {
@@ -309,6 +293,38 @@ class Option {
   // Stringify object, for debugging.
   toString() { return JSON.stringify(this, null, 2); }
 }
+
+// Preset options.
+const Options = {
+  get default() { return this.explosion; },
+  explosion: new Option({
+    initParticles: ({
+      numParticles = 128,
+      viewWidth,
+      viewHeight,
+      center,
+      ...other
+    }) => {
+      const n = Math.max(numParticles || 0, 0);
+      particles = new Array(n);
+      for (let i = 0; i !== n; ++i) {
+        particles[i] = new Particle({
+          p0: center,
+          c0: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
+          c1: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
+          p1: new Point(Math.random() * viewWidth, viewHeight + 64),
+          ...other
+        });
+      }
+
+      return particles;
+    }
+  })
+}
+
+// Freeze presets.
+for (const k in Options) Object.freeze(Options[k]);
+Object.freeze(Options);
 
 // Confettis custom element.
 export class ConfettisCanvas extends HTMLElement {
