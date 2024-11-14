@@ -172,13 +172,15 @@ export class Confettis {
     // Check if attached canvas is legit.
     canvas && canvas instanceof HTMLCanvasElement && !this.#options.temporary (
       this.#canvas = canvas,
-      this.#ctx = this.#canvas.getContext('2d'),
-      this.#paused = true
+      this.#ctx = this.#canvas.getContext('2d')
     ) || (
-      this.#options.temporary = true,
-      this.#paused = !this.#options.autoStart
+      this.#options.temporary = true
     );
 
+    // Set pause.
+    his.#paused = !this.#options.autoStart;
+
+    // Normalize  done callback.
     const onDone = this.#options.onDone;
     this.#options.onDone = function() {
       (++this.#completed) >= this.#particles.length && (
