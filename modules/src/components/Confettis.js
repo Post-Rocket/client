@@ -3,7 +3,18 @@ const PI = Math.PI,
   TWO_PI = PI + PI,
   HALF_PI = PI * 0.5,
   FOUR_PI = TWO_PI + TWO_PI,
-  HEIGHT_PI = FOUR_PI + FOUR_PI;
+  HEIGHT_PI = FOUR_PI + FOUR_PI,
+  PIXEL_RATIO = (function () {
+    var ctx = document.createElement("canvas").getContext("2d"),
+        dpr = window.devicePixelRatio || 1,
+        bsr = ctx.webkitBackingStorePixelRatio ||
+              ctx.mozBackingStorePixelRatio ||
+              ctx.msBackingStorePixelRatio ||
+              ctx.oBackingStorePixelRatio ||
+              ctx.backingStorePixelRatio || 1;
+
+    return dpr / bsr;
+  })();
 
 // Point class.
 class Point {
@@ -253,9 +264,10 @@ export class Confettis {
     this.#canvas || (
       this.#canvas = document.body.appendChild(document.createElement("canvas")),
       this.#canvas.style = "width: 100dvw; height: 100dvh; position: fixed; z-index: 999999; top: 0; left: 0",
-      this.#canvas.width = this.#options.viewWidth,
-      this.#canvas.height = this.#options.viewHeight,
-      this.#ctx = this.#canvas.getContext('2d')
+      this.#canvas.width = this.#options.viewWidth * PIXEL_RATIO,
+      this.#canvas.height = this.#options.viewHeight * PIXEL_RATIO,
+      this.#ctx = this.#canvas.getContext('2d'),
+      this.#ctx.scale(PIXEL_RATIO, PIXEL_RATIO)
     );
 
     // Init particules.
