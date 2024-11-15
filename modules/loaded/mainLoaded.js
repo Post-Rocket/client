@@ -455,7 +455,7 @@ isWelcome = (
 
 document.getElementById("home") === document.body && (
   isWelcome && (
-    document.cookie = "postrocket_home_intro=1",
+    document.cookie = "__Host-postrocket_home_intro=1; secure; path:/",
     writeContent(["🎉  Welcome!\n\n", ...homePageChatContent], chat, () =>(
       createConfettis({
         color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
