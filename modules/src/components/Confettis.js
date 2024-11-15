@@ -263,7 +263,7 @@ export class Confettis {
     // If temporary canvas.
     this.#canvas || (
       this.#canvas = document.body.appendChild(document.createElement("canvas")),
-      this.#canvas.style = "width: 100dvw; height: 100dvh; position: fixed; z-index: 999999; top: 0; left: 0",
+      this.#canvas.style = "width: 100dvw; height: 100dvh; position: fixed; z-index: 999999; top: 0; left: 0; pointer-events: none;",
       this.#canvas.width = this.#options.viewWidth * PIXEL_RATIO,
       this.#canvas.height = this.#options.viewHeight * PIXEL_RATIO,
       this.#ctx = this.#canvas.getContext('2d'),

@@ -11,6 +11,16 @@ body > * {
   max-height: var(--height);
 }
 
+canvas {
+  width: 100dvw;
+  height: 100dvh;
+  position: fixed;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
 /* Side menu */
 #side-menu {
   padding: 0 var(--padding-horizontal);
