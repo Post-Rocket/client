@@ -2,7 +2,8 @@
 const PI = Math.PI,
   TWO_PI = PI + PI,
   HALF_PI = PI * 0.5,
-  TEN_PI = 10 * PI;
+  FOUR_PI = TWO_PI + TWO_PI,
+  HEIGHT_PI = FOUR_PI + FOUR_PI;
 
 // Point class.
 class Point {
@@ -35,6 +36,7 @@ class Particle {
   #done = false;
   #onDone;
   #delay = 0;
+  #r0 = Math.random() * FOUR_PI;
 
   // Public properties.
   x;
@@ -55,7 +57,7 @@ class Particle {
 
     // Optional input.
     this.#delay = Math.max(getValue(delay, this) || 0, 0);
-    this.#duration = Math.max(getValue(duration, this) || (3000 + Math.random() * 2000), 0);
+    this.#duration = Math.max(getValue(duration, this) * (0.5 + 0.5 * Math.random()) || (3000 + Math.random() * 2000), 0);
     this.#color = getValue(color, this) || `#${Math.floor((Math.random() * 0xffffff)).toString(16)}`;
     this.#draw = getDrawFunc(getValue([draw], this));
 
@@ -106,8 +108,8 @@ class Particle {
       dy = p.y - this.y;
 
     // Update position, rotation and scale.
-    this.r = Math.atan2(dy, dx) + HALF_PI;
-    this.sy = Math.sin(TEN_PI * t);
+    this.r = Math.atan2(dy, dx) + this.#r0;
+    this.sy = Math.sin((HEIGHT_PI + this.#r0) * t);
     this.x = p.x;
     this.y = p.y;
 
@@ -242,7 +244,7 @@ export class Confettis {
 
   // Init system.
   init(options) {
-    options = options && new Options({
+    options = options && new Option({
       ...this.#options,
       ...options
     }) || this.#options;
@@ -375,7 +377,7 @@ class Option {
       timeStep,
       temporary,
       numParticles: Math.max(numParticles || 0, 0),
-      initParticles: Array.isArray(initParticles) && (() => initParticles) || (typeof initParticles === "function" && initParticles) || Confettis.Options.explosion.initParticles,
+      initParticles: Array.isArray(initParticles) && (() => initParticles) || (typeof initParticles === "function" && initParticles) || Options.default.initParticles,
       viewWidth,
       viewHeight,
       center,
@@ -410,7 +412,7 @@ const Options = {
       for (let i = 0; i !== n; ++i) {
         particles[i] = new Particle({
           p0: center,
-          c0: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
+          c0: new Point(...polar(Math.random() * TWO_PI, (0.9 * Math.random() + 0.1) * Math.min(viewWidth, viewHeight), 0.5 * viewWidth, 0.5 * viewHeight)),
           c1: new Point(Math.random() * viewWidth, Math.random() * viewHeight),
           p1: new Point(Math.random() * viewWidth, viewHeight + 64),
           ...other
@@ -425,15 +427,6 @@ const Options = {
 // Freeze presets.
 for (const k in Options) Object.freeze(Options[k]);
 Object.freeze(Options);
-
-// Confettis custom element.
-export class ConfettisCanvas extends HTMLElement {
-
-  // Constructor.
-  constructor() {
-    super();
-  }
-}
 
 // Math functions.
 const cubeBezier = (t, p0, c0, c1, p1, out = new Point) => {
@@ -452,13 +445,10 @@ const cubeBezier = (t, p0, c0, c1, p1, out = new Point) => {
 getValue = (v, ...args) => (Array.isArray(v) && (v = v.flat()).length ?
   v[v.length === 1 ? 0 : Math.round(Math.random() * (v.length - 1))]
   : typeof v === "function" ? v(...args)
-  : v) || 0;
-
-// Register component.
-customElements.define('confettis-canvas', ConfettisCanvas);
+  : v) || 0,
+polar = (angle, radius, cx = 0, cy = 0) => [radius * Math.cos(angle) + cx, radius * Math.sin(angle) + cy];
 
 // Exports.
-Confettis.ConfettisCanvas = ConfettisCanvas;
 export default Object.freeze(Object.defineProperty(Confettis, 'Confettis', {
   value: Confettis
 }));

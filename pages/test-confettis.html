@@ -5,7 +5,11 @@
     <title>Test Confettis</title>
     <script type="module" defer>
       import { createConfettis } from "../modules/src/components/Confettis.js";
-      const conffetis = createConfettis();
+      const conffetis = createConfettis({
+        color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
+        duration: 5000,
+        timeStep: 10
+      });
       console.log("conffetis", conffetis);
       conffetis.start();
     </script>
