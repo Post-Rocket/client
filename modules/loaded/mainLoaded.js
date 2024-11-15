@@ -440,7 +440,7 @@ document.getElementById("index") === document.body && writeContent([
 
 // Home page chat content.
 // TO BE REPLACED.
-const homePageChatContent = ["What can I help with today?"];
+const homePageChatContent = ["What can I help you with today?"];
 
 // Add confettis for logging in / creating an account.
 const referrer = (document.referrer || "").toLowerCase(),
