@@ -451,7 +451,7 @@ isWelcome = (
     || referrer.includes("index.html")
     || !referrer.includes(".html")
   )
-) || !((decodeURIComponent(document.cookie) || "").match("postrocket_home_intro") || []).length;
+) && !((decodeURIComponent(document.cookie) || "").match("postrocket_home_intro") || []).length;
 
 document.getElementById("home") === document.body && (
   isWelcome && (
