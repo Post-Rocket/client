@@ -441,7 +441,7 @@ document.getElementById("index") === document.body && writeContent([
 
 // Home page chat content.
 // TO BE REPLACED.
-const homePageChatContent = "What can I help with today?";
+const homePageChatContent = ["What can I help with today?"];
 
 // Add confettis for logging in / creating an account.
 const referrer = (document.referrer || "").toLowerCase(),
@@ -456,7 +456,7 @@ isWelcome = (
 
 document.getElementById("home") === document.body && (
   isWelcome && (
-    writeContent(["🎉  Welcome!\n\n", homePageChatContent], chat, () =>(
+    writeContent(["🎉  Welcome!\n\n", ...homePageChatContent], chat, () =>(
       createConfettis({
         color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
         duration: 5000,
@@ -464,7 +464,7 @@ document.getElementById("home") === document.body && (
         autoStart: true
       })
     ))
-  ) || writeContent(homePageChatContent)
+  ) || writeContent(...homePageChatContent)
 );
 
 // Thinking.
