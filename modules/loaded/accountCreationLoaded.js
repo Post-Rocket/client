@@ -39,6 +39,7 @@ form.onsubmit = event => {
 
   // --- TO BE REPLACED ---
   console.log(formData);
+  document.cookie = "__Secure-postrocket_home_intro=0; Secure; Path=/; SameSite=Strict; Max-Age=-99999999";
   formData.verify && (window.location.href = "./home.html");
   // ----------------------
 

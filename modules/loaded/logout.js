@@ -6,10 +6,12 @@ logout && (logout.onclick = event => {
   event.preventDefault();
   event.stopPropagation();
   if (window.confirm("Do you really want to leave?")) {
-    window.location.href = event.target.getAttribute("href") || "../index.htm?intro=false";
+    // Reset logged in intro.
+    document.cookie = "__Secure-postrocket_home_intro=0; Secure; Path=/; SameSite=Strict; Max-Age=-99999999";
     // --- TODO ---
     // Add proper off logging
     // ----------------------
+    window.location.href = event.target.getAttribute("href") || "../index.html";
   }
 });
 
