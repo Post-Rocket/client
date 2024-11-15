@@ -445,13 +445,16 @@ const homePageChatContent = ["What can I help you with today?"];
 // Add confettis for logging in / creating an account.
 const referrer = (document.referrer || "").toLowerCase(),
 isWelcome = (
-  referrer && referrer.includes("postrocket") && (
-    referrer.includes("account-creation.html")
-    || referrer.includes("account-login.html")
-    || referrer.includes("index.html")
-    || !referrer.includes(".html")
+  !referrer || (
+    referrer.includes("postrocket") && (
+      referrer.includes("account-creation.html")
+      || referrer.includes("account-login.html")
+      || referrer.includes("index.html")
+      || !referrer.includes(".html")
+    )
   )
 ) && !((decodeURIComponent(document.cookie) || "").match("postrocket_home_intro") || []).length;
+console.log(((decodeURIComponent(document.cookie) || "").match("postrocket_home_intro") || []).length, referrer);
 
 document.getElementById("home") === document.body && (
   isWelcome && (
