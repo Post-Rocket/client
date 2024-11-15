@@ -86,12 +86,10 @@
       </div>
     </dialog>
     <script type="module">
-      console.log("cookies:", decodeURIComponent(document.cookie));
       (document.referrer || "").toLowerCase().includes("postrocket")
         || ((decodeURIComponent(document.cookie) || "").match("postrocket_index_intro") || []).length
         || (document.getElementById("intro").open = true);
-      document.cookie = "postrocket_index_intro=1; Secure; Path=/";
-      console.log("document.cookie", document.cookie);
+      document.cookie = "__Host-postrocket_index_intro=1; Secure; Path=/";
     </script>
 
     <!-- Main content -->
