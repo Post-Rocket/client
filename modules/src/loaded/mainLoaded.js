@@ -3,7 +3,7 @@ import createFormData from "./createFormData.js";
 import throttle from "../utils/throttle.js";
 import "../components/YoutubeVideo.js";
 import "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
-
+import { createConfettis } from "../components/Confettis.js";
 
 (() => { // START OF SCRIPT
 
@@ -439,7 +439,29 @@ document.getElementById("index") === document.body && writeContent([
   }]
 ]);
 
-document.getElementById("home") === document.body && writeContent(`What can I help with today?`);
+// Add confettis for logging in.
+const referrer = (document.referrer || "").toLowerCase(),
+logginIn = (
+  (referrer && referrer.includes("postrocket") && (
+    referrer.includes("account-creation.html")
+    || referrer.includes("account-login.html")
+    || referrer.includes("index.html")
+    || !referrer.includes(".html")
+  )) || window.location.href.startsWith("file://") // local testing
+) && !window.location.href.includes("intro=false");
+
+document.getElementById("home") === document.body && (
+  logginIn && (
+    writeContent(`🎉 Welcome!\n\nWhat can I help with today?`, chat, () =>(
+      createConfettis({
+        color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
+        duration: 5000,
+        timeStep: 10,
+        autoStart: true
+      })
+    ))
+  ) || writeContent(`What can I help with today?`)
+)
 
 // Thinking.
 let timeoutId3, timeoutId4;

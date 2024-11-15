@@ -3,7 +3,11 @@ import "./common.js";
 (() => { // START OF SCRIPT
 
 // Back nav functionality.
-const addBackOption = str => str && str.includes("index.html") && (
+const addBackOption = str => str && (
+  str.includes("index.html")
+  || str.includes("home.html")
+  || !str.includes(".html")
+) && (
   str.includes("?") && (str + "&intro=false")
   || str + "?intro=false"
 ) || str;
