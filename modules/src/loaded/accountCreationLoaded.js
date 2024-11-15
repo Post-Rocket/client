@@ -1,6 +1,8 @@
 import createFormData from "./createFormData.js";
 import "./pageLoaded.js";
 
+(() => { // START OF SCRIPT
+
 const form = document.getElementById("form"),
 [identifier, code] = form.getElementsByTagName("input"),
 newCodeButton = document.getElementById("new-code"),
@@ -42,5 +44,18 @@ form.onsubmit = event => {
 
 }
 
+// Capture a keybord key down and set the focus on the input.
+document.addEventListener("keydown", event => {
+  const input = code.classList.contains("hidden") && identifier || code;
+  document.activeElement !== input && event.key.length === 1 && (
+    event.stopPropagation(),
+    event.preventDefault(),
+    input.focus(),
+    input.value = (input.value || "") + event.key
+  );
+});
+
 // Autofocus unless the identifier is already filled.
 setTimeout(() => identifier.focus(), 10);
+
+})(); // END OF SCRIPT
