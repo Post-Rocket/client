@@ -439,9 +439,9 @@ document.getElementById("index") === document.body && writeContent([
   }]
 ]);
 
-// Add confettis for logging in.
+// Add confettis for logging in / creating an account.
 const referrer = (document.referrer || "").toLowerCase(),
-logginIn = (
+isWelcome = (
   (referrer && referrer.includes("postrocket") && (
     referrer.includes("account-creation.html")
     || referrer.includes("account-login.html")
@@ -451,7 +451,7 @@ logginIn = (
 ) && !window.location.href.includes("intro=false");
 
 document.getElementById("home") === document.body && (
-  logginIn && (
+  isWelcome && (
     writeContent(`🎉  Welcome!\n\nWhat can I help with today?`, chat, () =>(
       createConfettis({
         color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
