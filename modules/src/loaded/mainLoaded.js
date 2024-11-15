@@ -452,7 +452,7 @@ logginIn = (
 
 document.getElementById("home") === document.body && (
   logginIn && (
-    writeContent(`🎉 Welcome!\n\nWhat can I help with today?`, chat, () =>(
+    writeContent(`🎉 Welcome!\nWhat can I help with today?`, chat, () =>(
       createConfettis({
         color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
         duration: 5000,
