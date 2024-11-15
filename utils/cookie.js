@@ -1,11 +1,12 @@
-const additionalParams = new Set([
-  "domain",
-  "expires",
-  "max-age",
-  "partitioned",
-  "path",
-  "samesite",
-  "secure"
+const additionalParams = new Map([
+  ["domain", "Domain"],
+  ["expires", "Expires"],
+  ["httponly", "HttpOnly"],
+  ["max-age", "Max-Age"],
+  ["partitioned", "Partitioned"],
+  ["path", "Path"],
+  ["samesite", "SameSite"],
+  ["secure", "Secure"]
 ]);
 
 // Helper function to parse stringified cookies.
@@ -13,12 +14,12 @@ export const parseCoockies = cookies => {
   if (typeof cookies !== "string") return cookies;
   const arr = (cookies || "").split(";") || [], out = {};
   let last = {};
-  for (let i = 0, l = arr.length, c, pre; i !== l; ++i) {
+  for (let i = 0, l = arr.length, c, pre, o; i !== l; ++i) {
     let [k, v = true] = (arr[i] || "").split("=");
     k = k.trim();
     v === true || v.trim();
-    additionalParams.has(c = k.toLowerCase()) ? (
-      last[c] = c === "samesite" && v.toLowerCase() || v
+    (o = additionalParams.get(c = k.toLowerCase())) ? (
+      last[o] = c === "samesite" && (v.charAt(0).toUpperCase() + v.slice(1).toLowerCase()) || v
     ) : (
       last = { value: v },
       (pre = (k.match(/__Secure\-|__Host\-/gi) || [])[0]) && (
