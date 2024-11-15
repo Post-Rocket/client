@@ -90,7 +90,7 @@
       (document.referrer || "").toLowerCase().includes("postrocket")
         || ((decodeURIComponent(document.cookie) || "").match("postrocket_index_intro") || []).length
         || (document.getElementById("intro").open = true);
-      document.cookie = "__Host-postrocket_index_intro=1; secure; path:/";
+      document.cookie = "__Host-postrocket_index_intro=1; secure;";
       console.log("document.cookie", document.cookie);
     </script>
 
