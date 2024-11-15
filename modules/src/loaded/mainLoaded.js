@@ -461,7 +461,7 @@ document.getElementById("home") === document.body && (
       })
     ))
   ) || writeContent(`What can I help with today?`)
-)
+);
 
 // Thinking.
 let timeoutId3, timeoutId4;
