@@ -1,8 +1,7 @@
 import "./common.js";
 import createFormData from "./createFormData.js";
-import throttle from "../utils/throttle.js";
+import throttle from "../../utils/throttle.js";
 import "../components/YoutubeVideo.js";
-import "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
 import { createConfettis } from "../components/Confettis.js";
 
 (() => { // START OF SCRIPT
@@ -446,16 +445,17 @@ const homePageChatContent = ["What can I help with today?"];
 // Add confettis for logging in / creating an account.
 const referrer = (document.referrer || "").toLowerCase(),
 isWelcome = (
-  (referrer && referrer.includes("postrocket") && (
+  referrer && referrer.includes("postrocket") && (
     referrer.includes("account-creation.html")
     || referrer.includes("account-login.html")
     || referrer.includes("index.html")
     || !referrer.includes(".html")
-  )) || window.location.href.startsWith("file://") // local testing
-) && !window.location.href.includes("intro=false");
+  )
+) || !((decodeURIComponent(document.cookie) || "").match("postrocket_home_intro") || []).length;
 
 document.getElementById("home") === document.body && (
   isWelcome && (
+    document.cookie = "postrocket_home_intro=1",
     writeContent(["🎉  Welcome!\n\n", ...homePageChatContent], chat, () =>(
       createConfettis({
         color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],

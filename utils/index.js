@@ -8,6 +8,7 @@ import './stringUtils.js';
 // Exports.
 export { default as asyncify } from './asyncify.js';
 export { default as clock } from './clock.js';
+export * from './cookie.js';
 export { default as debounce } from './debounce.js';
 export { default as getUrlString } from './getUrlString.js';
 export { default as path } from './path.js';
@@ -26,6 +27,7 @@ try {
   module.exports = {
     asyncify: require('./asyncify.js'),
     clock: require('./clock.js'),
+    ...require('./cookie.js'),
     debounce: require('./debounce.js'),
     getUrlString: require('./getUrlString.js'),
     path: require('./path.js'),

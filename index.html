@@ -19,8 +19,8 @@
     <link href="./assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
     <!-- Modules / Scripts -->
-    <script src="./modules/src/components/CopyrightLine.js" type="module"></script>
-    <script src="./modules/src/loaded/mainLoaded.js" type="module" defer></script>
+    <script src="./modules/components/CopyrightLine.js" type="module"></script>
+    <script src="./modules/loaded/mainLoaded.js" type="module" defer></script>
 
     <!-- Canonical url -->
     <link href="https://postrocket.app/" rel="canonical">
@@ -85,10 +85,13 @@
         </span>
       </div>
     </dialog>
-    <script>
+    <script type="module">
+      console.log("cookies:", decodeURIComponent(document.cookie));
       (document.referrer || "").toLowerCase().includes("postrocket")
-        || window.location.href.includes("intro=false")
+        || ((decodeURIComponent(document.cookie) || "").match("postrocket_index_intro") || []).length
         || (document.getElementById("intro").open = true);
+      document.cookie = "postrocket_index_intro=1";
+      console.log("document.cookie", document.cookie);
     </script>
 
     <!-- Main content -->

@@ -3,23 +3,15 @@ import "./common.js";
 (() => { // START OF SCRIPT
 
 // Back nav functionality.
-const addBackOption = str => str && (
-  str.includes("index.html")
-  || str.includes("home.html")
-  || !str.includes(".html")
-) && (
-  str.includes("?") && (str + "&intro=false")
-  || str + "?intro=false"
-) || str;
-
 const createBackCallback = (
   backUrl,
   defaultBackUrl = "../index.html",
   decrementHistory = true
 ) => () => {
-  decrementHistory && window.history && window.history.length && window.history.back ?
-    window.history.back()
-  : window.location.href = addBackOption(backUrl || document.referrer || defaultBackUrl || "../index.html");
+  decrementHistory && window.history && window.history.length && window.history.back && (
+    window.history.back(),
+    true
+  ) || (window.location.href = backUrl || document.referrer || defaultBackUrl || "../index.html");
 }
 
 let back = document.getElementById("back");

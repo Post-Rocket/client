@@ -1,4 +1,4 @@
-import throttle from "../utils/throttle.js";
+import throttle from "../../utils/throttle.js";
 
 (() => { // START OF SCRIPT
 
