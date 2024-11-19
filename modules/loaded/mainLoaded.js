@@ -141,11 +141,11 @@ const sendCancel = data => {
   removeThinking();
   writeContent(
     data && data.timeout && [
-      "🤷🏻‍♀️  I could not figure it out on time...\n\nAnything else you wanted to add?",
+      "🤷🏻‍♀️  I could not figure it out on time...\n\nAnything else I can do for you?",
       [
         {
           type: "button",
-          text: "sure",
+          text: "yes",
           send: "I want to try again"
         },
         {
