@@ -7,9 +7,8 @@ logout && (logout.onclick = event => {
   event.stopPropagation();
   if (window.confirm("Do you really want to leave?")) {
     // Reset logged in intro.
-    document.cookie = "__Secure-postrocket_home_intro=0; Secure; Path=/; SameSite=Strict; Max-Age=-99999999";
-    // --- TODO ---
-    // Add proper off logging
+    document.cookie = "__Secure-postrocket_home_intro=; Secure; Path=/; SameSite=Strict; Max-Age=-99999999;";
+    document.cookie = "__Secure-postrocket_login=; Secure; Path=/; SameSite=Strict; Max-Age=-99999999;";
     // ----------------------
     window.location.href = event.target.getAttribute("href") || "../index.html";
   }
