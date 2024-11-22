@@ -93,6 +93,7 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-right: -8px;
   aspect-ratio: 1 / 1;
   display: block;
+  /* webpackIgnore: true */
   background-image: url("../assets/icons/close.svg");
   filter: var(--icon-filter);
   opacity: 0.3;
