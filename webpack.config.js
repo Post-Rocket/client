@@ -15,6 +15,7 @@ module.exports = {
     "modules/loaded/accountLoginLoaded": "./modules/loaded/accountLoginLoaded.js",
     "modules/loaded/mainLoaded": "./modules/loaded/mainLoaded.js",
     "modules/loaded/pageLoaded": "./modules/loaded/pageLoaded.js",
+    "modules/loaded/logout": "./modules/loaded/logout.js",
     "modules/components/CopyrightLine": "./modules/components/CopyrightLine.js",
     "modules/components/YoutubeVideo": "./modules/components/YoutubeVideo.js",
     "css/flexbox": "./css/flexbox.css",
