@@ -2,7 +2,7 @@
 
 ## Add/Update utilities submodule
 
-See [utilities repo README.md](https://github.com/Post-Rocket/utilities).
+See [utilities repo README.md](https://github.com/Post-Rocket/utilities?tab=readme-ov-file#instaling-as-a-github-submodule).
 
 ## Launch Chrome without CORS check
 
