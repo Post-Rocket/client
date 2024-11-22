@@ -1,5 +1,9 @@
 # PostRocket
 
+## Add/Update utilities submodule
+
+See [utilities repo README.md](https://github.com/Post-Rocket/utilities).
+
 ## Launch Chrome without CORS check
 
 On Mac:
