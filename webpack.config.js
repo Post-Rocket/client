@@ -1,6 +1,14 @@
+// Don't forget to do npm i to install all the packages
+// npx webpack --config webpack.config.js
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 module.exports = {
+  mode: "production",
+  optimization: {
+    minimize: true,
+  },
   entry: {
     "modules/loaded/accountCreationLoaded": "./modules/loaded/accountCreationLoaded.js",
     "modules/loaded/accountLoginLoaded": "./modules/loaded/accountLoginLoaded.js",
@@ -13,19 +21,32 @@ module.exports = {
     "css/main": "./css/main.css",
     "css/page": "./css/page.css"
   },
-  mode: "production",
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
   },
-  optimization: {
-    minimize: true,
-  },
+  plugins: [
+    new RemoveEmptyScriptsPlugin(),
+    new MiniCssExtractPlugin({filename: "[name].css"})
+  ],
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              esModule: false,
+            }
+          },
+          {
+            loader: "css-loader",
+            options: {
+              url: true,
+            }
+          }
+        ]
       },
     ],
   }
