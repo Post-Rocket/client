@@ -33,7 +33,7 @@ export class YoutubeVideo extends HTMLElement {
     // Get the video id and set the source.
     (this.#src = this.getAttribute('src')) ? (
       this.#src = this.#src.match(re)[1],
-      this.#src = `https://www.youtube.com/embed/${this.#src}?&theme=dark&autohide=2&modestbranding=1`,
+      this.#src = `https://www.youtube-nocookie.com/embed/${this.#src}?&theme=dark&autohide=2&modestbranding=1`,
       this.#iframe.setAttribute("src", this.#src)
     ) : this.#iframe.classList.add("hidden");
   }
