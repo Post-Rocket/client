@@ -568,7 +568,7 @@ h1 {
 #back-home::before {
   background-position: center left;
   /* webpackIgnore: true */
-  background-image: url("/client/assets/icons/chevron-left.svg");
+  background-image: url(../../assets/icons/chevron-left.svg);
 }
 
 #next::after {
@@ -578,7 +578,7 @@ h1 {
 #home::after {
   --_size: 16px;
   /* webpackIgnore: true */
-  background-image: url("../assets/icons/home.svg");
+  background-image: url(../../assets/icons/home.svg);
   background-position: center;
 }
 

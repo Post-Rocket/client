@@ -3,6 +3,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const CssUrlRelativePlugin = require('css-url-relative-plugin');
 
 module.exports = {
   mode: "production",
@@ -27,6 +28,7 @@ module.exports = {
   },
   plugins: [
     new RemoveEmptyScriptsPlugin(),
+    new CssUrlRelativePlugin(/* options */),
     new MiniCssExtractPlugin({filename: "[name].css"})
   ],
   module: {
@@ -43,7 +45,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              url: true,
+              url: false,
             }
           }
         ]

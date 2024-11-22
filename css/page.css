@@ -68,7 +68,7 @@ h1 {
 #back::before,
 #back-home::before {
   background-position: center left;
-  
+  /* webpackIgnore: true */
   background-image: url("../assets/icons/chevron-left.svg");
 }
 
