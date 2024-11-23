@@ -87,6 +87,20 @@ export class YoutubeVideo extends HTMLElement {
         getThumbnailSrc(this.#videoId, "sd"),
         getThumbnailSrc(this.#videoId, "maxres")
       ],
+      addPrefetch({
+        rel: "preload",
+        href: this.#thumbnailSrcs[2],
+        fetchpriority: "high",
+        as: "image",
+        type: "image/webp"
+      }),
+      addPrefetch({
+        rel: "preload",
+        href: this.#thumbnailSrcs[3],
+        fetchpriority: "high",
+        as: "image",
+        type: "image/webp"
+      }),
       this.#thumbnail.onload = () => {
         this.#thumbnail.getAttribute("src") === this.#thumbnailSrcs[3]
         || this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]);
@@ -138,11 +152,13 @@ export class YoutubeVideo extends HTMLElement {
 const getThumbnailSrc = (videoId, resolution= "sd") => `https://i.ytimg.com/vi_webp/${videoId}/${resolution}default.webp`;
 
 // Add a <link rel={preload | preconnect} ...> to the head
-const addPrefetch = (rel, href, as) => {
+const addPrefetch = ({rel, href, as, fetchpriority, type}) => {
   const link = document.createElement('link');
   link.setAttribute("rel", rel);
   link.setAttribute("href", href);
   as && link.setAttribute("as", as);
+  fetchpriority && link.setAttribute("fetchpriority", fetchpriority);
+  type && link.setAttribute("type", type);
   return document.head.appendChild(link);
 }
 
@@ -160,13 +176,13 @@ export const warmConnections = YoutubeVideo.warmConnections = () => {
   if (preconnected) return false;
 
   // The iframe document and most of its subresources come right off youtube.com
-  addPrefetch('preconnect', 'https://www.youtube-nocookie.com');
+  addPrefetch({rel: 'preconnect', href: 'https://www.youtube-nocookie.com'});
   // The botguard script is fetched off from google.com
-  addPrefetch('preconnect', 'https://www.google.com');
+  addPrefetch({rel: 'preconnect', href: 'https://www.google.com'});
 
   // Not certain if these ad related domains are in the critical path. Could verify with domain-specific throttling.
-  addPrefetch('preconnect', 'https://googleads.g.doubleclick.net');
-  addPrefetch('preconnect', 'https://static.doubleclick.net');
+  addPrefetch({rel: 'preconnect', href: 'https://googleads.g.doubleclick.net'});
+  addPrefetch({rel: 'preconnect', href: 'https://static.doubleclick.net'});
 
   return preconnected = true;
 }
