@@ -33,4 +33,9 @@ document.addEventListener('click', event => (
   )
 ));
 
+const elmts = document.querySelectorAll('[data-background-image]');
+for (let i = 0, l = elmts.length, el, src; i !== l; ++i) {
+  (src = (el = elmts[i]).getAttribute('data-background-image')) && (el.style.backgroundImage = src);
+}
+
 })(); // END OF SCRIPT
