@@ -2,15 +2,16 @@ const re = /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S
 
 // YouTube main component.
 export class YoutubeVideo extends HTMLElement {
+  #script;
   #container;
-  #iframe;
-  #src;
+  #video;
   #videoId;
   #headline;
   #description;
   #button;
   #thumbnail;
   #thumbnailSrcs = [];
+  #player;
 
   // Constructor.
   constructor() {
@@ -24,12 +25,48 @@ export class YoutubeVideo extends HTMLElement {
     shadow.appendChild(template.cloneNode(true));
     this.#headline = shadow.childNodes[1];
     this.#description = shadow.childNodes[2];
-    this.#container = shadow.childNodes[3];
-    this.#iframe = this.#container.firstChild;
+    this.#script = shadow.childNodes[3];
+    this.#container = shadow.childNodes[4];
+    this.#video = this.#container.firstChild;
     this.#button = this.#container.childNodes[1];
     this.#thumbnail = this.#button.firstChild;
+
+    window.YT || this.#script.setAttribute("src", "https://www.youtube.com/iframe_api");
   }
 
+  // Check if API is loaded.
+  static get isApiLoaded () { return window.YT; }
+
+  // Helper function to create a YT player.
+  createPlayer(cb) {
+    if (!window.YT) return this;
+    typeof cb === "function" || (cb = (() => {
+      this.#player.playVideo();
+    }));
+    window.YT.ready(() => {
+      this.#player = new window.YT.Player(this.#video, {
+        host: "https://www.youtube-nocookie.com",
+        height: 196,
+        width: 333,
+        videoId: this.#videoId,
+        playerVars: {
+          playsinline: 1,
+          theme: "dark",
+          autohide: 2,
+          modestbranding: 1
+        },
+        events: {
+          onReady: (...args) => {
+            this.#video = this.#container.firstChild;
+            cb(...args);
+          } 
+        }
+      });
+    });
+    return this;
+  }
+
+  // When the component gets connected to the DOM.
   connectedCallback() {
     // Get the headline.
     (this.#headline.innerHTML = this.getAttribute('headline'))
@@ -39,10 +76,10 @@ export class YoutubeVideo extends HTMLElement {
     (this.#description.innerHTML = this.getAttribute('description'))
       || this.#description.classList.add("hidden");
 
-    // Get the video id and set the source.
-    (this.#src = this.getAttribute('src')) ? (
-      this.#videoId = this.#src.match(re)[1],
-      this.#src = `https://www.youtube-nocookie.com/embed/${this.#videoId}?theme=dark&autohide=2&modestbranding=1`,
+    // Get the video id, thumbnails, set the onload and onclick, etc.
+    let src;
+    (src= this.getAttribute('src')) ? (
+      this.#videoId = src.match(re)[1],
       this.#thumbnailSrcs = [
         getThumbnailSrc(this.#videoId, ""),
         getThumbnailSrc(this.#videoId, "mq"),
@@ -50,15 +87,21 @@ export class YoutubeVideo extends HTMLElement {
         getThumbnailSrc(this.#videoId, "sd"),
         getThumbnailSrc(this.#videoId, "maxres")
       ],
-      // Do the onload
-      this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[2]),
-      this.#button.onclick = () => {
-        this.#iframe.setAttribute("src", this.#src + "&autoplay=1");
-        this.#button.classList.add("hidden");
-      }
+      this.#thumbnail.onload = () => {
+        this.#thumbnail.getAttribute("src") === this.#thumbnailSrcs[3]
+        || this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]);
+      },
+      this.#thumbnail.onerror = this.#button.onclick = () => {
+        this.createPlayer(() => {
+          this.#button.classList.add("hidden");
+          this.#player.playVideo();
+        });
+      },
+      this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[2])
     ) : this.#container.classList.add("hidden");
   }
 
+  // If some attribute changes.
   attributeChangedCallback(name, oldValue, newValue) {
     name = name.toLowerCase();
     switch (name) {
@@ -73,9 +116,8 @@ export class YoutubeVideo extends HTMLElement {
           : this.#description.classList.add("hidden")
         break;
       case "src":
-        (this.#src = newValue) ? (
-          this.#videoId = this.#src.match(re)[1],
-          this.#src = `https://www.youtube.com/embed/${this.#videoId}?&theme=dark&autohide=2&modestbranding=1`,
+        newValue ? (
+          this.#videoId = newValue.match(re)[1],
           this.#thumbnailSrcs = [
             getThumbnailSrc(this.#videoId, ""),
             getThumbnailSrc(this.#videoId, "mq"),
@@ -83,7 +125,7 @@ export class YoutubeVideo extends HTMLElement {
             getThumbnailSrc(this.#videoId, "sd"),
             getThumbnailSrc(this.#videoId, "maxres")
           ],
-          this.#iframe.setAttribute("src", this.#src),
+          createPlayer(() => {}),
           this.#description.classList.remove("hidden")
         ) : this.#container.classList.add("hidden");
         break;
@@ -96,11 +138,11 @@ export class YoutubeVideo extends HTMLElement {
 const getThumbnailSrc = (videoId, resolution= "sd") => `https://i.ytimg.com/vi_webp/${videoId}/${resolution}default.webp`;
 
 // Add a <link rel={preload | preconnect} ...> to the head
-const addPrefetch = (kind, url, as) => {
+const addPrefetch = (rel, href, as) => {
   const link = document.createElement('link');
-  link.rel = kind;
-  link.href = url;
-  as && (link.as = as);
+  link.setAttribute("rel", rel);
+  link.setAttribute("href", href);
+  as && link.setAttribute("as", as);
   return document.head.appendChild(link);
 }
 
@@ -113,12 +155,12 @@ const addPrefetch = (kind, url, as) => {
  * Maybe `<link rel=preload as=document>` would work, but it's unsupported: http://crbug.com/593267
  * But TBH, I don't think it'll happen soon with Site Isolation and split caches adding serious complexity.
  */
+let preconnected;
 export const warmConnections = YoutubeVideo.warmConnections = () => {
-  if (YoutubeVideo.preconnected) return false;
+  if (preconnected) return false;
 
   // The iframe document and most of its subresources come right off youtube.com
   addPrefetch('preconnect', 'https://www.youtube-nocookie.com');
-  addPrefetch('preconnect', 'https://i.ytimg.com');
   // The botguard script is fetched off from google.com
   addPrefetch('preconnect', 'https://www.google.com');
 
@@ -126,7 +168,7 @@ export const warmConnections = YoutubeVideo.warmConnections = () => {
   addPrefetch('preconnect', 'https://googleads.g.doubleclick.net');
   addPrefetch('preconnect', 'https://static.doubleclick.net');
 
-  return YoutubeVideo.preconnected = true;
+  return preconnected = true;
 }
 
 setTimeout(warmConnections, 100);
@@ -199,7 +241,8 @@ const createTemplate = () => {
   }
 
   .video-container > button,
-  .video-container > iframe:first-of-type {
+  .video-container > iframe:first-of-type,
+  .video-container > div:first-of-type {
     position: absolute;
     top: 0;
     left: 0;
@@ -261,19 +304,16 @@ const createTemplate = () => {
   // Description.
   template.appendChild(document.createElement("span"));
 
+  // YT api.
+  template.appendChild(document.createElement("script"));
+
   // Video container.
   const container = template.appendChild(document.createElement("div"));
   container.classList.add("video-container");
   
   // YT iframe.
-  const iframe = container.appendChild(document.createElement("iframe"));
-  iframe.setAttribute("title", "YouTube video embed");
-  iframe.setAttribute("frameborder", 0);
-  iframe.setAttribute("width", 333);
-  iframe.setAttribute("height", 196);
-  iframe.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
-  iframe.allowFullscreen = true;
-  // iframe.setAttribute("src", "https://www.youtube.com/embed/wAJ66ZSQ4b4?&theme=dark&autohide=2&modestbranding=1");
+  const video = container.appendChild(document.createElement("div"));
+  video.setAttribute("title", "YouTube video embed");
 
   // Facade.
   const img = container.appendChild(document.createElement("button")).appendChild(document.createElement("img"));
