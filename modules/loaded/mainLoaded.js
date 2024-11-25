@@ -531,7 +531,7 @@ intro && (
   setTimeout(() => {
     unhide();
     addPulsingShaking();
-  }, !document.cookie.includes("__Host-postrocket_index_intro=1") & 13000 || 0)
+  }, !document.cookie.includes("__Host-postrocket_index_intro=1") && 13000 || 100)
 ) || (
   unhide(),
   addPulsingShaking()
