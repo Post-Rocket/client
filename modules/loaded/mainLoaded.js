@@ -531,10 +531,12 @@ intro && (
   setTimeout(() => {
     unhide();
     addPulsingShaking();
-  }, 13000)
+  }, !document.cookie.includes("__Host-postrocket_index_intro=1") & 13000 || 0)
 ) || (
   unhide(),
   addPulsingShaking()
 );
+
+document.cookie = "__Host-postrocket_index_intro=1; Secure; Path=/";
 
 })(); // END OF SCRIPT
