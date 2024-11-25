@@ -93,13 +93,13 @@ export class YoutubeVideo extends HTMLElement {
         getThumbnailSrc(this.#videoId, "maxres")
       ],
       addPrefetch({
-        rel: "preload",
+        rel: "prefetch",
         href: `https://www.youtube-nocookie.com/embed/${this.#videoId}`,
         fetchpriority: "high",
         as: "document"
       }),
       addPrefetch({
-        rel: "preload",
+        rel: "prefetch",
         href: this.#thumbnailSrcs[3],
         fetchpriority: "high",
         as: "image",
