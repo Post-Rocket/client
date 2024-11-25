@@ -113,7 +113,7 @@ export class YoutubeVideo extends HTMLElement {
       }),
       this.#thumbnail.onload = () => {
         this.#thumbnail.getAttribute("src") === this.#thumbnailSrcs[3]
-        || this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]);
+        || setTimeout(this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]), 500);
       },
       this.#thumbnail.onerror = this.#button.onclick = () => {
         this.createPlayer(() => {

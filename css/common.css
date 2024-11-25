@@ -375,6 +375,10 @@ h1, h2,
   background-image: linear-gradient(45deg, #9B51E0, #3DA5E0);
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* Pulsing */
 @media (hover: none), (pointer: coarse) {
   .pulsing {

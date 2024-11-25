@@ -406,37 +406,41 @@ document.addEventListener("keydown", event => {
   );
 });
 
-// Original content.
-document.getElementById("index") === document.body && writeContent([
-  "Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
-    {
-      type: "button",
-      text: "yes",
-      send: "I have a website"
-    },
-    {
-      type: "button",
-      text: "no",
-      send: "I do not have a website"
-    },
-    {
-      type: "button",
-      text: "help me",
-      action: "navigate",
-      href: "pages/help.html"
-    }
-  ],
-  [{
-    type: "image",
-    class: "small",
-    src: "https://media.tenor.com/NtzA1v_UCkEAAAAj/bork.gif",
-    title: "dog barking"
-  }],
-  [{
-    type: "youtube",
-    src: "https://www.youtube.com/watch?v=wbZBVu1AQSQ"
-  }]
-]);
+// Unhide and add original content for the index.html.
+const unhide = () => {
+  document.getElementById("main-content").classList.remove("hidden");
+  document.getElementById("side-menu").classList.remove("hidden");
+  document.getElementById("index") === document.body && writeContent([
+    "Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
+      {
+        type: "button",
+        text: "yes",
+        send: "I have a website"
+      },
+      {
+        type: "button",
+        text: "no",
+        send: "I do not have a website"
+      },
+      {
+        type: "button",
+        text: "help me",
+        action: "navigate",
+        href: "pages/help.html"
+      }
+    ],
+    [{
+      type: "image",
+      class: "small",
+      src: "https://media.tenor.com/NtzA1v_UCkEAAAAj/bork.gif",
+      title: "dog barking"
+    }],
+    [{
+      type: "youtube",
+      src: "https://www.youtube.com/watch?v=wbZBVu1AQSQ"
+    }]
+  ]);
+}
 
 // Home page chat content.
 // TO BE REPLACED.
@@ -521,9 +525,16 @@ intro && (
   },
   intro.onclick = event => {
     event.stopPropagation();
+    unhide();
     intro.close();
   },
-  setTimeout(addPulsingShaking, 11000)
-) || addPulsingShaking();
+  setTimeout(() => {
+    unhide();
+    addPulsingShaking();
+  }, 11000)
+) || (
+  unhide(),
+  addPulsingShaking()
+);
 
 })(); // END OF SCRIPT
