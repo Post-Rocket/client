@@ -111,19 +111,19 @@ export class YoutubeVideo extends HTMLElement {
       },
       this.#thumbnail.onerror = this.#button.onclick = () => {
         this.createPlayer(() => {
-          setTimeout(() => this.#button.classList.add("disabled"), 100);
+          setTimeout(() => this.#button.classList.add("disabled"), 200);
           this.#player.playVideo();
         });
       },
       this.#button.ontransitionend = event => {
-        event.propertyName === "disabled" && (
-          this.#button.classList.add("hidden")
-        );
+        event.propertyName === "opacity"
+          && this.#button.classList.contains("disabled")
+           && this.#button.classList.add("hidden");
       },
       this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[2]),
       setTimeout(() => {
         this.createPlayer(() => {
-          setTimeout(() => this.#button.classList.add("disabled"), 100);
+          setTimeout(() => this.#button.classList.add("disabled"), 200);
         });
       }, 5000)
     ) : this.#container.classList.add("hidden");
@@ -309,27 +309,28 @@ const createTemplate = () => {
 
   .disabled {
     pointer-events: none;
-    opacity: 0;
+    cursor: none;
+    opacity: 0 !important;
   }
 
   .hidden {
-    display: none;
+    display: none !important;
   }
 
   @media (hover: hover) and (pointer: fine), (-ms-high-contrast: active), (forced-colors: active) {
-    .video-container > button > img,
-    .video-container > button:hover > img,
-    .video-container > button::after,
-    .video-container > button:hover::after {
+    .video-container > button:not(.disabled):not(.hidden) > img,
+    .video-container > button:not(.disabled):not(.hidden):hover > img,
+    .video-container > button:not(.disabled):not(.hidden)::after,
+    .video-container > button:not(.disabled):not(.hidden):hover::after {
       transition: 300ms;
       opacity: 1;
     }
 
-    .video-container > button:hover > img {
+    .video-container > button:not(.disabled):not(.hidden):hover > img {
       opacity: 0.7;
     }
 
-    .video-container > button:hover::after {
+    .video-container > button:not(.disabled):not(.hidden):hover::after {
       transform: scale(1.1);
     }
   }
