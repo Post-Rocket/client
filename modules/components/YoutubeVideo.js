@@ -111,14 +111,19 @@ export class YoutubeVideo extends HTMLElement {
       },
       this.#thumbnail.onerror = this.#button.onclick = () => {
         this.createPlayer(() => {
-          this.#button.classList.add("hidden");
+          setTimeout(() => this.#button.classList.add("disabled"), 100);
           this.#player.playVideo();
         });
+      },
+      this.#button.ontransitionend = event => {
+        event.propertyName === "disabled" && (
+          this.#button.classList.add("hidden")
+        );
       },
       this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[2]),
       setTimeout(() => {
         this.createPlayer(() => {
-          this.#button.classList.add("hidden");
+          setTimeout(() => this.#button.classList.add("disabled"), 100);
         });
       }, 5000)
     ) : this.#container.classList.add("hidden");
@@ -277,6 +282,8 @@ const createTemplate = () => {
     border-radius: 8px;
     overflow: hidden;
     background: transparent;
+    opacity: 1;
+    transition: 300ms;
   }
 
   .video-container > button::after {
@@ -286,10 +293,9 @@ const createTemplate = () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('data:image/svg+xml,<svg width="188" height="140" viewBox="0 0 188 140" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.24509 31.7267C2.32311 31.2065 2.39524 30.6912 2.46636 30.17C4.6182 14.4004 14.7856 4.57178 30.6956 2.83104C30.8832 2.81052 31.0523 2.79477 31.2404 2.77936C34.4115 2.51958 65.8924 -7.5391e-08 94 0C122.108 7.5391e-08 153.588 2.51958 156.76 2.77936C156.948 2.79477 157.117 2.81052 157.304 2.83104C173.438 4.59627 183.667 14.6785 185.62 30.8391C185.629 30.9167 185.637 30.9828 185.647 31.0603C185.834 32.5818 188 50.601 188 70C188 89.399 185.834 107.418 185.647 108.94C185.637 109.017 185.629 109.083 185.62 109.161C183.667 125.321 173.438 135.404 157.304 137.169C157.117 137.189 156.948 137.205 156.76 137.221C153.588 137.48 122.108 140 94 140C65.8924 140 34.4115 137.48 31.2404 137.221C31.0523 137.205 30.8832 137.189 30.6956 137.169C14.7856 135.428 4.6182 125.6 2.46636 109.83C2.39524 109.309 2.32311 108.793 2.24509 108.273C1.76204 105.053 0 91.8109 0 70C0 48.1891 1.76204 34.9471 2.24509 31.7267Z" fill="%23FF1A00"/><path d="M132 70L75 102.909V37.091L132 70Z" fill="white"/></svg>');
-    background-position: center;
+    background-image: url("data:image/svg+xml,%3Csvg width='196' height='140' viewBox='0 0 196 140' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.24509 31.7267C2.32311 31.2065 2.39524 30.6912 2.46636 30.17C4.6182 14.4004 14.7856 4.57178 30.6956 2.83104C30.8832 2.81052 31.0521 2.79478 31.2402 2.77942C34.4172 2.51997 66.0961 -7.53969e-08 98 0C129.904 7.53968e-08 161.583 2.51996 164.76 2.77942C164.948 2.79478 165.117 2.81052 165.304 2.83104C181.438 4.59627 191.667 14.6785 193.62 30.8391C193.629 30.9167 193.637 30.9828 193.647 31.0603C193.834 32.5818 196 50.601 196 70C196 89.399 193.834 107.418 193.647 108.94C193.637 109.017 193.629 109.083 193.62 109.161C191.667 125.321 181.438 135.404 165.304 137.169C165.117 137.189 164.948 137.205 164.76 137.221C161.583 137.48 129.904 140 98 140C66.0961 140 34.4173 137.48 31.2402 137.221C31.0521 137.205 30.8832 137.189 30.6956 137.169C14.7856 135.428 4.6182 125.6 2.46636 109.83C2.39524 109.309 2.32311 108.793 2.24509 108.273C1.76204 105.053 0 91.8109 0 70C0 48.1891 1.76204 34.9471 2.24509 31.7267Z' fill='%23FF1A00'/%3E%3Cpath d='M132 70.5L79 101V40L132 70.5Z' fill='white'/%3E%3C/svg%3E%0A");    background-position: center;
     background-repeat: no-repeat;
-    background-size: 80px auto;
+    background-size: 64px auto;
     filter: drop-shadow(0px 3px 10px #00000055);
   }
 
@@ -299,6 +305,11 @@ const createTemplate = () => {
     width: 100%;
     height: 100%;
     background: transparent;
+  }
+
+  .disabled {
+    pointer-events: none;
+    opacity: 0;
   }
 
   .hidden {
