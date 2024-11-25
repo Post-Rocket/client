@@ -125,7 +125,7 @@ export class YoutubeVideo extends HTMLElement {
         this.createPlayer(() => {
           setTimeout(() => this.#button.classList.add("disabled"), 200);
         });
-      }, 5000)
+      }, 1000)
     ) : this.#container.classList.add("hidden");
   }
 
