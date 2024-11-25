@@ -6,16 +6,7 @@
 
     <!-- Default meta tags -->
     <meta charset="utf-8">
-    <meta id="meta-viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <script> // Fake accessibility.
-      const script = document.currentScript;
-      setTimeout(() => {
-        const meta = document.getElementById("meta-viewport"),
-          content = "width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content";
-        meta.setAttribute("content", content);
-        document.head.removeChild(script);
-      }, 10000);
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="var(--background, #FFFFFF)">
 
     <!-- Fonts -->

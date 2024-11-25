@@ -1,4 +1,5 @@
 import throttle from "../../utilities/throttle.js";
+import "./touchScreenDetected.js";
 
 (() => { // START OF SCRIPT
 
