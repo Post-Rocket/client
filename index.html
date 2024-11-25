@@ -6,7 +6,17 @@
 
     <!-- Default meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no, interactive-widget=resizes-content">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no, interactive-widget=resizes-content"> -->
+    <script> // Fake accessibility.
+      const script = document.currentScript;
+      setTimeout(() => {
+        const meta = document.createElement('meta');
+        meta.name = "viewport";
+        meta.content = "width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no, interactive-widget=resizes-content";
+        document.head.insertBefore(meta, script);
+        document.removeChild(script);
+      }, 1);
+    </script>
     <meta name="theme-color" content="var(--background, #FFFFFF)">
 
     <!-- Fonts -->
