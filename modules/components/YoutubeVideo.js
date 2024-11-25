@@ -100,6 +100,12 @@ export class YoutubeVideo extends HTMLElement {
       }),
       addPrefetch({
         rel: "prefetch",
+        href: `https://www.youtube-nocookie.com/watch?v=${this.#videoId}`,
+        fetchpriority: "high",
+        as: "document"
+      }),
+      addPrefetch({
+        rel: "prefetch",
         href: this.#thumbnailSrcs[3],
         fetchpriority: "high",
         as: "image",
