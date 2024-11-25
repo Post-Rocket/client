@@ -59,7 +59,7 @@ export class YoutubeVideo extends HTMLElement {
         },
         events: {
           onReady: (...args) => {
-            this.#video = this.#container.firstChild;
+            (this.#video = this.#container.firstChild).setAttribute("allow", "autoplay; fullscreen");
             cb(...args);
           },
           onError: () => {
