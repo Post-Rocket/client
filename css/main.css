@@ -323,6 +323,7 @@ body.keyboard-up #agent {
   margin-top: calc(-0.5 * var(--picture-size));
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: auto !important;
 }
 
 body.keyboard-up #agent-response {
