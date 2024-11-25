@@ -1,8 +1,9 @@
-import hasTouchScreen from "./hasTouchScreen.js";
+import hasTouchScreen from "../utilities/hasTouchScreen.js";
+import isMobile from "../utilities/isMobile.js";
 
 (() => { // START OF SCRIPT
 
-if (hasTouchScreen()) {
+if (hasTouchScreen() || isMobile()) {
   // Refine accessibility.
   setTimeout(() => {
     const meta = document.querySelector('meta[name="viewport"]'),

@@ -1,4 +1,4 @@
-import createFormData from "./createFormData.js";
+import createFormData from "../utilities/createFormData.js";
 import "./pageLoaded.js";
 
 (() => { // START OF SCRIPT

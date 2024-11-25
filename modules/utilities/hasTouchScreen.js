@@ -1,7 +1,8 @@
 export const hasTouchScreen = () => {
   let mq;
   try {
-    return 'ontouchstart' in document
+    return /iP(hone|ad|od)/.test(navigator.userAgent || "")
+      || 'ontouchstart' in document
       || 'ontouchstart' in documentElement
       || navigator.maxTouchPoints > 0
       || navigator.msMaxTouchPoints > 0

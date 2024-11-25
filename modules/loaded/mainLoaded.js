@@ -1,5 +1,5 @@
 import "./common.js";
-import createFormData from "./createFormData.js";
+import createFormData from "../utilities/createFormData.js";
 import throttle from "../../utilities/throttle.js";
 import "../components/YoutubeVideo.js";
 import { createConfettis } from "../components/Confettis.js";
