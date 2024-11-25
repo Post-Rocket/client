@@ -104,7 +104,7 @@
     </dialog>
     <script type="module">
       (document.referrer || "").toLowerCase().includes("postrocket")
-        || ((decodeURIComponent(document.cookie) || "").match("postrocket_index_intro") || []).length
+        || document.cookie.includes("__Host-postrocket_index_intro=1")
         || (document.getElementById("intro").open = true);
     </script>
 
