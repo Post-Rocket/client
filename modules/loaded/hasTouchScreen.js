@@ -1,12 +1,12 @@
 export const hasTouchScreen = () => {
   let mq;
   try {
-    return 'ontouchstart' in this.document
-      || 'ontouchstart' in this.documentElement
-      || this.navigator.maxTouchPoints > 0
-      || this.navigator.msMaxTouchPoints > 0
+    return 'ontouchstart' in document
+      || 'ontouchstart' in documentElement
+      || navigator.maxTouchPoints > 0
+      || navigator.msMaxTouchPoints > 0
       || (
-        (mq = this.matchMedia('(pointer:coarse)') || {})
+        (mq = matchMedia('(pointer:coarse)') || {})
         && mq.media === '(pointer:coarse)'
         && !!mq.matches
       );
