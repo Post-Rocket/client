@@ -516,6 +516,7 @@ removeThinking = () => {
 
 // Intro animation.
 const intro = document.getElementById("intro");
+let introTimeoutId;
 intro && (
   intro.onanimationend = event => {
     if (event.animationName === "bg") {
@@ -526,9 +527,10 @@ intro && (
   intro.onclick = event => {
     event.stopPropagation();
     unhide();
+    clearTimeout(introTimeoutId);
     intro.close();
   },
-  setTimeout(() => {
+  introTimeoutId = setTimeout(() => {
     unhide();
     addPulsingShaking();
   }, !(decodeURIComponent(document.cookie) || "").includes("postrocket_index_intro=1") && 13000 || 100)
