@@ -531,7 +531,7 @@ intro && (
   setTimeout(() => {
     unhide();
     addPulsingShaking();
-  }, 11000)
+  }, 13000)
 ) || (
   unhide(),
   addPulsingShaking()
