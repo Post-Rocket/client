@@ -6,8 +6,9 @@ if (hasTouchScreen()) {
   // Refine accessibility.
   setTimeout(() => {
     const meta = document.querySelector('meta[name="viewport"]'),
-      content = "width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content";
-      meta && meta.setAttribute("content", content);
+      content = "width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no",
+      androidContent = !/iP(hone|ad|od)/.test(navigator.userAgent) && ", interactive-widget=resizes-content" || "";
+      meta && meta.setAttribute("content", content + androidContent);
   }, 1000);
 }
 
