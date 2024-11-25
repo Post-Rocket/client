@@ -116,7 +116,11 @@ export class YoutubeVideo extends HTMLElement {
         });
       },
       this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[2]),
-      setTimeout(this.#button.onclick, 5000)
+      setTimeout(() => {
+        this.createPlayer(() => {
+          this.#button.classList.add("hidden");
+        });
+      }, 5000)
     ) : this.#container.classList.add("hidden");
   }
 
