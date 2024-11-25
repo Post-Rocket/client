@@ -12,6 +12,7 @@ export class YoutubeVideo extends HTMLElement {
   #thumbnail;
   #thumbnailSrcs = [];
   #player;
+  #creatingPlayer;
 
   // Constructor.
   constructor() {
@@ -39,10 +40,11 @@ export class YoutubeVideo extends HTMLElement {
 
   // Helper function to create a YT player.
   createPlayer(cb) {
-    if (!window.YT) return this;
+    if (!window.YT || this.#creatingPlayer) return this;
     typeof cb === "function" || (cb = (() => {
       this.#player.playVideo();
     }));
+    this.#creatingPlayer = true;
     window.YT.ready(() => {
       this.#player = new window.YT.Player(this.#video, {
         host: "https://www.youtube-nocookie.com",
@@ -59,6 +61,9 @@ export class YoutubeVideo extends HTMLElement {
           onReady: (...args) => {
             this.#video = this.#container.firstChild;
             cb(...args);
+          },
+          onError: () => {
+            this.#creatingPlayer = false;
           } 
         }
       });
@@ -110,7 +115,8 @@ export class YoutubeVideo extends HTMLElement {
           this.#player.playVideo();
         });
       },
-      this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[2])
+      this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[2]),
+      setTimeout(this.#button.onclick, 5000)
     ) : this.#container.classList.add("hidden");
   }
 
