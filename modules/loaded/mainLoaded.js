@@ -183,12 +183,14 @@ const unhide = () => {
       {
         type: "button",
         text: "yes",
-        send: "I have a website"
+        send: "I have a website",
+        form
       },
       {
         type: "button",
         text: "no",
-        send: "I do not have a website"
+        send: "I do not have a website",
+        form
       },
       {
         type: "button",
