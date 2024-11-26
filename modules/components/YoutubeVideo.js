@@ -107,7 +107,7 @@ export class YoutubeVideo extends HTMLElement {
       }),
       this.#thumbnail.onload = () => {
         this.#thumbnail.getAttribute("src") === this.#thumbnailSrcs[3]
-        || setTimeout(this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]), 500);
+        || setTimeout(this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]), 200);
       },
       this.#thumbnail.onerror = this.#button.onclick = () => {
         this.createPlayer(() => {
@@ -125,7 +125,7 @@ export class YoutubeVideo extends HTMLElement {
         this.createPlayer(() => {
           setTimeout(() => this.#button.classList.add("disabled"), 200);
         });
-      }, 1000)
+      }, 300)
     ) : this.#container.classList.add("hidden");
   }
 
