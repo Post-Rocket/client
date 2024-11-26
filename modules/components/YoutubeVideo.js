@@ -98,17 +98,17 @@ export class YoutubeVideo extends HTMLElement {
         fetchpriority: "high",
         as: "document"
       }),
-      addPrefetch({
-        rel: "prefetch",
-        href: this.#thumbnailSrcs[3],
-        fetchpriority: "high",
-        as: "image",
-        type: "image/webp"
-      }),
-      this.#thumbnail.onload = () => {
-        this.#thumbnail.getAttribute("src") === this.#thumbnailSrcs[3]
-        || setTimeout(this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]), 200);
-      },
+      // addPrefetch({
+      //   rel: "prefetch",
+      //   href: this.#thumbnailSrcs[3],
+      //   fetchpriority: "high",
+      //   as: "image",
+      //   type: "image/webp"
+      // }),
+      // this.#thumbnail.onload = () => {
+      //   this.#thumbnail.getAttribute("src") === this.#thumbnailSrcs[3]
+      //   || setTimeout(this.#thumbnail.setAttribute("src", this.#thumbnailSrcs[3]), 200);
+      // },
       this.#thumbnail.onerror = this.#button.onclick = () => {
         this.createPlayer(() => {
           setTimeout(() => this.#button.classList.add("disabled"), 200);
