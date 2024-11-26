@@ -33,7 +33,7 @@
 }
 
 #form input.hidden {
-  display: block;
+  display: block !important;
   opacity: 0;
   height: 0;
 }
