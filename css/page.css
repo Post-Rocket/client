@@ -14,6 +14,10 @@ h1 {
   line-height: 50%;
 }
 
+main {
+  overscroll-behavior: auto !important;
+}
+
 #nav {
   position: relative;
   width: 100%;
