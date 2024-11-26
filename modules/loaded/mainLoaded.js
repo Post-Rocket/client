@@ -3,6 +3,7 @@ import createFormData from "../utilities/createFormData.js";
 import throttle from "../../utilities/throttle.js";
 import "../components/YoutubeVideo.js";
 import { createConfettis } from "../components/Confettis.js";
+import touchScreenDetected from "./touchScreenDetected.js";
 
 (() => { // START OF SCRIPT
 
@@ -408,6 +409,7 @@ document.addEventListener("keydown", event => {
 
 // Unhide and add original content for the index.html.
 const unhide = () => {
+  touchScreenDetected();
   document.getElementById("main-content").classList.remove("hidden");
   document.getElementById("side-menu").classList.remove("hidden");
   document.getElementById("index") === document.body && writeContent([
