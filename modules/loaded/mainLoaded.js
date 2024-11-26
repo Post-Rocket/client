@@ -541,10 +541,9 @@ intro && (
   addPulsingShaking()
 );
 
+// Add intro cookie.
 setTimeout(() => {
   document.cookie = "__Host-postrocket_index_intro=1; Secure; Path=/";
 }, 10000);
-
-
 
 })(); // END OF SCRIPT
