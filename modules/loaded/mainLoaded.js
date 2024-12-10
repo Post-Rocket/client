@@ -233,6 +233,7 @@ home === document.body && (
   isWelcome && (
     document.cookie = "__Secure-postrocket_home_intro=1; Secure; Path=/; SameSite=Strict",
     writeContent(["🎉  Welcome!\n\n", ...homePageChatContent], chat, () =>(
+      console.log("CONFETTIS!"),
       createConfettis({
         color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
         duration: 5000,
