@@ -1,5 +1,8 @@
 import createFormData from "../utilities/createFormData.js";
 import "./pageLoaded.js";
+import touchScreenDetected from "./touchScreenDetected.js";
+import hasTouchScreen from "../utilities/hasTouchScreen.js";
+import isMobile from "../utilities/isMobile.js";
 
 (() => { // START OF SCRIPT
 
@@ -57,6 +60,9 @@ document.addEventListener("keydown", event => {
 });
 
 // Autofocus unless the identifier is already filled.
-setTimeout(() => identifier.focus(), 10);
+setTimeout(() => (
+ (hasTouchScreen() || isMobile()) && touchScreenDetected(),
+  identifier.focus()
+), 10);
 
 })(); // END OF SCRIPT
