@@ -179,7 +179,7 @@ const unhide = () => {
   main.classList.remove("hidden");
   menu.classList.remove("hidden");
   index === document.body && writeContent([
-    "Welcome to PostRocket 🚀\nLet's unleash your social media together! Do you have a website?", [
+    "Welcome to PostRocket 🚀\nLet's unleash your social media together!\n\nDo you have a website?", [
       {
         type: "button",
         text: "yes",
