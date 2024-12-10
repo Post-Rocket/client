@@ -227,13 +227,12 @@ isWelcome = (
       || !referrer.includes(".html")
     )
   )
-) && !((decodeURIComponent(document.cookie) || "").match("postrocket_home_intro") || []).length;
+) && !((decodeURIComponent(document.cookie) || "").match("postrocket_home_intro=1") || []).length;
 
 home === document.body && (
   isWelcome && (
     document.cookie = "__Secure-postrocket_home_intro=1; Secure; Path=/; SameSite=Strict",
-    writeContent(["🎉  Welcome!\n\n", ...homePageChatContent], chat, () =>(
-      console.log("CONFETTIS!"),
+    writeContent(["🎉  Welcome!\n\n", ...homePageChatContent], () =>(
       createConfettis({
         color: ["#BF9B30", "#FFBF00", "#A67C00", "#C0C0C0", "#B5B7BB", "#75777B"],
         duration: 5000,
@@ -241,7 +240,7 @@ home === document.body && (
         autoStart: true
       })
     ))
-  ) || writeContent(...homePageChatContent)
+  ) || writeContent(homePageChatContent)
 );
 
 // Intro animation.
