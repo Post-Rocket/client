@@ -768,7 +768,7 @@ body.keyboard-up #agent-response {
   cursor: pointer;
   opacity: 0.1;
   position: absolute;
-  top: calc(16px + var(--safearea-top));
+  top: max(16px, var(--safearea-top));
   right: calc(16px + var(--safearea-right));
   z-index: 100000;
   transition: var(--transition-time);
