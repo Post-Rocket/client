@@ -634,7 +634,7 @@ body.keyboard-up #agent-response {
   /* clip-path: inset(30dvh 0px 0px 0px); */
   display: flex;
   flex-direction: column;
-  padding: var(--size-32-48);
+  padding: calc(var(--size-32-48) + var(--safearea-top)) calc(var(--size-32-48) + var(--safearea-left))calc(var(--size-32-48) + var(--safearea-bottom)) calc(var(--size-32-48) + var(--safearea-right));
   color: black;
 }
 
@@ -768,8 +768,8 @@ body.keyboard-up #agent-response {
   cursor: pointer;
   opacity: 0.1;
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: calc(16px + var(--safearea-top));
+  right: calc(16px + var(--safearea-right));
   z-index: 100000;
   transition: var(--transition-time);
 }
