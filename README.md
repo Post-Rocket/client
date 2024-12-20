@@ -23,3 +23,8 @@ On Windows:
     npx webpack --config webpack.config.js
 
 Note: you may need to sudo the command line.
+
+## S3
+
+Tutorial: https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html
+Endpoint: http://postrocket-website.s3-website.us-east-2.amazonaws.com 
