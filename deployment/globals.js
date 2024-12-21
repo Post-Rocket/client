@@ -17,7 +17,7 @@ const client = new S3Client({
   },
   region,
   httpOptions: {
-    timeout: 10000 // Timeout in milliseconds (e.g., 10 seconds)
+    timeout: 120000 // Timeout in milliseconds (e.g., 120 seconds)
   }
 });
 
