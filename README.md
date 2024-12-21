@@ -26,5 +26,8 @@ Note: you may need to sudo the command line.
 
 ## S3
 
-Tutorial: https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html
+Tutorials:
+- https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html
+- https://sudheer-baraker.medium.com/step-by-step-guide-hosting-a-static-website-on-aws-s3-660b81bea177
+- https://medium.com/@sbuckpesch/setup-aws-s3-static-website-hosting-using-ssl-acm-34d41d32e394
 Endpoint: http://postrocket-website.s3-website.us-east-2.amazonaws.com 
