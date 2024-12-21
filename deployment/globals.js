@@ -1,3 +1,4 @@
+const { S3Client } = require("@aws-sdk/client-s3");
 const { website: credentials } = require("../secrets/dev.json");
 const {
   accessKeyId,
@@ -9,14 +10,19 @@ const {
 } = credentials;
 
 // Create s3 client.
-const S3 = new AWS.S3({
-  accessKeyId,
-  secretAccessKey,
-  region
+const client = new S3Client({
+  credentials: {
+      accessKeyId,
+      secretAccessKey
+  },
+  region,
+  httpOptions: {
+    timeout: 10000 // Timeout in milliseconds (e.g., 10 seconds)
+  }
 });
 
 const Globals = {
-  S3: "server",
+  client,
   Bucket,
   INPUT: [
     "./assets",

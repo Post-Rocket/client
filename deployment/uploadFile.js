@@ -1,5 +1,6 @@
 const fs = require("fs");
-const { S3, Bucket } = require("./globals");
+const { client, Bucket } = require("./globals");
+const { Upload } = require("@aws-sdk/lib-storage");
 
 const uploadFile = async fileName => new Promise(
   async function (resolve, reject) {
@@ -7,18 +8,20 @@ const uploadFile = async fileName => new Promise(
       const params = {
         Bucket,
         Key: fileName,
-        Body: await fs.readFile(fileName)
+        Body: fs.createReadStream(fileName)
       };
 
-      S3.upload(params, (error, data) => {
-        if (err) {
-          if (reject) reject(error)
-          else throw Error(error);
-        } else {
-          if (resolve) resolve(data)
-          else console.log(`File uploaded successfully. ${data.Location}`);
-        }
-      });
+      // Upload data to s3.
+      const res = await new Upload({
+        client,
+        params,
+        tags: [], // optional tags
+        queueSize: 4, // optional concurrency configuration
+        partSize: 1024 * 1024 * 5, // optional size of each part, in bytes, at least 5MB
+        leavePartsOnError: false, // optional manually handle dropped parts
+      }).done();
+      resolve && resolve(res);
+
     } catch (error) {
       if (reject) reject(error);
       else throw Error(error);

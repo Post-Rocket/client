@@ -7,6 +7,7 @@ const upload = async input => new Promise(
     // Normalize input.
     Array.isArray(input) || (input = [input]);
     input = input.flat(Infinity).filter(x => x).map(x => `${x}`);
+    const res = [];
 
     try {
       // Get filenames.
@@ -17,14 +18,15 @@ const upload = async input => new Promise(
 
       // Load.
       for (let i = 0, l = filenames.length; i !== l; ++i) {
-        await uploadFile(filenames[i]);
+        console.log(`Upload ${filenames[i]}`);
+        res.push(await uploadFile(filenames[i]));
       }
     } catch (error) {
       reject && reject(error);
     }
 
     // Success.
-    resolve && resolve();
+    resolve && resolve(res);
   }
 );
 

@@ -17,7 +17,7 @@ const makeSet = input => {
 const getFilenames = (
   dir,
   modifiedTime,
-  blacklist = ["node_modules", "deployment", "secrets"],
+  blacklist = ["node_modules", "deployment", "secrets", ".DS_Store"],
   extensions,
   relative,
   _files
@@ -29,7 +29,7 @@ const getFilenames = (
     extensions = dir.extensions,
     relative = dir.relative,
     _files = dir.files || dir._files,
-    dir = dir.dir
+    dir = dir.dir || dir.filename || dir.folder || dir.file
   );
   relative === true && (relative = __dirname);
   _files || (_files = []);
@@ -38,19 +38,35 @@ const getFilenames = (
   extensions.forEach(v => extensions.add(v.toLowerCase()));
   extensions.forEach(v => v.charAt(0) !== "." && extensions.add("." + v));
 
+  // Array of directories.
+  if (Array.isArray(dir)) return dir.map(x => getFilenames(
+    x,
+    modifiedTime,
+    blacklist = ["node_modules", "deployment", "secrets"],
+    extensions,
+    relative
+  )).flat();
+
   // Get filenames.
-  const filenames = fs.readdirSync(dir);
+  const filenames = dir && (
+    dir = `${dir}`,
+    fs.lstatSync(dir).isDirectory() && fs.readdirSync(dir)
+      || [`${dir}`]
+  ) || [];
 
   // Push recursively filenames that ends with .js and are not part of the blacklist.
   for (let i = 0, l = filenames.length; i !== l; ++i) {
     // Get filename, full path and file info.
     const filename = filenames[i];
-    const filePath = Path.join(dir, filename);
-    const fileInfo = fs.lstatSync(filePath);
+    let fileInfo = fs.lstatSync(dir), filePath = filename;
+    fileInfo.isDirectory() && (
+      filePath = Path.join(dir, filename),
+      fileInfo = fs.lstatSync(filePath)
+    );
 
     // Aggregate the files.
     blacklist.has(filename)
-      || (fileInfo.isDirectory() && getFilenames(filePath, modifiedTime, blacklist, extensions, _files))
+      || (fileInfo.isDirectory() && getFilenames(filePath, modifiedTime, blacklist, extensions, relative, _files))
       || (extensions.size && !extensions.has(Path.extname(filename).toLowerCase()))
       || ((!modifiedTime || (Date.now() - fileInfo.mtimeMs < modifiedTime)) && _files.push(filePath))
   }
