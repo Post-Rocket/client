@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.717.0",
+    "@aws-sdk/lib-storage": "^3.717.0",
     "css-loader": "^7.1.2",
     "mini-css-extract-plugin": "^2.9.2",
     "style-loader": "^4.0.0",
@@ -8,7 +9,6 @@
     "webpack-remove-empty-scripts": "^1.0.4"
   },
   "dependencies": {
-    "@aws-sdk/lib-storage": "^3.717.0",
     "css-url-relative-plugin": "^1.1.0"
   }
 }
