@@ -3,11 +3,11 @@ const { client, Bucket } = require("./globals");
 
 const listContent = async () => new Promise(async (resolve, reject) => {
   try {
-    const res = await client.send(new ListObjectsCommand({ Bucket })) || [];
+    const res = await client.send(new ListObjectsCommand({ Bucket })) || {Contents: []};
     resolve && resolve(res);
   } catch (error) {
     if (reject) reject(error);
-    else throw error;
+    else throw Error(error);
   }
 });
 

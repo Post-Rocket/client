@@ -3,18 +3,34 @@ const { client, Bucket } = require("./globals");
 
 const deleteContent = async (...content) => new Promise(async (resolve, reject) => {
   try {
-    const res = await client.send(new DeleteObjectsCommand({
+    const Contents = content.flat(Infinity).map(f => f && (
+      typeof f === "object" && f.Key && f || {
+        Key: `${f}`
+      })
+    ).filter(f => f),
+    params = {
       Bucket,
-      Objects: content.flat(Infinity).map(f => f && (
-        typeof f === "object" && f.Key && {...f, Key: f.Key.replace(/^\.\//, "")} || {
-          Key: `${f}`.replace(/^\.\//, "")
-        })
-      ).filter(f => f)
-    })) || [];
-    resolve && resolve(res);
+      Delete: {
+        Objects: Contents.map(({
+          Key, // "STRING_VALUE", // required
+          VersionId, // "STRING_VALUE",
+          ETag, // "STRING_VALUE",
+          LastModifiedTime, // new Date("TIMESTAMP"),
+          Size // Number("long")
+        }) => ({
+          Key,
+          // VersionId,
+          // ETag,
+          // LastModifiedTime,
+          // Size
+        }))
+      }
+    };
+    const res = await client.send(new DeleteObjectsCommand(params));
+    resolve && resolve({ Contents, ...res });
   } catch (error) {
     if (reject) reject(error);
-    else throw error;
+    else throw Error(error);
   }
 });
 
