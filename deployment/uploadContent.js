@@ -6,12 +6,16 @@ const { lookup } = require("mime-types");
 const uploadContent = async fileName => new Promise(
   async function (resolve, reject) {
     try {
+      // Get initial params.
       const params = {
         Bucket,
         Key: fileName.replace(/^\.\//, ""),
-        Body: fs.createReadStream(fileName),
-        ContentType: lookup(fileName)
+        Body: fs.createReadStream(fileName)
       };
+
+      // Add content type.
+      const contentType = lookup(fileName);
+      contentType && (params.ContentType = contentType);
 
       // Upload data to s3.
       const res = await new Upload({
