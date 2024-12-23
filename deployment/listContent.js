@@ -1,4 +1,4 @@
-import { ListObjectsCommand } from "@aws-sdk/client-s3"; // ES Modules import
+const { ListObjectsCommand } = require("@aws-sdk/client-s3"); // ES Modules import
 const { client, Bucket } = require("./globals");
 
 const listContent = async () => new Promise(async (resolve, reject) => {

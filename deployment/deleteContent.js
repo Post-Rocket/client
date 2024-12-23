@@ -1,4 +1,4 @@
-import { DeleteObjectsCommand } from "@aws-sdk/client-s3"; // ES Modules import
+const { DeleteObjectsCommand } = require("@aws-sdk/client-s3"); // ES Modules import
 const { client, Bucket } = require("./globals");
 
 const deleteContent = async (...content) => new Promise(async (resolve, reject) => {
