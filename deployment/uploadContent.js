@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { client, Bucket } = require("./globals");
 const { Upload } = require("@aws-sdk/lib-storage");
+const { lookup } = require("mime-types");
 
 const uploadContent = async fileName => new Promise(
   async function (resolve, reject) {
@@ -8,7 +9,8 @@ const uploadContent = async fileName => new Promise(
       const params = {
         Bucket,
         Key: fileName.replace(/^\.\//, ""),
-        Body: fs.createReadStream(fileName)
+        Body: fs.createReadStream(fileName),
+        ContentType: lookup(fileName)
       };
 
       // Upload data to s3.

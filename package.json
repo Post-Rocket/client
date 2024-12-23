@@ -9,6 +9,7 @@
     "webpack-remove-empty-scripts": "^1.0.4"
   },
   "dependencies": {
-    "css-url-relative-plugin": "^1.1.0"
+    "css-url-relative-plugin": "^1.1.0",
+    "mime-types": "^2.1.35"
   }
 }
