@@ -4,7 +4,7 @@ const listContent = require("./listContent");
 const clear = async () => new Promise(async (resolve, reject) => {
   try {
     const toDelete = await listContent(),
-      data = await deleteContent(toClear);
+      data = await deleteContent(toDelete);
     resolve && resolve({
       toDelete,
       data
