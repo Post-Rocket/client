@@ -7,7 +7,7 @@ const uploadFile = async fileName => new Promise(
     try {
       const params = {
         Bucket,
-        Key: fileName,
+        Key: fileName.replace(/$\.\//, ""),
         Body: fs.createReadStream(fileName)
       };
 
