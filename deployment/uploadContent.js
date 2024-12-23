@@ -2,12 +2,12 @@ const fs = require("fs");
 const { client, Bucket } = require("./globals");
 const { Upload } = require("@aws-sdk/lib-storage");
 
-const uploadFile = async fileName => new Promise(
+const uploadContent = async fileName => new Promise(
   async function (resolve, reject) {
     try {
       const params = {
         Bucket,
-        Key: fileName.replace(/$\.\//, ""),
+        Key: fileName.replace(/^\.\//, ""),
         Body: fs.createReadStream(fileName)
       };
 
@@ -30,6 +30,6 @@ const uploadFile = async fileName => new Promise(
 );
 
 // Export.
-module.exports = Object.freeze(Object.defineProperty(uploadFile, "uploadFile", {
-  value: uploadFile
+module.exports = Object.freeze(Object.defineProperty(uploadContent, "uploadContent", {
+  value: uploadContent
 }));

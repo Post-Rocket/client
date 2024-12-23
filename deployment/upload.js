@@ -1,4 +1,4 @@
-const uploadFile = require("./uploadFile");
+const uploadContent = require("./uploadContent");
 const getFilenames = require("./getFilenames");
 
 // Helper function to upload filenames.
@@ -19,7 +19,7 @@ const upload = async input => new Promise(
       // Load.
       for (let i = 0, l = filenames.length; i !== l; ++i) {
         console.log(`Upload ${filenames[i]}`);
-        res.push(await uploadFile(filenames[i]));
+        res.push(await uploadContent(filenames[i]));
       }
     } catch (error) {
       reject && reject(error);

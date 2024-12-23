@@ -1,1 +1,1 @@
-require("./scripts/upload");
+require("./scripts/deploy");
