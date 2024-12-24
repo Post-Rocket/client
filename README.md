@@ -1,5 +1,7 @@
 # PostRocket
 
+(Github repo)[https://github.com/Post-Rocket/client]
+
 ## Add/Update utilities submodule
 
 See [utilities repo README.md](https://github.com/Post-Rocket/utilities?tab=readme-ov-file#instaling-as-a-github-submodule).
