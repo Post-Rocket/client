@@ -2,6 +2,7 @@
   /* Colors */
   --color: #111;
   --background: white;
+  --intro: linear-gradient(0deg, #B5E3EF, #B3E1ED, #BAE4EF);
   --gradient: linear-gradient(45deg, #8BB9FE, #8DF5FF);
   --color-5-percent: rgb(from var(--color) r g b / 0.05);
   --color-10-percent: rgb(from var(--color) r g b / 0.1);
