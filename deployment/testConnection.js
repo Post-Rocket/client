@@ -1,18 +1,8 @@
 const { HeadBucketCommand } = require("@aws-sdk/client-s3");
-const { client, Bucket } = require("./globals");
+const { send, Bucket } = require("./send");
 
 // Helper function to test a connection.
-const testConnection = async () => new Promise(async (resolve, reject) => {
-  try {
-    const res = await client.send(new HeadBucketCommand({
-      Bucket
-    }));
-    resolve && resolve(res);
-  } catch (error) {
-    if (reject) reject(error);
-    else throw error;
-  }
-});
+const testConnection = send.create(new HeadBucketCommand({ Bucket }));
 
 // Export.
 module.exports = Object.freeze(Object.defineProperty(testConnection, "testConnection", {

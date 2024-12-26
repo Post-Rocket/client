@@ -1,15 +1,7 @@
 const { ListObjectsCommand } = require("@aws-sdk/client-s3"); // ES Modules import
-const { client, Bucket } = require("./globals");
+const { send, Bucket } = require("./send");
 
-const listContent = async () => new Promise(async (resolve, reject) => {
-  try {
-    const res = await client.send(new ListObjectsCommand({ Bucket })) || {Contents: []};
-    resolve && resolve(res);
-  } catch (error) {
-    if (reject) reject(error);
-    else throw Error(error);
-  }
-});
+const listContent = send.create(new ListObjectsCommand({ Bucket }), {Contents: []});
 
 // Export.
 module.exports = Object.freeze(Object.defineProperty(listContent, "listContent", {

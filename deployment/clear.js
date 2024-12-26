@@ -1,14 +1,13 @@
 const deleteContent = require("./deleteContent");
 const listContent = require("./listContent");
+const promisify = require("./promisify");
 
-const clear = async () => new Promise(async (resolve, reject) => {
+const clear = promisify(async () => {
   try {
-    const toDelete = await listContent(),
-      res = await deleteContent(toDelete.Contents);
-    resolve && resolve(res);
+    const toDelete = await listContent();
+    return await deleteContent(toDelete.Contents);
   } catch (error) {
-    if (reject) reject(error);
-    else throw Error(error);
+    throw error;
   }
 });
 

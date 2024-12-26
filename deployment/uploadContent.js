@@ -3,6 +3,7 @@ const { client, Bucket } = require("./globals");
 const { Upload } = require("@aws-sdk/lib-storage");
 const { lookup } = require("mime-types");
 
+// Helper function to upload content to a bucket.
 const uploadContent = async fileName => new Promise(
   async function (resolve, reject) {
     try {
