@@ -1,9 +1,9 @@
-const clear = require("../clear");
-const upload = require("../upload");
+const deploy = require("../deploy");
 const { INPUT } = require("../globals");
 
 // Deploy.
-(async () => {
-  await clear();
-  await upload(INPUT);
-})();
+deploy(INPUT)
+.then(() => {
+  console.log("✅ Deployment done")
+})
+.catch(error => console.error("⛔️ ", error));
