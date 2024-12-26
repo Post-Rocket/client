@@ -4,7 +4,7 @@ const promisify = require("./promisify");
 
 const clear = promisify(async () => {
   try {
-    const toDelete = await listContent();
+    const toDelete = await listContent().filter(x => !x.includes(/\/logs/i));
     return await deleteContent(toDelete.Contents);
   } catch (error) {
     throw error;
