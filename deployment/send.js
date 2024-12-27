@@ -2,7 +2,7 @@ const promisify = require("./promisify");
 const { client, Bucket } = require("./globals");
 
 const create = (defaultCommand, defaultOuput) => (
-  async (command = defaultCommand, output = defaultOuput) => promisify(async () => {
+  promisify(async (command = defaultCommand, output = defaultOuput) => {
     try {
       return await client.send(command) || output;
     } catch (error) {

@@ -7,7 +7,18 @@ const promisify = require("./promisify");
 const { send, Bucket } = require("./send");
 
 const _createFolder = Key => send(new PutObjectCommand({ Bucket, Key }));
-const existsFolder = Key => send(new HeadObjectCommand({ Bucket, Key }));
+const existsFolder = promisify(async Key => {
+  try {
+    return await send(new HeadObjectCommand({ Bucket, Key }));
+  } catch (error) {
+    if (error.name === "NotFound") {
+      return false;
+    } else {
+      throw error;
+    }
+  }
+});
+  
 const _deleteFolder = Key => send(new DeleteObjectCommand({ Bucket, Key }));
 
 const deleteFolder = async (Key, checkIfExists = true) => (

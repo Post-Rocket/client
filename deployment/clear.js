@@ -4,8 +4,12 @@ const promisify = require("./promisify");
 
 const clear = promisify(async () => {
   try {
-    const toDelete = await listContent().filter(x => !x.includes(/\/logs/i));
-    return await deleteContent(toDelete.Contents);
+    const toDelete = await listContent();
+    toDelete.Contents = (toDelete.Contents || []).filter(x => x && (
+      typeof x === "object" && (x = x.Key || ""),
+      !(/(\/|^)logs(\/|$)/i).test(x)
+    ));
+    return toDelete.Contents.length && await deleteContent(toDelete.Contents);
   } catch (error) {
     throw error;
   }

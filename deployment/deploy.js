@@ -7,7 +7,11 @@ const { createFolder } = require("./folderUtils");
 const deploy = promisify(async (input) => {
   try {
     await clear();
-    await createFolder("logs/", true, false);
+    try {
+      await createFolder("logs/", true, false);
+    } catch (error) {
+      if (!/exist/i.test(`${error}`)) throw error;
+    };
     await upload(input);
   } catch (error) {
     throw error;
