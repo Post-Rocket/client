@@ -5,7 +5,7 @@ export const closeDialog = event => {
 }
 
 // Add closing to all dialogs.
-for (let i = 0, cn = document.getElementsByTagName('dialog'), l = cn.length; i !== l; ++i) {
+for (let i = 0, cn = document.getElementsByTagName("dialog"), l = cn.length; i !== l; ++i) {
   cn[i].onclick = closeDialog;
 }
 

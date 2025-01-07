@@ -44,7 +44,7 @@ export const writeContent = (arr, elmt, cb, i = 0, c, p) => (
       elmt.appendChild(p)
     ),
     // String, number, boolean item.
-    typeof c !== 'object' ? (
+    typeof c !== "object" ? (
       // Add element to the chat.
       elmt.appendChild(
         // Add characters to the chat like someone's typing them.
@@ -149,6 +149,6 @@ export const writeContent = (arr, elmt, cb, i = 0, c, p) => (
 
 // Exports.
 writeContent.writeText = writeText;
-export default Object.freeze(Object.defineProperty(writeContent, 'writeContent', {
+export default Object.freeze(Object.defineProperty(writeContent, "writeContent", {
   value: writeContent
 }));

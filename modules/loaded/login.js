@@ -9,6 +9,6 @@ export const checkSession = () => {
 }
 
 // Exports.
-export default Object.freeze(Object.defineProperty(login, 'login', {
+export default Object.freeze(Object.defineProperty(login, "login", {
   value: login
 }));

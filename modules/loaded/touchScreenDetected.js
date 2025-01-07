@@ -12,7 +12,7 @@ export const touchScreenDetected = () => {
 }
 
 // Exports.
-export default Object.freeze(Object.defineProperty(touchScreenDetected, 'touchScreenDetected', {
+export default Object.freeze(Object.defineProperty(touchScreenDetected, "touchScreenDetected", {
   value: touchScreenDetected
 }));
 

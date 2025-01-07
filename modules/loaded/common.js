@@ -13,21 +13,21 @@ window.onresize = throttle(() => {
       -document.body.scrollWidth
       || 0
   );
-  timeoutId || document.body.classList.remove('transition-on');
+  timeoutId || document.body.classList.remove("transition-on");
   clearTimeout(timeoutId);
   timeoutId = setTimeout(() => {
-    document.body.classList.add('transition-on');
+    document.body.classList.add("transition-on");
     timeoutId = 0;
   }, 100);
 });
 
 // Add transition mode.
 setTimeout(() => {
-  document.body.classList.add('transition-on');
+  document.body.classList.add("transition-on");
 }, 100);
 
 // Remove focus.
-document.addEventListener('click', event => (
+document.addEventListener("click", event => (
   event.target === document.body && (
     event.preventDefault(),
     event.stopPropagation(),
@@ -35,9 +35,9 @@ document.addEventListener('click', event => (
   )
 ));
 
-const elmts = document.querySelectorAll('[data-background-image]');
+const elmts = document.querySelectorAll("[data-background-image]");
 for (let i = 0, l = elmts.length, el, src; i !== l; ++i) {
-  (src = (el = elmts[i]).getAttribute('data-background-image')) && (el.style.backgroundImage = `url("${src}")`);
+  (src = (el = elmts[i]).getAttribute("data-background-image")) && (el.style.backgroundImage = `url("${src}")`);
 }
 
 })(); // END OF SCRIPT
