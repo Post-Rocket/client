@@ -1,5 +1,70 @@
 export const DEFAULT_CACHE_STORE_NAME = "request-cache";
 
+// Helper function to remove circular dependencies.
+export const removeCircularDependencies = (obj, output, _refs) => {
+  // Invalid input.
+  if (!obj || typeof obj !== 'object') return obj;
+
+  // Prevent infinite recursion.
+  if (_refs) {
+    _refs instanceof Map || (
+      _refs = new Map(Array.from(_refs).map(ref => Array.isArray(ref) && (
+        ref.length > 1 && ref.slice(0, 2)
+        || [ref[0] || obj, obj]
+      ) || [ref || obj, ref || obj]))
+    );
+    const v = _refs.get(obj);
+    if (v) return v;
+  } else _refs = new Map;
+
+  // If input object is an array, deep copy all the items.
+  if (Array.isArray(obj)) {
+    !Array.isArray(output) && (output = new Array(obj.length));
+    let i = 0, l = output.length;
+    _refs.set(obj, output);
+    for (; i !== l; ++i) output[i] = removeCircularDependencies(obj[i], null, _refs);
+    for (l = obj.length; i !== l; ++i) output.push(removeCircularDependencies(obj[i], null, _refs));
+    output.length = obj.length;
+    return output;
+  }
+
+  // Init output and copy proptype keys if needed.
+  output || (output = {});
+  _refs.set(obj, output);
+
+  // Copy just enumerables.
+  for (const key in obj) {
+    let v = obj[key], vv = typeof v === "object" && _refs.get(v);
+    if (vv) continue;
+    v = removeCircularDependencies(v, null, _refs);
+    (typeof v !== "object" || !_refs.get(v)) && (output[key] = v);
+  }
+
+  return output;
+}
+
+// Helper function to normalize the body.
+export const normalizeBody = body => {
+  if (body && typeof body === "object" && !(
+    body instanceof ArrayBuffer
+    || body instanceof TypedArray
+    || body instanceof DataView
+    || body instanceof Blob
+    || body instanceof File
+    || body instanceof URLSearchParams
+    || body instanceof FormData
+    || body instanceof ReadableStream
+  )) {
+    try {
+      return JSON.stringify(removeCircularDependencies(body));
+    } catch (error) {
+      throw Error('Cannot normalize body:', error);
+    }
+  }
+
+  return body;
+}
+
 // Returns [Request Object and cache object].
 export const normalizeInput = (
   url,
@@ -17,18 +82,7 @@ export const normalizeInput = (
         }
       }
     } else if (typeof params === "object") {
-      params.body && typeof params.body === "object" && !(
-        params.body instanceof ArrayBuffer
-        || params.body instanceof TypedArray
-        || params.body instanceof DataView
-        || params.body instanceof Blob
-        || params.body instanceof File
-        || params.body instanceof URLSearchParams
-        || params.body instanceof FormData
-        || params.body instanceof ReadableStream
-      ) && (
-        params.body = JSON.stringify(params.body)
-      );
+      params.body && (params.body = normalizeBody(params.body));
       cache = params.cache;
       delete params.cache;
       params.method = (params.method || "GET").toUpperCase();
@@ -90,25 +144,67 @@ export const normalizeInput = (
   ];
 }
 
+// Response in case there's no internet connection.
+export const noConnection = request.noConnection = params => {
+  // Normalize params.
+  params = {
+    body: {
+      error: "No internet connection client side",
+      offline: true
+    },
+    status: 433,
+    statusText: "Offline",
+    type: "error",
+    ...(params || {})
+  };
+
+  // Migrate message and error to the body.
+  const msg = params.message || params.msg, error = params.error || params.err;
+  delete params.message;
+  delete params.msg;
+  delete params.error;
+  delete params.err;
+  msg && (params.body = { ...(params.body || {}), msg });
+  error && (params.body = { ...(params.body || {}), error });
+
+  // Stringify the body.
+  let body = normalizeBody(params.body);
+  delete params.body;
+  return new Response(body, params);
+}
+
 // Request api.
 export const request = async (
   url,
   params
 ) => {
   try {
-    const [req, cache] = normalizeInput(url, params);
+    const [req, cache] = normalizeInput(url, params),
+      online = navigator.onLine || navigator.online;
     if (cache && typeof cache === "object") {
-      // Return cached response if ttl not exceeded.
+      // Get cache store.
       cache = await caches.open(storeName || DEFAULT_CACHE_STORE_NAME);
+
+      // Try to get cached response wrt the request.
       const {
-        timestamp: _timestamp,
-        expires = timestamp,
-        response: _response, data = _response
+        timestamp: _timestamp, expires = timestamp,
+        response: _response, data = _response, cachedResponse = data
       } = await cache.match(request) || {};
-      if (data && (!expires || expires > Date.now())) {
-        return data;
+
+      // Return cached response if ttl not exceeded.
+      if (cachedResponse && (!expires || expires > Date.now())) {
+        cachedResponse.cached = true;
+        return cachedResponse;
       } else {
+        // If offline, return response error.
+        if (!online) {
+          return noConnection();
+        }
+
+        // Fetch response.
         const response = await fetch(req);
+
+        // Cache response.
         let cached;
         response.ok && (
           cached = {
@@ -117,12 +213,14 @@ export const request = async (
           ttl > 0 && (cached.expires = Date.now() + ttl),
           cache.put(req, cached) // Do not block.
         );
+
+        // Return response.
         return response;
       }
     }
 
-    // No caching.
-    return await fetch(req);
+    // No caching, return fetched response or a response error if no connection.
+    return online && await fetch(req) || noConnection();
   } catch (error) {
     throw error;
   }

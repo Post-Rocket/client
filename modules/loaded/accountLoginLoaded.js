@@ -3,6 +3,7 @@ import "./pageLoaded.js";
 import touchScreenDetected from "./touchScreenDetected.js";
 import hasTouchScreen from "../utilities/hasTouchScreen.js";
 import isMobile from "../utilities/isMobile.js";
+import authenticate from "../api/authenticate.js";
 
 (() => { // START OF SCRIPT
 
@@ -43,7 +44,23 @@ form.onsubmit = event => {
   // --- TO BE REPLACED ---
   console.log(formData);
   document.cookie = "__Secure-postrocket_home_intro=; Secure; Path=/; SameSite=Strict; Max-Age=-99999999";
-  formData.verify && (window.location.href = "./home.html");
+  authenticate(formData)
+    .then(async response => {
+      if (response.ok) {
+        response = await response.json();
+        // TO BE REPLACED.
+        response.verified && (window.location.href = "./home.html");
+      } else {
+        let error;
+        try {
+          error = (await response.json()).error;
+        } catch {}
+
+        // TO BE REPLACED.
+        throw Error(`${response.status} ${response.statusText}${error && ` > ${error}`}`)
+      }
+    });
+  //formData.verify && (window.location.href = "./home.html");
   // ----------------------
 
 }
