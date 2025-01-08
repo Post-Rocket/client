@@ -1,22 +1,18 @@
 import { post } from "./request";
 
-export const URL = "https://api.postrocket.app:3000/authenticate";
+// export const URL = "https://api.postrocket.app:3000/authenticate";
+export const URL = "http://localhost:3000/authenticate";
 
 // Authenticate api.
 export const authenticate = async (
   data,
   route = URL
-) => {
-  try {
-    const response = await post(route, {
-      body: data
-    });
-
-    console.log("AUTHENTICATE:", await response.json());
-  } catch (error) {
-    throw Error(error);
+) => post(route, {
+  body: data,
+  headers: {
+    "Content-Type": "application/json"
   }
-}
+});
 authenticate.URL = URL;
 
 // Exports.

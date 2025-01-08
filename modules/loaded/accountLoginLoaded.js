@@ -42,14 +42,18 @@ form.onsubmit = event => {
   (formData.verify = toggle()) || (delete formData.code);
 
   // --- TO BE REPLACED ---
-  console.log(formData);
+  console.log(">>>>", formData);
   document.cookie = "__Secure-postrocket_home_intro=; Secure; Path=/; SameSite=Strict; Max-Age=-99999999";
   authenticate(formData)
     .then(async response => {
       if (response.ok) {
+        console.log("RES:", response);
         response = await response.json();
         // TO BE REPLACED.
-        response.verified && (window.location.href = "./home.html");
+        console.log("RESPONSE:", response);
+        response.verified && (
+          window.location.href = "./home.html"
+        );
       } else {
         let error;
         try {
@@ -57,8 +61,12 @@ form.onsubmit = event => {
         } catch {}
 
         // TO BE REPLACED.
-        throw Error(`${response.status} ${response.statusText}${error && ` > ${error}`}`)
+        throw Error(`⛔️  ${response.status} ${response.statusText}${error && ` > ${error}`}`)
       }
+    })
+    .catch(error => {
+      // TO BE REPLACED.
+      console.error(error);
     });
   //formData.verify && (window.location.href = "./home.html");
   // ----------------------

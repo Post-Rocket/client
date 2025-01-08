@@ -47,7 +47,15 @@ export const removeCircularDependencies = (obj, output, _refs) => {
 export const normalizeBody = body => {
   if (body && typeof body === "object" && !(
     body instanceof ArrayBuffer
-    || body instanceof TypedArray
+    || body instanceof Int8Array
+    || body instanceof Uint8Array
+    || body instanceof Uint8ClampedArray
+    || body instanceof Int16Array
+    || body instanceof Uint16Array
+    || body instanceof Int32Array
+    || body instanceof Uint32Array
+    || body instanceof Float32Array
+    || body instanceof Float64Array
     || body instanceof DataView
     || body instanceof Blob
     || body instanceof File
@@ -144,35 +152,6 @@ export const normalizeInput = (
   ];
 }
 
-// Response in case there's no internet connection.
-export const noConnection = request.noConnection = params => {
-  // Normalize params.
-  params = {
-    body: {
-      error: "No internet connection client side",
-      offline: true
-    },
-    status: 433,
-    statusText: "Offline",
-    type: "error",
-    ...(params || {})
-  };
-
-  // Migrate message and error to the body.
-  const msg = params.message || params.msg, error = params.error || params.err;
-  delete params.message;
-  delete params.msg;
-  delete params.error;
-  delete params.err;
-  msg && (params.body = { ...(params.body || {}), msg });
-  error && (params.body = { ...(params.body || {}), error });
-
-  // Stringify the body.
-  let body = normalizeBody(params.body);
-  delete params.body;
-  return new Response(body, params);
-}
-
 // Request api.
 export const request = async (
   url,
@@ -224,6 +203,35 @@ export const request = async (
   } catch (error) {
     throw error;
   }
+}
+
+// Response in case there's no internet connection.
+export const noConnection = request.noConnection = params => {
+  // Normalize params.
+  params = {
+    body: {
+      error: "No internet connection client side",
+      offline: true
+    },
+    status: 433,
+    statusText: "Offline",
+    type: "error",
+    ...(params || {})
+  };
+
+  // Migrate message and error to the body.
+  const msg = params.message || params.msg, error = params.error || params.err;
+  delete params.message;
+  delete params.msg;
+  delete params.error;
+  delete params.err;
+  msg && (params.body = { ...(params.body || {}), msg });
+  error && (params.body = { ...(params.body || {}), error });
+
+  // Stringify the body.
+  let body = normalizeBody(params.body);
+  delete params.body;
+  return new Response(body, params);
 }
 
 // Helper function to get input request from url and params.
